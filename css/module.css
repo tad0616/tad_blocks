@@ -1,0 +1,14 @@
+table#block-position, table#footer-position{
+    border: 2px solid gray;
+}
+
+table#block-position td, table#footer-position td{
+    border: 1px dotted #cfcfcf;
+    text-align: center;
+    vertical-align: middle;
+}
+
+table#block-position td > label,table#footer-position td > label{
+    margin: 6px auto;
+    font-size:11px;
+}

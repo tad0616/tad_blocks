@@ -1,0 +1,73 @@
+.a_link,
+.a_link:link,
+.a_link:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.R_menu_bg {
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.R_menu_bot {
+    width: 100%;
+    height: 45px;
+    position: relative;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    left: 0px;
+    transition: 0.2s;
+}
+
+.R_menu_bot:hover {
+    left: -36px;
+    transition: 0.2s;
+}
+
+.shadow {
+    width: 78px;
+    height: 45px;
+    left: -27px;
+    background-color: #000;
+    transform: rotate(-60deg);
+    position: relative;
+    opacity: 0.2;
+}
+
+.icon {
+    width: 100%;
+    height: 45px;
+    top: -45px;
+    left: 4px;
+    position: relative;
+    font-size: 28px;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000000;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.word {
+    width: 100%;
+    height: 45px;
+    top: -90px;
+    left: 18px;
+    position: relative;
+    font-family: 'Microsoft JhengHei';
+    font-size: 22px;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000000;
+    text-align: center;
+}
