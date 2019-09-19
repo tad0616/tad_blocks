@@ -1,2 +1,2 @@
 <?php
-$default['title'] = "崁入語法";
+$default['title'] = _EMBED_TITLE;

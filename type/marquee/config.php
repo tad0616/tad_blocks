@@ -1,5 +1,5 @@
 <?php
-$default['title'] = "跑馬燈";
+$default['title'] = _MARQUEE_TITLE;
 $default['font_size'] = "20";
 $default['text_color'] = "#000000";
 $default['bg_color'] = "#f9ffbf";

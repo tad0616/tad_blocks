@@ -3,13 +3,13 @@
         <{foreach from=$text key=i item=text}>
             <tr id="form_data<{$i}>">
                 <td style="width:40px;">
-                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me">移除</button>
+                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
                 </td>
                 <td>
-                    <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="請輸入網址" value="<{$url.$i}>">
+                    <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>" value="<{$url.$i}>">
                 </td>
                 <td>
-                    <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="請輸入選項文字" value="<{$text}>">
+                    <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$text}>">
                 </td>
             </tr>
         <{/foreach}>
@@ -20,27 +20,27 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width:80px;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" >移除</button>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td>
-            <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="請輸入網址">
+            <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>">
         </td>
         <td>
-            <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="請輸入項目文字">
+            <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>">
         </td>
     </tr>
 </table>
 
 <div class="text-right">
-    <a href="#" id="add_form" class="btn btn-success">新增一組</a>
+    <a href="#block_setup" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
 <div class="alert alert-info my-4">
-    顯示類型：<select name="TDC[show_type]]" id="show_type">
-    <option value="default"" <{if $show_type=='default'}>selected<{/if}>>預設</option>
-    <option value="ul" <{if $show_type=='ul'}>selected<{/if}>>無序清單</option>
-    <option value="ol" <{if $show_type=='ol'}>selected<{/if}>>數字清單</option>
-    <option value="table" <{if $show_type=='table'}>selected<{/if}>>表格</option>
+    <{$smarty.const._LINK_SHOW_TYPE}><select name="TDC[show_type]]" id="show_type">
+    <option value="default"" <{if $show_type=='default'}>selected<{/if}>><{$smarty.const._LINK_DEFAULT}></option>
+    <option value="ul" <{if $show_type=='ul'}>selected<{/if}>><{$smarty.const._LINK_UL}></option>
+    <option value="ol" <{if $show_type=='ol'}>selected<{/if}>><{$smarty.const._LINK_OL}></option>
+    <option value="table" <{if $show_type=='table'}>selected<{/if}>><{$smarty.const._LINK_TABLE}></option>
     </select>
 </div>
 

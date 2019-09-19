@@ -68,9 +68,9 @@ EOD;
             continue;
         }
         // $m_color = $myts->displayTarea($TDC['m_color'][$key], 1, 0, 0, 0, 0);
-        $m_color = !empty($TDC['m_color'][$key]) ? $myts->htmlSpecialChars($TDC['m_color'][$key]) : '#4eb7c9';
-        $text = !empty($TDC['text'][$key]) ? $myts->htmlSpecialChars($TDC['text'][$key]) : $url;
-        $icon = !empty($TDC['icon'][$key]) ? $myts->htmlSpecialChars($TDC['icon'][$key]) : 'fa-star';
+        $m_color = empty($TDC['m_color'][$key]) ? $default['m_color'] : $myts->htmlSpecialChars($TDC['m_color'][$key]);
+        $icon = empty($TDC['icon'][$key]) ? $default['icon'] : $myts->htmlSpecialChars($TDC['icon'][$key]);
+        $text = empty($TDC['text'][$key]) ? $url : $myts->htmlSpecialChars($TDC['text'][$key]);
 
         $content .= <<<"EOD"
 <div class="img-responsive">

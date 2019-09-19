@@ -1,7 +1,7 @@
 CREATE TABLE `tad_blocks_files_center` (
   `files_sn` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '檔案流水號',
   `col_name` varchar(255) NOT NULL default '' COMMENT '欄位名稱',
-  `col_sn` smallint(5) unsigned NOT NULL default 0 COMMENT '欄位編號',
+  `col_sn` varchar(255) NOT NULL default '' COMMENT '欄位編號',
   `sort` smallint(5) unsigned NOT NULL default 0 COMMENT '排序',
   `kind` enum('img','file') NOT NULL default 'img' COMMENT '檔案種類',
   `file_name` varchar(255) NOT NULL default '' COMMENT '檔案名稱',
@@ -12,6 +12,9 @@ CREATE TABLE `tad_blocks_files_center` (
   `original_filename` varchar(255) NOT NULL default '' COMMENT '檔案名稱',
   `hash_filename` varchar(255) NOT NULL default '' COMMENT '加密檔案名稱',
   `sub_dir` varchar(255) NOT NULL default '' COMMENT '檔案子路徑',
+  `upload_date` datetime NOT NULL COMMENT '上傳時間',
+  `uid` mediumint(8) unsigned NOT NULL default 0 COMMENT '上傳者',
+  `tag` varchar(255) NOT NULL default '' COMMENT '註記',
   PRIMARY KEY (`files_sn`)
 ) ENGINE=MyISAM;
 

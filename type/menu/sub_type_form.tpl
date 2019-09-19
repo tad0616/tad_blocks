@@ -7,16 +7,16 @@
         <{foreach from=$text key=i item=text}>
             <tr id="form_data<{$i}>">
                 <td style="width:40px;">
-                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me">移除</button>
+                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
                 </td>
                 <td style="width:100px;">
                     <input type="text" name="TDC[icon][<{$i}>]" id="icon<{$i}>" class="icp demo form-control" value="<{$icon.$i}>">
                 </td>
                 <td>
-                    <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="請輸入網址" value="<{$url.$i}>">
+                    <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
                 </td>
                 <td>
-                    <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="請輸入選項文字" value="<{$text}>">
+                    <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text}>">
                 </td>
                 <td style="width: 130px">
                     <input type="text" name="TDC[m_color][<{$i}>]" id="m_color<{$i}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
@@ -30,33 +30,33 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width:40px;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" >移除</button>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width:100px;">
-            <input type="text" data-name="TDC[icon]" id="icon" class="icp demo form-control">
+            <input type="text" data-name="TDC[icon]" id="icon" class="icp demo form-control" value="<{$icon}>">
         </td>
         <td>
-            <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="請輸入網址">
+            <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>">
         </td>
         <td>
-            <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="請輸入項目文字">
+            <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>">
         </td>
         <td style="width: 130px">
-            <input type="text" data-name="TDC[m_color]" id="m_color" class="form-control color-picker">
+            <input type="text" data-name="TDC[m_color]" id="m_color" class="form-control color-picker" value="<{$m_color}>">
         </td>
     </tr>
 </table>
 
 <div class="text-right">
-    <a href="#" id="add_form" class="btn btn-success">新增一組</a>
+    <a href="#block_setup" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
 <div class="alert alert-info my-4">
-    文字大小：<input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>"> px<br>
-    對齊方向：<select name="TDC[text_align]" id="text_align">
-    <option value="left" <{if $text_align=='left'}>selected<{/if}>>靠左對齊</option>
-    <option value="center" <{if $text_align=='center'}>selected<{/if}>>置中對齊</option>
-    <option value="right" <{if $text_align=='right'}>selected<{/if}>>靠右對齊</option>
+    <{$smarty.const._MENU_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>"> px<br>
+    <{$smarty.const._MENU_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align">
+    <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._MENU_LEFT}></option>
+    <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._MENU_CENTER}></option>
+    <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._MENU_RIGHT}></option>
     </select>
 </div>
 

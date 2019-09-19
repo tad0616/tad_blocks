@@ -8,7 +8,7 @@
                 <input type="hidden" name="type" value="<{$type}>">
             <{else}>
                 建立
-                <select name="type" onchange="location.href='index.php?op=block_form&type='+this.value">
+                <select name="type" onchange="location.href='index.php?op=block_form&type='+this.value+'#block_setup'">
                     <{foreach from=$type_arr key=val item=txt}>
                         <option value="<{$val}>" <{if $type==$val}>selected<{/if}>><{$txt}></option>
                     <{/foreach}>

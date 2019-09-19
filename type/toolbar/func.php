@@ -2,7 +2,7 @@
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
 
-//取得 menu 區塊DataCenter內容
+//取得 toolbar 區塊DataCenter內容
 function get_content($bid = 0)
 {
     global $xoopsTpl;
@@ -13,7 +13,7 @@ function get_content($bid = 0)
     }
     // 傳回陣列的項目
     if ($bid) {
-        $arr = ['groups', 'text', 'url', 'img'];
+        $arr = ['groups', 'text', 'url', 'img_url'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
@@ -27,10 +27,11 @@ function get_content($bid = 0)
         }
     }
 
+    Utility::add_migrate();
     return $block;
 }
 
-//製作 menu 區塊內容
+//製作 toolbar 區塊內容
 function mk_content($TDC)
 {
 
@@ -43,10 +44,10 @@ function mk_content($TDC)
     $url = XOOPS_URL;
 
     $content = <<<"EOD"
-<link href="http://www.bsjh.tc.edu.tw/modules/rafaeltools/css/hover-min.css" rel="stylesheet">
+<link href="$url/modules/tad_blocks/type/toolbar/hover-min.css" rel="stylesheet">
 <link href="$url/modules/tad_blocks/type/toolbar/freq_toolbar.css" rel="stylesheet">
 <div id="freq-link">
-<ul>
+    <ul class="text-{$text_align}">
 EOD;
 
     foreach ($TDC['url'] as $key => $url) {
@@ -54,16 +55,16 @@ EOD;
             continue;
         }
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
-        $img = !empty($TDC['img'][$key]) ? $TDC['img'][$key] : '';
+        $img_url = !empty($TDC['img_url'][$key]) ? $TDC['img_url'][$key] : '';
 
         $content .= <<<"EOD"
-<li>
-    <a href="$url" target="_blank"><img src="$img" alt="$text" class="hvr-float-shadow"><p>$text</p></a>
-</li>
+        <li>
+            <a href="$url" target="_blank" style="font-size: {$font_size}px;"><img src="$img_url" alt="$text" class="hvr-float-shadow"><p>$text</p></a>
+        </li>
 EOD;
     }
-    $content .= "</ul>
-    </div>";
+    $content .= "   </ul>";
+    $content .= "</div>";
     $content = $myts->addSlashes($content);
     return $content;
 }

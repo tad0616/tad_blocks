@@ -3,7 +3,6 @@ use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
-use XoopsModules\Tadtools\TadUpFiles;
 /**
  *  module
  *
@@ -56,7 +55,7 @@ function my_blocks()
     // dd($my_blocks);
 
     if (empty($my_blocks)) {
-        header("location:index.php?op=block_form");
+        header("location:index.php?op=block_form#block_setup");
         exit;
     } else {
         $SweetAlert = new SweetAlert();
@@ -101,7 +100,7 @@ function block_form($type = '', $bid = '')
         }
 
         if ($type) {
-            require XOOPS_ROOT_PATH . "/modules/tad_blocks/type/{$type}/func.php";
+            require __DIR__ . "/type/{$type}/func.php";
             $block = get_content($bid);
         } else {
             // 傳回陣列的項目
@@ -173,14 +172,14 @@ function block_save($type = '', $TDC = array(), $bid = '')
     $side = $myts->addSlashes($TDC['side']);
     $weight = (int) $TDC['weight'];
 
-    if ($type != '') {
-        require XOOPS_ROOT_PATH . "/modules/tad_blocks/type/{$type}/func.php";
+    if (!empty($type)) {
+        require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($TDC);
 
     } else {
         $content = $myts->addSlashes($TDC['content']);
     }
-
+    // dd($_FILES);
     $last_modified = time();
 
     if (empty($bid)) {
@@ -215,6 +214,16 @@ function block_save($type = '', $TDC = array(), $bid = '')
             $TadDataCenter->set_col('bid', $bid);
             $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData();
+
+            // $TadUpFiles = new TadUpFiles($module_dirname);
+            // $TadUpFiles->set_col('bid', $bid);
+            // if (!empty($_FILES['TDC']['tmp_name'])) {
+            //     foreach ($_FILES['TDC']['tmp_name'] as $name => $items) {
+            //         foreach ($items as $sort => $tmp_name) {
+            //             $TadUpFiles->upload_one_file($_FILES['TDC']['name'][$name][$sort], $tmp_name, $_FILES['TDC']['type'][$name][$sort], $_FILES['TDC']['size'][$name][$sort], $width, $thumb_width, $files_sn, $desc, true);
+            //         }
+            //     }
+            // }
         }
 
     } else {
@@ -247,9 +256,15 @@ function block_save($type = '', $TDC = array(), $bid = '')
             $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData();
 
-            $TadUpFiles=new TadUpFiles($module_dirname);
-            $TadUpFiles->set_col('bid', $bid);
-            $TadUpFiles->upload_file($upname,$width,$thumb_width,$files_sn,$desc,$safe_name=false,$hash=false);
+            // $TadUpFiles = new TadUpFiles($module_dirname);
+            // $TadUpFiles->set_col('bid', $bid);
+            // if (!empty($_FILES['TDC']['tmp_name'])) {
+            //     foreach ($_FILES['TDC']['tmp_name'] as $name => $items) {
+            //         foreach ($items as $sort => $tmp_name) {
+            //             $TadUpFiles->upload_one_file($_FILES['TDC']['name'][$name][$sort], $tmp_name, $_FILES['TDC']['type'][$name][$sort], $_FILES['TDC']['size'][$name][$sort], $width, $thumb_width, $files_sn, $desc, true);
+            //         }
+            //     }
+            // }
 
         } else {
             Utility::web_error($sql);

@@ -32,3 +32,18 @@ define('_MD_TAD_BLOCKS_FOOTER_LEFT', '尾左');
 define('_MD_TAD_BLOCKS_FOOTER_CENTER', '尾中');
 define('_MD_TAD_BLOCKS_FOOTER_RIGHT', '尾右');
 define('_MD_TAD_BLOCKS_SAVE', '儲存並建立區塊');
+define('_MD_TAD_ADD_ONE', '新增一組');
+
+$dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
+if (is_dir($dir)) {
+    if ($dh = opendir($dir)) {
+        while (($file = readdir($dh)) !== false) {
+            if (filetype($dir . $file) == 'dir' and substr($file, 0, 1) != '.') {
+                if (file_exists($dir . $file . '/tchinese.php')) {
+                    require $dir . $file . '/tchinese.php';
+                }
+            }
+        }
+        closedir($dh);
+    }
+}

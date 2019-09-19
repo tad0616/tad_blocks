@@ -1,6 +1,6 @@
 <h3>
     我的自訂區塊
-    <a href="index.php?op=block_form" class="btn btn-primary">新增自訂區塊</a>
+    <a href="index.php?op=block_form#block_setup" class="btn btn-primary">新增自訂區塊</a>
 </h3>
 <table class="table">
     <thead>
@@ -32,7 +32,7 @@
                 </td>
                 <td>
                     <a href="javascript:block_del(<{$b.bid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
-                    <a href="index.php?op=block_form&bid=<{$b.bid}>" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
+                    <a href="index.php?op=block_form&bid=<{$b.bid}>#block_setup" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
                 </td>
             </tr>
         <{/foreach}>

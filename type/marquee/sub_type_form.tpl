@@ -4,10 +4,10 @@
         <{foreach from=$content key=i item=marquee}>
             <tr id="form_data<{$i}>">
                 <td style="width:40px;">
-                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me">移除</button>
+                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
                 </td>
                 <td>
-                    <input type="text" name="TDC[content][<{$i}>]" id="TDC[content]<{$i}>" class="form-control" placeholder="請輸入跑馬燈內容" value="<{$marquee}>">
+                    <input type="text" name="TDC[content][<{$i}>]" id="TDC[content]<{$i}>" class="form-control" placeholder="<{$smarty.const._MARQUEE_ADD_CONTENT}>" value="<{$marquee}>">
                 </td>
             </tr>
         <{/foreach}>
@@ -18,35 +18,35 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width:40px;">
-            <button type="button" id="remove_me" class="btn btn-sm btn-danger" >移除</button>
+            <button type="button" id="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td>
-            <input type="text" id="TDC[content]" class="form-control" placeholder="請輸入跑馬燈內容">
+            <input type="text" id="TDC[content]" class="form-control" placeholder="<{$smarty.const._MARQUEE_ADD_CONTENT}>">
         </td>
     </tr>
 </table>
 
 <div class="text-right">
-    <a href="#" id="add_form" class="btn btn-success">新增一組</a>
+    <a href="#block_setup" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
 <div class="alert alert-info my-4">
-    文字大小：<input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>"> px<br>
-    文字顏色：<input type="text" name="TDC[text_color]" id="text_color" value="<{$text_color}>" class="color" data-hex="true"><br>
-    背景顏色：<input type="text" name="TDC[bg_color]" id="bg_color" value="<{$bg_color}>" class="color" data-hex="true"><br>
-    上下內距：<input type="number" name="TDC[padding_y]" id="padding_y" value="<{$padding_y}>"> px<br>
-    框線粗細：<input type="number" name="TDC[border_size]]" id="border_size" value="<{$border_size}>"> px<br>
-    框線種類：<select name="TDC[border_type]" id="border_type">
-    <option value="solid" <{if $border_type=='solid'}>selected<{/if}>>實線</option>
-    <option value="dotted" <{if $border_type=='dotted'}>selected<{/if}>>點線</option>
-    <option value="dashed" <{if $border_type=='dashed'}>selected<{/if}>>虛線</option>
-    <option value="double" <{if $border_type=='double'}>selected<{/if}>>雙線</option>
-    <option value="groove" <{if $border_type=='groove'}>selected<{/if}>>凹線</option>
-    <option value="ridge" <{if $border_type=='ridge'}>selected<{/if}>>凸線</option>
-    <option value="inset" <{if $border_type=='inset'}>selected<{/if}>>嵌入線</option>
-    <option value="outset" <{if $border_type=='outset'}>selected<{/if}>>浮出線</option>
+    <{$smarty.const._MARQUEE_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>"> px<br>
+    <{$smarty.const._MARQUEE_FONT_COLOR}><input type="text" name="TDC[text_color]" id="text_color" value="<{$text_color}>" class="color" data-hex="true"><br>
+    <{$smarty.const._MARQUEE_BG_COLOR}><input type="text" name="TDC[bg_color]" id="bg_color" value="<{$bg_color}>" class="color" data-hex="true"><br>
+    <{$smarty.const._MARQUEE_PADDING}><input type="number" name="TDC[padding_y]" id="padding_y" value="<{$padding_y}>"> px<br>
+    <{$smarty.const._MARQUEE_BORDER_SIZE}><input type="number" name="TDC[border_size]]" id="border_size" value="<{$border_size}>"> px<br>
+    <{$smarty.const._MARQUEE_BORDER_TYPE}><select name="TDC[border_type]" id="border_type">
+    <option value="solid" <{if $border_type=='solid'}>selected<{/if}>><{$smarty.const._MARQUEE_SOLID}></option>
+    <option value="dotted" <{if $border_type=='dotted'}>selected<{/if}>><{$smarty.const._MARQUEE_DOTTED}></option>
+    <option value="dashed" <{if $border_type=='dashed'}>selected<{/if}>><{$smarty.const._MARQUEE_DASHED}></option>
+    <option value="double" <{if $border_type=='double'}>selected<{/if}>><{$smarty.const._MARQUEE_DOUBLE}></option>
+    <option value="groove" <{if $border_type=='groove'}>selected<{/if}>><{$smarty.const._MARQUEE_GROOVE}></option>
+    <option value="ridge" <{if $border_type=='ridge'}>selected<{/if}>><{$smarty.const._MARQUEE_RIDGE}></option>
+    <option value="inset" <{if $border_type=='inset'}>selected<{/if}>><{$smarty.const._MARQUEE_INSET}></option>
+    <option value="outset" <{if $border_type=='outset'}>selected<{/if}>><{$smarty.const._MARQUEE_OUTSET}></option>
     </select><br>
-    框線顏色：<input type="text" name="TDC[border_color]" id="border_color" value="<{$border_color}>" class="color" data-hex="true">
+    <{$smarty.const._MARQUEE_BORDER_COLOR}><input type="text" name="TDC[border_color]" id="border_color" value="<{$border_color}>" class="color" data-hex="true">
 </div>
 
 <script type="text/javascript">
