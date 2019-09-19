@@ -12,3 +12,8 @@ table#block-position td > label,table#footer-position td > label{
     margin: 6px auto;
     font-size:11px;
 }
+
+.color-picker {
+	width: 80%;
+	display: inline-block;
+}

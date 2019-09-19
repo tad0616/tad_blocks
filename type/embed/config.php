@@ -1,2 +1,2 @@
 <?php
-$title = "崁入語法";
+$default['title'] = "崁入語法";

@@ -3,6 +3,7 @@ use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
+use XoopsModules\Tadtools\TadUpFiles;
 /**
  *  module
  *
@@ -80,10 +81,9 @@ function block_form($type = '', $bid = '')
     //判斷目前使用者是否有：建立自訂區塊
     $add_block = Utility::power_chk(module_dirname, 1);
     $xoopsTpl->assign('add_block', $add_block);
-    $block =$all =  [];
+    $block = $all = [];
 
     if ($add_block) {
-
 
         if ($bid) {
             $sql = "select * from " . $xoopsDB->prefix("tad_blocks") . " where `bid`='{$bid}' $and_uid ";
@@ -213,6 +213,7 @@ function block_save($type = '', $TDC = array(), $bid = '')
 
             $TadDataCenter = new TadDataCenter($module_dirname);
             $TadDataCenter->set_col('bid', $bid);
+            $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData();
         }
 
@@ -243,7 +244,12 @@ function block_save($type = '', $TDC = array(), $bid = '')
 
             $TadDataCenter = new TadDataCenter($module_dirname);
             $TadDataCenter->set_col('bid', $bid);
+            $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData();
+
+            $TadUpFiles=new TadUpFiles($module_dirname);
+            $TadUpFiles->set_col('bid', $bid);
+            $TadUpFiles->upload_file($upname,$width,$thumb_width,$files_sn,$desc,$safe_name=false,$hash=false);
 
         } else {
             Utility::web_error($sql);

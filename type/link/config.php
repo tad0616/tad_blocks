@@ -1,2 +1,3 @@
 <?php
-$title = "一般連結";
+$default['title'] = "一般連結";
+$default['show_type'] = "default";

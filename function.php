@@ -41,7 +41,7 @@ if (is_dir($dir)) {
         while (($file = readdir($dh)) !== false) {
             if (filetype($dir . $file) == 'dir' and substr($file, 0, 1) != '.') {
                 require $dir . $file . '/config.php';
-                $type_arr[$file] = $title;
+                $type_arr[$file] = $default['title'];
             }
         }
         closedir($dh);

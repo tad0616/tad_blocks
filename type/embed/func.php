@@ -6,6 +6,10 @@ function get_content($bid = 0)
 {
     global $xoopsTpl;
 
+    require __DIR__ . "/config.php";
+    foreach ($default as $k => $v) {
+        $xoopsTpl->assign($k, $v);
+    }
     // 傳回陣列的項目
     if ($bid) {
         $arr = ['groups', 'content'];
@@ -27,6 +31,7 @@ function get_content($bid = 0)
 //製作 embed 區塊內容
 function mk_content($TDC)
 {
+    require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
     $content = $myts->addSlashes($TDC['content']);
     return $content;

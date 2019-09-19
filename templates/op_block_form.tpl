@@ -1,7 +1,7 @@
 <!-- 判斷目前使用者是否有：建立自訂區塊 -->
 <{if $add_block}>
     <!-- 有權限時要做的事 -->
-    <form method="post" action="index.php" id="block_setup">
+    <form method="post" action="index.php" id="block_setup" enctype="multipart/form-data">
         <h3>
             <{if $bid}>
                 修改「<{$title}>」區塊

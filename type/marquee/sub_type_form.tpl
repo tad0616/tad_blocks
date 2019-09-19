@@ -3,7 +3,7 @@
      <{if $content}>
         <{foreach from=$content key=i item=marquee}>
             <tr id="form_data<{$i}>">
-                <td style="width:80px;">
+                <td style="width:40px;">
                     <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me">移除</button>
                 </td>
                 <td>
@@ -17,7 +17,7 @@
 <!--表單樣板-->
 <table style="display:none;">
     <tr id="form_data">
-        <td style="width:80px;">
+        <td style="width:40px;">
             <button type="button" id="remove_me" class="btn btn-sm btn-danger" >移除</button>
         </td>
         <td>

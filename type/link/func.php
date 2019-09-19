@@ -1,69 +1,86 @@
 <?php
 use XoopsModules\Tadtools\TadDataCenter;
+use XoopsModules\Tadtools\Utility;
 
-//取得 link 區塊DataCenter內容
+//取得 menu 區塊DataCenter內容
 function get_content($bid = 0)
 {
     global $xoopsTpl;
 
+    require __DIR__ . "/config.php";
+    foreach ($default as $k => $v) {
+        $xoopsTpl->assign($k, $v);
+    }
     // 傳回陣列的項目
     if ($bid) {
-        $arr=['groups','content'];
+        $arr = ['groups', 'text', 'url'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
 
         foreach ($block as $k => $v) {
-            if (in_array($k,$arr)) {
+            if (in_array($k, $arr)) {
                 $xoopsTpl->assign($k, $v);
             } else {
                 $xoopsTpl->assign($k, $v[0]);
             }
         }
     }
+
     return $block;
 }
-//製作 link 區塊內容
+
+//製作 menu 區塊內容
 function mk_content($TDC)
 {
+    require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
-    $marquee = '';
-    foreach ($TDC['content'] as $key => $item) {
-        $marquee .= '<li>' . $item . '</li>';
+
+    $show_type = empty($TDC['show_type']) ? $default['show_type'] : $TDC['show_type'];
+
+    $url = XOOPS_URL;
+
+    if ($show_type == 'ul') {
+        $content = '<ul style="list-style-position:inside;">';
+    } elseif ($show_type == 'ol') {
+        $content = '<ol style="list-style-position:inside;">';
+    } elseif ($show_type == 'table') {
+        $content = '<table class="table table-bordered table-condensed table-hover">';
+    } else {
+        $content = '<ul class="vertical_menu">';
     }
 
-    $font_size = !empty($TDC['font_size']) ? (int) $TDC['font_size'] : 20;
-    $text_color = !empty($TDC['text_color']) ? $myts->addSlashes($TDC['text_color']) : '#000000';
-    $bg_color = !empty($TDC['bg_color']) ? $myts->addSlashes($TDC['bg_color']) : '#f9ffbf';
-    $padding_y = !empty($TDC['padding_y']) ? (int) $TDC['padding_y'] : 4;
-    $border_size = !empty($TDC['border_size']) ? (int) $TDC['border_size'] : 1;
-    $border_type = !empty($TDC['border_type']) ? $myts->addSlashes($TDC['border_type']) : 'solid';
-    $border_color = !empty($TDC['border_color']) ? $myts->addSlashes($TDC['border_color']) : '#000000';
-    $height = $font_size + ($padding_y * 2) + ($border_size * 2);
+    foreach ($TDC['url'] as $key => $url) {
+        if (empty($url)) {
+            continue;
+        }
+        $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
 
-    $content = '<link href="' . XOOPS_URL . '/modules/tad_blocks/class/jquery.marquee/css/jquery.marquee.css" rel="stylesheet" type="text/css">';
-    $content .= '<script type="text/javascript" src="' . XOOPS_URL . '/modules/tad_blocks/class/jquery.marquee/lib/jquery.marquee.js"></script>';
-    $content .= '<style type="text/css" media="screen">';
-    $content .= 'ul#tad_blocks_marquee2 {';
-    $content .= '    width: 100%;';
-    $content .= '    height: ' . $height . 'px;';
-    $content .= '    background-color: ' . $bg_color . ';';
-    $content .= '    border: ' . $border_size . 'px ' . $border_type . ' ' . $border_color . ';';
-    $content .= '}';
-    $content .= 'ul#tad_blocks_marquee2 li {';
-    $content .= '    font-size: ' . $font_size . 'px;';
-    $content .= '    color: ' . $text_color . ';';
-    $content .= '    padding: ' . $padding_y . 'px 5px;';
-    $content .= '}';
-    $content .= '</style>';
-    $content .= '<script type="text/javascript">';
-    $content .= '$(document).ready(function (){';
-    $content .= '    $("#tad_blocks_marquee2").marquee2({yScroll: "bottom"});';
-    $content .= '});';
-    $content .= '</script>';
-    $content .= '<ul id="tad_blocks_marquee2">';
-    $content .= $marquee;
-    $content .= '</ul>';
+        if ($show_type == 'ul' or $show_type == 'ol') {
+            $content .= <<<"EOD"
+<li><a href="$url" target="_blank">{$text}</a></li>
+EOD;
+        } elseif ($show_type == 'table') {
+            $content .= <<<"EOD"
+<tr><td><a href="$url" target="_blank">{$text}</a></td></tr>
+EOD;
+
+        } else {
+            $content .= <<<"EOD"
+<li><a href="$url" target="_blank">{$text}</a></li>
+EOD;
+        }
+    }
+
+    if ($show_type == 'ul') {
+        $content .= '</ul>';
+    } elseif ($show_type == 'ol') {
+        $content .= '</ol>';
+    } elseif ($show_type == 'table') {
+        $content .= '</table>';
+    } else {
+        $content .= '</ul>';
+    }
 
     $content = $myts->addSlashes($content);
     return $content;
