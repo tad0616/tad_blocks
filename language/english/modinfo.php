@@ -17,12 +17,14 @@
  * @version    $Id $
  **/
 
-xoops_loadLanguage('admin_common', 'tadtools');
-define('_TAD_NEED_TADTOOLS', '需要 tadtools 模組，可至<a href="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS輕鬆架</a>下載。');
+xoops_loadLanguage('modinfo_common', 'tadtools');
 
-define('_MA_TADBLOCKS_UID', '使用者');
-define('_MA_TADBLOCKS_CREATE_DATE', '日期');
-
-define('_MA_TADBLOCKS_PERM_TITLE', '進階區塊管理細部權限設定');
-define('_MA_TADBLOCKS_PERM_DESC', '請勾選欲開放給群組使用的權限：');
-define('_MA_TADBLOCKS_ADD_BLOCK', '建立自訂區塊');
+Define('_MI_TADBLOCKS_NAME', 'Advanced Block Management');
+Define('_MI_TADBLOCKS_AUTHOR', 'Advanced Block Management');
+Define('_MI_TADBLOCKS_CREDITS', '');
+Define('_MI_TADBLOCKS_DESC', 'Use to manage existing blocks or generate block contents');
+Define('_MI_TADBLOCKS_AUTHOR_WEB', "Tad's web");
+Define('_MI_TADBLOCKS_ADMENU1', 'Block Management');
+Define('_MI_TADBLOCKS_ADMENU1_DESC', 'Block Management');
+Define('_MI_TADBLOCKS_ADMENU2', 'Permission Settings');
+Define('_MI_TADBLOCKS_ADMENU2_DESC', 'Permission Settings');

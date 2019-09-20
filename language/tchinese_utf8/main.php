@@ -33,6 +33,21 @@ define('_MD_TAD_BLOCKS_FOOTER_CENTER', '尾中');
 define('_MD_TAD_BLOCKS_FOOTER_RIGHT', '尾右');
 define('_MD_TAD_BLOCKS_SAVE', '儲存並建立區塊');
 define('_MD_TAD_ADD_ONE', '新增一組');
+define('_MD_TAD_BLOCKS_MY_BLOCKS', '我的自訂區塊');
+define('_MD_TAD_BLOCKS_ADD_BLOCK', '新增自訂區塊');
+define('_MD_TAD_BLOCKS_TITLE', '區塊標題');
+define('_MD_TAD_BLOCKS_TYPE', '區塊類型');
+define('_MD_TAD_BLOCKS_POSITION', '區塊位置');
+define('_MD_TAD_BLOCKS_DISPLAY', '顯示型態');
+define('_MD_TAD_BLOCKS_ONLY_HOME', '僅首頁');
+define('_MD_TAD_BLOCKS_ALL_PAGES', '全部頁面');
+define('_MD_TAD_BLOCKS_MODIFY', '修改區塊：');
+define('_MD_TAD_BLOCKS_NEW', '建立新區塊：');
+define('_MD_TAD_BLOCKS_ADD_TITLE', '請輸入區塊標題');
+define('_MD_TAD_BLOCKS_SORT', '排序');
+define('_MD_TAD_BLOCKS_WHO_CAN_SEE', '誰可以看到');
+define('_MD_TAD_BLOCKS_NO_PERMISSION', '您沒有權限喔！');
+define('_MD_TADBLOCKS_BLOCKS', '區塊管理');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

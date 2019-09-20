@@ -1,15 +1,16 @@
 <h3>
-    我的自訂區塊
-    <a href="index.php?op=block_form#block_setup" class="btn btn-primary">新增自訂區塊</a>
+    <{$smarty.const._MD_TAD_BLOCKS_MY_BLOCKS}>
+    <a href="index.php?op=block_form#block_setup" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a>
 </h3>
+
 <table class="table">
     <thead>
         <tr>
-            <th>區塊標題</th>
-            <th>區塊類型</th>
-            <th>區塊位置</th>
-            <th>顯示型態</th>
-            <th>功能</th>
+            <th><{$smarty.const._MD_TAD_BLOCKS_TITLE}></th>
+            <th><{$smarty.const._MD_TAD_BLOCKS_TYPE}></th>
+            <th><{$smarty.const._MD_TAD_BLOCKS_POSITION}></th>
+            <th><{$smarty.const._MD_TAD_BLOCKS_DISPLAY}></th>
+            <th><{$smarty.const._TAD_FUNCTION}></th>
         </tr>
     </thead>
     <tbody>
@@ -25,9 +26,9 @@
                 <td><{$b.position}></td>
                 <td>
                     <{if $b.block.display.0==-1}>
-                        僅首頁
+                        <{$smarty.const._MD_TAD_BLOCKS_ONLY_HOME}>
                     <{else}>
-                        全部頁面
+                        <{$smarty.const._MD_TAD_BLOCKS_ALL_PAGES}>
                     <{/if}>
                 </td>
                 <td>

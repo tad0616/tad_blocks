@@ -4,22 +4,23 @@
     <form method="post" action="index.php" id="block_setup" enctype="multipart/form-data">
         <h3>
             <{if $bid}>
-                修改「<{$title}>」區塊
+                <{$smarty.const._MD_TAD_BLOCKS_MODIFY}>
+                <{$title}>
                 <input type="hidden" name="type" value="<{$type}>">
             <{else}>
-                建立
+                <{$smarty.const._MD_TAD_BLOCKS_NEW}>
                 <select name="type" onchange="location.href='index.php?op=block_form&type='+this.value+'#block_setup'">
                     <{foreach from=$type_arr key=val item=txt}>
                         <option value="<{$val}>" <{if $type==$val}>selected<{/if}>><{$txt}></option>
                     <{/foreach}>
                 </select>
-                新區塊
+                
             <{/if}>
         </h3>
         <div class="row">
             <div class="col-sm-9">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="TDC[title]" placeholder="請輸入區塊標題" value="<{$title}>">
+                    <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{$title}>">
                 </div>
                 <div class="form-group">
                     <{if $type}>
@@ -36,7 +37,7 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <h4>顯示位置</h4>
+                <h4><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
                 <{if $theme_type}>
                     <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
                 <{else}>
@@ -44,26 +45,26 @@
                 <{/if}>
 
                 <{if $bid}>
-                    <h4 class="mt-3">排序</h4>
+                    <h4 class="mt-3"><{$smarty.const._MD_TAD_BLOCKS_SORT}></h4>
                     <input class="form-control" type="number" name="TDC[weight]" value="<{$weight}>">
                 <{/if}>
 
-                <h4 class="mt-3">顯示型態</h4>
+                <h4 class="mt-3"><{$smarty.const._MD_TAD_BLOCKS_DISPLAY}></h4>
                 <div class="form-group">
                     <div class="form-check">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="TDC[display]" id="display_all" value="0" <{if $display==0}>checked<{/if}>>
-                            全部頁面
+                            <{$smarty.const._MD_TAD_BLOCKS_ALL_PAGES}>
                         </label>
                     </div>
                     <div class="form-check ">
                         <label class="form-check-label">
                             <input type="radio" class="form-check-input" name="TDC[display]" id="display_home" value="-1"  <{if $display==-1}>checked<{/if}>>
-                            首頁
+                            <{$smarty.const._MD_TAD_BLOCKS_ONLY_HOME}>
                         </label>
                     </div>
                 </div>
-                <h4 class="mt-3">誰可以看到</h4>
+                <h4 class="mt-3"><{$smarty.const._MD_TAD_BLOCKS_WHO_CAN_SEE}></h4>
                 <{$sel_grp}>
             </div>
         </div>
@@ -71,6 +72,6 @@
 <{else}>
     <!-- 沒有權限時要做的事 -->
     <div class="alert alert-danger" role="alert">
-        您沒有權限喔！
+        <{$smarty.const._MD_TAD_BLOCKS_NO_PERMISSION}>
     </div>
 <{/if}>

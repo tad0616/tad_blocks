@@ -6,7 +6,7 @@
                     <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
                 </td>
                 <td style="width: 32px;">
-                    <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid gray;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
+                    <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
                 </td>
                 <td>
                     <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>" value="<{$url.$i}>">
@@ -30,7 +30,7 @@
             <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width: 32px;">
-            <div id="demo_pic" style="width:32px;height:32px;border:1px solid gray;background-size:cover;"></div>
+            <div id="demo_pic" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url}>');background-size:cover;"></div>
         </td>
         <td>
             <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>">
@@ -39,7 +39,7 @@
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>">
         </td>
         <td style="width: 140px;">
-            <input type="file" data-name="img" data-id="<{$i}>" id="img" class="upload" style="width: 140px;">
+            <input type="file" data-name="img" id="img" class="upload" style="width: 140px;">
             <input type="hidden" data-name="TDC[img_url]" id="img_url">
         </td>
     </tr>
@@ -78,12 +78,11 @@
             $(this).closest("#form_data" + $(this).prop("id")).remove();
         });
 
-        d = new Date();
         $('.upload').change(function() {
             console.log($(this).data("id"));
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload', sort: $(this).data("id")}, function(img_url) {
                 console.log(img_url);
-                $('#demo_pic' + $(this).data("id")).css('background-image','url('+img_url+'?'+d.getTime()+')');
+                $('#demo_pic' + $(this).data("id")).css('background-image','url('+img_url+')');
                 $('#img_url' + $(this).data("id")).val(img_url);
             }, 'html');
         });
@@ -100,6 +99,7 @@
         $("#form_data" + form_index + "  input").each(function(){
             $(this).prop("name",$(this).data("name") + "[" + form_index+"]");
             $(this).prop("id",$(this).prop("id") + form_index);
+            $(this).data("id", form_index);
         });
 
 
@@ -115,12 +115,11 @@
             $(this).closest("#form_data" + form_index).remove();
         });
 
-        d = new Date();
         $("#img" + form_index).change(function() {
             console.log(form_index);
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload' , sort: form_index}, function(img_url) {
                 console.log(img_url);
-                $('#demo_pic' + form_index).css('background-image','url('+img_url+'?'+d.getTime()+')');
+                $('#demo_pic' + form_index).css('background-image','url('+img_url+')');
                 $('#img_url' + form_index).val(img_url);
             }, 'html');
         });

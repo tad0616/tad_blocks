@@ -18,11 +18,11 @@
  **/
 
 xoops_loadLanguage('admin_common', 'tadtools');
-define('_TAD_NEED_TADTOOLS', '需要 tadtools 模組，可至<a href="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS輕鬆架</a>下載。');
+define('_TAD_NEED_TADTOOLS', "This module needs TadTools module. You can download TadTools from <a href='http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1' target='_blank'>XOOPS Easy Go</a>.");
 
-define('_MA_TADBLOCKS_UID', '使用者');
-define('_MA_TADBLOCKS_CREATE_DATE', '日期');
+define('_MA_TADBLOCKS_UID', 'User');
+define('_MA_TADBLOCKS_CREATE_DATE', 'Date');
 
-define('_MA_TADBLOCKS_PERM_TITLE', '進階區塊管理細部權限設定');
-define('_MA_TADBLOCKS_PERM_DESC', '請勾選欲開放給群組使用的權限：');
-define('_MA_TADBLOCKS_ADD_BLOCK', '建立自訂區塊');
+define('_MA_TADBLOCKS_PERM_TITLE', 'Advanced block management detail permission setting');
+define('_MA_TADBLOCKS_PERM_DESC', 'Please check the permissions you want to open to the group:');
+define('_MA_TADBLOCKS_ADD_BLOCK', 'Create custom blocks');
