@@ -48,7 +48,45 @@ if (is_dir($dir)) {
     }
 }
 
+// 除錯
 function dd($array = [])
 {
     Utility::dd($array);
+}
+
+// tad_themes 的設定
+function tad_themes_setup()
+{
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr;
+    $sql = "select theme_id,theme_type,theme_width,lb_width,cb_width,rb_width,base_color,lb_color,cb_color,rb_color,font_color from " . $xoopsDB->prefix("tad_themes") . " where theme_name='{$xoopsConfig['theme_set']}'";
+    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    list($theme_id, $theme_type, $theme_width, $lb_width, $cb_width, $rb_width, $base_color, $lb_color, $cb_color, $rb_color, $font_color) = $xoopsDB->fetchRow($result);
+
+    $sql = "select `value` from " . $xoopsDB->prefix("tad_themes_config2") . " where `theme_id`='{$theme_id}' and `name`='footer_color'";
+    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    list($footer_color) = $xoopsDB->fetchRow($result);
+
+    $sql = "select `value` from " . $xoopsDB->prefix("tad_themes_config2") . " where `theme_id`='{$theme_id}' and `name`='footer_bgcolor'";
+    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    list($footer_bgcolor) = $xoopsDB->fetchRow($result);
+
+    if ($lw == 'auto') {
+        $cw = round(($cb_width / $theme_width) * 100, 1);
+        $lw = $rw = (100 - $cw) / 2;
+    } else {
+        $lw = round(($lb_width / $theme_width) * 100, 1);
+        $cw = round(($cb_width / $theme_width) * 100, 1);
+        $rw = round(($rb_width / $theme_width) * 100, 1);
+    }
+    $xoopsTpl->assign('lw', $lw);
+    $xoopsTpl->assign('cw', $cw);
+    $xoopsTpl->assign('rw', $rw);
+    $xoopsTpl->assign('font_color', $font_color);
+    $xoopsTpl->assign('base_color', $base_color);
+    $xoopsTpl->assign('lb_color', $lb_color);
+    $xoopsTpl->assign('cb_color', $cb_color);
+    $xoopsTpl->assign('rb_color', $rb_color);
+    $xoopsTpl->assign('footer_color', $footer_color);
+    $xoopsTpl->assign('footer_bgcolor', $footer_bgcolor);
+    $xoopsTpl->assign('theme_type', $theme_type);
 }

@@ -77,7 +77,6 @@ $modversion['hasMain'] = 1;
 
 //---樣板設定---//
 $modversion['templates'][] = array('file' => 'tad_blocks_adm_main.tpl', 'description' => 'tad_blocks_adm_main.tpl');
-$modversion['templates'][] = array('file' => 'tad_blocks_adm_groupperm.tpl', 'description' => 'tad_blocks_adm_groupperm.tpl');
 $modversion['templates'][] = array('file' => 'tad_blocks_index.tpl', 'description' => 'tad_blocks_index.tpl');
 
 

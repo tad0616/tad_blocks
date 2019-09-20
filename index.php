@@ -123,38 +123,7 @@ function block_form($type = '', $bid = '')
 
         $xoopsTpl->assign('type_arr', $type_arr);
 
-        $sql = "select theme_id,theme_type,theme_width,lb_width,cb_width,rb_width,base_color,lb_color,cb_color,rb_color,font_color from " . $xoopsDB->prefix("tad_themes") . " where theme_name='{$xoopsConfig['theme_set']}'";
-        $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-        list($theme_id, $theme_type, $theme_width, $lb_width, $cb_width, $rb_width, $base_color, $lb_color, $cb_color, $rb_color, $font_color) = $xoopsDB->fetchRow($result);
-
-        $sql = "select `value` from " . $xoopsDB->prefix("tad_themes_config2") . " where `theme_id`='{$theme_id}' and `name`='footer_color'";
-        $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-        list($footer_color) = $xoopsDB->fetchRow($result);
-
-        $sql = "select `value` from " . $xoopsDB->prefix("tad_themes_config2") . " where `theme_id`='{$theme_id}' and `name`='footer_bgcolor'";
-        $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-        list($footer_bgcolor) = $xoopsDB->fetchRow($result);
-
-        if ($lw == 'auto') {
-            $cw = round(($cb_width / $theme_width) * 100, 1);
-            $lw = $rw = (100 - $cw) / 2;
-        } else {
-            $lw = round(($lb_width / $theme_width) * 100, 1);
-            $cw = round(($cb_width / $theme_width) * 100, 1);
-            $rw = round(($rb_width / $theme_width) * 100, 1);
-        }
-        $xoopsTpl->assign('lw', $lw);
-        $xoopsTpl->assign('cw', $cw);
-        $xoopsTpl->assign('rw', $rw);
-        $xoopsTpl->assign('font_color', $font_color);
-        $xoopsTpl->assign('base_color', $base_color);
-        $xoopsTpl->assign('lb_color', $lb_color);
-        $xoopsTpl->assign('cb_color', $cb_color);
-        $xoopsTpl->assign('rb_color', $rb_color);
-        $xoopsTpl->assign('footer_color', $footer_color);
-        $xoopsTpl->assign('footer_bgcolor', $footer_bgcolor);
-        $xoopsTpl->assign('theme_type', $theme_type);
-
+        tad_themes_setup();
     }
 }
 
@@ -342,7 +311,6 @@ switch ($op) {
 
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign('isAdmin', $isAdmin);
 $xoopsTpl->assign('now_op', $op);
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
 include_once XOOPS_ROOT_PATH . '/footer.php';
