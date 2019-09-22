@@ -33,7 +33,7 @@ function my_blocks()
 {
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser->uid();
+    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
     $TadDataCenter = new TadDataCenter($module_dirname);
     $my_blocks = [];
     $sql = "select * from " . $xoopsDB->prefix("tad_blocks") . " where `uid`='{$uid}' order by create_date desc";
@@ -52,7 +52,6 @@ function my_blocks()
         $all['weight'] = $weight;
         $my_blocks[] = $all;
     }
-    // dd($my_blocks);
 
     if (empty($my_blocks)) {
         header("location:index.php?op=block_form#block_setup");
@@ -71,7 +70,7 @@ function block_form($type = '', $bid = '')
 
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr;
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser->uid();
+    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
 
@@ -133,7 +132,7 @@ function block_save($type = '', $TDC = array(), $bid = '')
     global $xoopsDB, $xoopsTpl, $xoopsUser;
 
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser->uid();
+    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $myts = \MyTextSanitizer::getInstance();
 
@@ -248,7 +247,7 @@ function block_del($bid = '')
     global $xoopsDB, $xoopsTpl, $xoopsUser;
 
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser->uid();
+    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
 

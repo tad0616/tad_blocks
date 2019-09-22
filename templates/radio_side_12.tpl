@@ -1,5 +1,14 @@
 <!-- 頁尾中 -->
-<label for="side_12">
-    <input type="radio" name="TDC[side]" id="side_12" value="12" <{if $side==12}>checked<{/if}>>
-    <{$smarty.const._MD_TAD_BLOCKS_FOOTER_CENTER}>
-</label>
+<{if $all_blocks}>
+    <h4 class="block_side"><{$smarty.const._MD_TAD_BLOCKS_FOOTER_CENTER}></h4>
+    <div class="droppable" id="side-12" data-side="12">
+        <{foreach from=$all_blocks.12 item=b}>
+            <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/block_tool.tpl"}>
+        <{/foreach}>
+    </div>
+<{else}>
+    <label for="side_12">
+        <input type="radio" name="TDC[side]" id="side_12" value="12" <{if $side==12}>checked<{/if}>>
+        <{$smarty.const._MD_TAD_BLOCKS_FOOTER_CENTER}>
+    </label>
+<{/if}>

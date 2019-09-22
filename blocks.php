@@ -22,6 +22,9 @@ use XoopsModules\Tadtools\Utility;
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'tad_blocks_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+if (!$_SESSION['tad_blocks_adm']) {
+    redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+}
 
 /*-----------功能函數區--------------*/
 
@@ -31,15 +34,19 @@ function all_blocks()
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
 
     tad_themes_setup();
-    $blocks = [];
-    $sql = "select * from " . $xoopsDB->prefix("newblocks") . "";
+    $all_blocks = [];
+    $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname from " . $xoopsDB->prefix("newblocks") . " as a
+    left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
+    left join " . $xoopsDB->prefix("modules") . " as c on a.mid=c.mid
+    order by a.side, a.weight";
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-    while ($all = $xoopsDB->fetchRow($result)) {
-        $blocks[] = $all;
+    while ($all = $xoopsDB->fetchArray($result)) {
+        $side = $all['side'];
+        $all_blocks[$side][] = $all;
     }
-
-    $xoopsTpl->assign('blocks', $blocks);
-
+    // dd($all_blocks);
+    $xoopsTpl->assign('all_blocks', $all_blocks);
+    Utility::get_jquery(true);
 }
 
 /*-----------執行動作判斷區----------*/

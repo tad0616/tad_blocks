@@ -14,7 +14,7 @@
                         <option value="<{$val}>" <{if $type==$val}>selected<{/if}>><{$txt}></option>
                     <{/foreach}>
                 </select>
-                
+
             <{/if}>
         </h3>
         <div class="row">
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="col-sm-3">
-                <h4><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
+                <h4 class="block_side"><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
                 <{if $theme_type}>
                     <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
                 <{else}>

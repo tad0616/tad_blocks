@@ -48,6 +48,11 @@ define('_MD_TAD_BLOCKS_SORT', '排序');
 define('_MD_TAD_BLOCKS_WHO_CAN_SEE', '誰可以看到');
 define('_MD_TAD_BLOCKS_NO_PERMISSION', '您沒有權限喔！');
 define('_MD_TADBLOCKS_BLOCKS', '區塊管理');
+define('_MD_TAD_BLOCKS_ONLY_VISIBLE', '僅顯示啟用');
+define('_MD_TAD_BLOCKS_TO_ENABLE', '關閉中，點擊啟用之');
+define('_MD_TAD_BLOCKS_TO_UNABLE', '啟用中，點擊關閉之');
+define('_MD_TAD_BLOCKS_TO_ONLY_HOME', '全部頁面，改為：僅首頁');
+define('_MD_TAD_BLOCKS_TO_ALL_PAGES', '僅首頁，改為：全部頁面');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

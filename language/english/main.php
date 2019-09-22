@@ -48,6 +48,9 @@ define('_MD_TAD_BLOCKS_SORT', 'Sort');
 define('_MD_TAD_BLOCKS_WHO_CAN_SEE', 'Who can see?');
 define('_MD_TAD_BLOCKS_NO_PERMISSION', "You don't have permission!");
 define('_MD_TADBLOCKS_BLOCKS', 'Block Management');
+define('_MD_TAD_BLOCKS_ONLY_VISIBLE', 'Only visible');
+define('_MD_TAD_BLOCKS_TO_ENABLE', 'Enable this block');
+define('_MD_TAD_BLOCKS_TO_UNABLE', 'Close the block');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {
