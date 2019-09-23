@@ -93,7 +93,7 @@ function tad_themes_setup()
 }
 
 //製作logo圖
-function mkTitlePic($bid = '', $title = '', $size = 24, $border_size = 2, $color = '#00a3a8', $border_color = '#FFFFFF', $font_file_sn = 0, $shadow_color = '#000000', $shadow_x = 1, $shadow_y = 1, $shadow_size = 3)
+function mkTitlePic($bid = '', $title = '', $size = 24, $border_size = 2, $color = '#00a3a8', $border_color = '#FFFFFF', $font_file_sn = 0, $shadow_color = '#000000', $shadow_x = 1, $shadow_y = 1, $shadow_size = 3, $echo = true)
 {
     $TadUpFontFiles = new TadUpFiles('tad_themes', '/fonts');
     $TadUpFontFiles->set_col('logo_fonts', 0);
@@ -152,8 +152,10 @@ function mkTitlePic($bid = '', $title = '', $size = 24, $border_size = 2, $color
     imagepng($im, XOOPS_ROOT_PATH . "/uploads/bid/{$bid}.png");
     imagedestroy($im);
 
-    header("location: ajax.php?op=echo&val=" . XOOPS_URL . "/uploads/bid/{$bid}.png?date=".time());
-    return XOOPS_URL . "/uploads/bid/{$bid}.png";
+    if ($echo) {
+        header("location: ajax.php?op=echo&val=" . XOOPS_URL . "/uploads/bid/{$bid}.png?date=" . time());
+        return XOOPS_URL . "/uploads/bid/{$bid}.png";
+    }
 }
 
 function imagettftextoutline(&$im, $size, $angle, $x, $y, &$col, &$outlinecol, $fontfile, $text, $width)

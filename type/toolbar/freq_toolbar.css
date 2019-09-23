@@ -15,7 +15,7 @@
 
 #freq-link ul li img {
     margin: 0;
-    padding: 10px;
+    /* padding: 10px; */
     text-align: center;
 }
 
@@ -30,6 +30,6 @@
 #freq-link a:hover {}
 
 #freq-link a p {
-    margin-top: 0;
+    margin-top: 10;
     padding: 0;
 }

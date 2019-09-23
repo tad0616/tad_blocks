@@ -17,7 +17,7 @@
  * @version    $Id $
  **/
 
-xoops_loadLanguage('admin', 'tad_themes');
+// xoops_loadLanguage('admin', 'tad_themes');
 xoops_loadLanguage('main', 'tadtools');
 xoops_loadLanguage('admin/blocksadmin', 'system');
 define('_TAD_NEED_TADTOOLS', "This module needs TadTools module. You can download TadTools from <a href='http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1' target='_blank'>XOOPS Easy Go</a>.");
@@ -64,11 +64,20 @@ define('_MD_TAD_BLOCKS_LOGO_SHADOW_SIZE', 'Shadow Size');
 define('_MD_TAD_BLOCKS_LOGO_SHADOW_X', 'Shadow X');
 define('_MD_TAD_BLOCKS_LOGO_SHADOW_Y', 'Shadow Y');
 define('_MD_TAD_BLOCKS_LOGO_SELECT_FONT', 'Select font');
-define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', 'Generate and apply the title image of all blocks according to the settings below');
-define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', 'Please upload at least one font');
+define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', 'Regenerate the title image of all blocks according to the settings below');
+define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', 'Please <a href="' . XOOPS_URL . '/modules/tad_themes/admin/font2pic.php">upload</a> at least one font');
 define('_MD_TAD_BLOCKS_LOGO_SAVE_PIC', 'Save as Logo');
 define('_MD_TAD_BLOCKS_LOGO_SAVE_AS_LOGO', 'Save Picture');
 define('_MD_TAD_BLOCKS_LOGO_DEMO_BGCOLOR', 'Example Background Color:');
+define('_MD_TAD_BLOCKS_LOGO_HELP', 'If the file is not uploaded, the system will automatically generate the corresponding image according to the settings below.');
+define('_MD_TAD_BLOCKS_CHOOSE', 'please choose');
+define('_MD_TAD_BLOCKS_TITLE_HIDE', 'Hide title');
+define('_MD_TAD_BLOCKS_TITLE_PIC', 'Generate a picture instead of a title');
+define('_MD_TAD_BLOCKS_TITLE_IMG', 'Generate a picture to replace the title and apply the title format');
+define('_MD_TAD_BLOCKS_TITLE_ICON', 'Put a small icon to the left of the text title');
+define('_MD_TAD_BLOCKS_TITLE_LINK', 'Add title link');
+define('_MD_TAD_BLOCKS_UPLOAD_PIC', 'Please upload image');
+
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {
     if ($dh = opendir($dir)) {

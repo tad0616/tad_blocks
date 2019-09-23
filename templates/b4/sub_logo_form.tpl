@@ -1,6 +1,6 @@
 <h3>
     <{$smarty.const._MD_TAD_BLOCKS_LOGO_DESIGN}>
-     <a href="blocks.php" class="btn btn-success"><{$smarty.const._MD_TAD_BLOCKS_LOGO_MAKE_PNG}></a>
+     <a href="blocks.php?op=re_build_logo" class="btn btn-success"><{$smarty.const._MD_TAD_BLOCKS_LOGO_MAKE_PNG}></a>
 </h3>
 <{if $fonts}>
     <form action="blocks.php" id="myForm" method="post" role="form">

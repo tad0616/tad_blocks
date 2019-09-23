@@ -1,4 +1,5 @@
 <?php
+use XoopsModules\Tadtools\CodeMirror;
 use XoopsModules\Tadtools\TadDataCenter;
 
 //取得 embed 區塊DataCenter內容
@@ -25,6 +26,9 @@ function get_content($bid = 0)
             }
         }
     }
+
+    $CodeMirror = new CodeMirror('content_code');
+    $CodeMirror->render();
     return $block;
 }
 

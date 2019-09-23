@@ -40,6 +40,7 @@ function mk_content($TDC)
 
     $font_size = empty($TDC['font_size']) ? $default['font_size'] : (int) $TDC['font_size'];
     $text_align = empty($TDC['text_align']) ? $default['text_align'] : $myts->htmlSpecialChars($TDC['text_align']);
+    $hvr = empty($TDC['hvr']) ? $default['hvr'] : $myts->htmlSpecialChars($TDC['hvr']);
 
     $url = XOOPS_URL;
 
@@ -59,7 +60,7 @@ EOD;
 
         $content .= <<<"EOD"
         <li>
-            <a href="$url" target="_blank" style="font-size: {$font_size}px;"><img src="$img_url" alt="$text" class="hvr-float-shadow"><p>$text</p></a>
+            <a href="$url" target="_blank" style="font-size: {$font_size}px;"><img src="$img_url" alt="$text" class="$hvr"><p>$text</p></a>
         </li>
 EOD;
     }

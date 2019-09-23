@@ -122,6 +122,34 @@ function save_logo()
     $TadDataCenter->saveData();
 }
 
+function re_build_logo()
+{
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
+
+    $tags = ['hide', 'pic', 'img', 'link', 'icon'];
+
+    $sql = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
+    $result = $xoopsDB->query($sql) or die($sql);
+    while (list($bid, $title) = $xoopsDB->fetchRow($result)) {
+        foreach ($tags as $tag) {
+            $start = strpos($title, "[$tag]");
+            if ($start !== false) {
+                $title = substr($title, 0, $start);
+            }
+        }
+        $TadDataCenter = new TadDataCenter('tad_blocks');
+        $TadDataCenter->set_col('block_logo', 0);
+        $logo_setting = $TadDataCenter->getData();
+        if ($logo_setting) {
+            foreach ($logo_setting as $key => $value) {
+                $$key = $value[0];
+            }
+        }
+
+        mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size, false);
+    }
+}
+
 /*-----------執行動作判斷區----------*/
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $op = system_CleanVars($_REQUEST, 'op', '', 'string');
@@ -130,6 +158,11 @@ $type = system_CleanVars($_REQUEST, 'type', '', 'string');
 $bid = system_CleanVars($_REQUEST, 'bid', '', 'int');
 
 switch ($op) {
+
+    case 're_build_logo':
+        re_build_logo();
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
 
     case 'save_logo':
         save_logo();

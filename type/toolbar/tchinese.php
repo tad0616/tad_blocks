@@ -7,3 +7,4 @@ define('_TOOLBAR_TEXT_ALIGN', '對齊方向：');
 define('_TOOLBAR_LEFT', '靠左對齊');
 define('_TOOLBAR_CENTER', '置中對齊');
 define('_TOOLBAR_RIGHT', '靠右對齊');
+define('_TOOLBAR_HVR', '動畫種類：');

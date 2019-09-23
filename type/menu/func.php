@@ -43,7 +43,7 @@ function mk_content($TDC)
 
     $font_size = empty($TDC['font_size']) ? $default['font_size'] : (int) $TDC['font_size'];
     $text_align = empty($TDC['text_align']) ? $default['text_align'] : $myts->htmlSpecialChars($TDC['text_align']);
-
+    $left = $text_align == 'left' ? $font_size + 10 : 0;
     $url = XOOPS_URL;
 
     $content = <<<"EOD"
@@ -52,6 +52,7 @@ function mk_content($TDC)
 .word {
     font-size: {$font_size}px;
     text-align: {$text_align};
+    left: {$left}px;
 }
 .icon {
     width: 100%;

@@ -7,3 +7,4 @@ define('_TOOLBAR_TEXT_ALIGN', 'Text align:');
 define('_TOOLBAR_LEFT', 'Left');
 define('_TOOLBAR_CENTER', 'Center');
 define('_TOOLBAR_RIGHT', 'Right');
+define('_TOOLBAR_HVR', 'Animation Type:');

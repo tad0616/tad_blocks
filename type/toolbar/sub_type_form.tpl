@@ -15,7 +15,7 @@
                     <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>" value="<{$text}>">
                 </td>
                 <td style="width: 140px;">
-                    <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload" style="width: 140px;">
+                    <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 140px;">
                     <input type="hidden" name="TDC[img_url][<{$i}>]" id="img_url<{$i}>" value="<{$img_url.$i}>">
                 </td>
             </tr>
@@ -55,6 +55,14 @@
     <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._TOOLBAR_LEFT}></option>
     <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._TOOLBAR_CENTER}></option>
     <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._TOOLBAR_RIGHT}></option>
+    </select><br>
+    <{$smarty.const._TOOLBAR_HVR}><select name="TDC[hvr]" id="hvr">
+    <option value="hvr-wobble-vertical" <{if $hvr=='hvr-wobble-vertical'}>selected<{/if}>>Wobble Vertical</option>
+    <option value="hvr-wobble-top" <{if $hvr=='hvr-wobble-top'}>selected<{/if}>>Wobble Top</option>
+    <option value="hvr-wobble-bottom" <{if $hvr=='hvr-wobble-bottom'}>selected<{/if}>>Wobble Bottom</option>
+    <option value="hvr-buzz-out" <{if $hvr=='hvr-buzz-out'}>selected<{/if}>>Buzz Out</option>
+    <option value="hvr-grow-shadow" <{if $hvr=='hvr-grow-shadow'}>selected<{/if}>>Grow Shadow</option>
+    <option value="hvr-float-shadow" <{if $hvr=='hvr-float-shadow'}>selected<{/if}>>Float Shadow</option>
     </select>
 </div>
 
@@ -78,7 +86,7 @@
             $(this).closest("#form_data" + $(this).prop("id")).remove();
         });
 
-        $('.upload').change(function() {
+        $('.upload_img').change(function() {
             console.log($(this).data("id"));
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload', sort: $(this).data("id")}, function(img_url) {
                 console.log(img_url);

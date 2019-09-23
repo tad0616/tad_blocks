@@ -17,7 +17,7 @@
  * @version    $Id $
  **/
 
-xoops_loadLanguage('admin', 'tad_themes');
+// xoops_loadLanguage('admin', 'tad_themes');
 xoops_loadLanguage('main', 'tadtools');
 xoops_loadLanguage('admin/blocksadmin', 'system');
 define('_TAD_NEED_TADTOOLS', '需要 tadtools 模組，可至<a href="http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS輕鬆架</a>下載。');
@@ -66,11 +66,20 @@ define('_MD_TAD_BLOCKS_LOGO_SHADOW_SIZE', '陰影大小');
 define('_MD_TAD_BLOCKS_LOGO_SHADOW_X', '陰影左右位置');
 define('_MD_TAD_BLOCKS_LOGO_SHADOW_Y', '陰影上下位置');
 define('_MD_TAD_BLOCKS_LOGO_SELECT_FONT', '選擇字型');
-define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', '根據底下設定產生並套用所有區塊的標題圖片');
-define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', '請至少先上傳一個字型');
+define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', '根據底下設定，重新產生所有區塊的標題圖片');
+define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', '請至少<a href="' . XOOPS_URL . '/modules/tad_themes/admin/font2pic.php">至logo設計</a>先上傳一個字型');
 define('_MD_TAD_BLOCKS_LOGO_SAVE_PIC', '儲存圖片');
 define('_MD_TAD_BLOCKS_LOGO_SAVE_AS_LOGO', '存為logo');
 define('_MD_TAD_BLOCKS_LOGO_DEMO_BGCOLOR', '範例背景色：');
+define('_MD_TAD_BLOCKS_LOGO_HELP', '若未上傳檔案，系統會自動根據下方設定產生對應圖片');
+define('_MD_TAD_BLOCKS_CHOOSE', '請選擇');
+define('_MD_TAD_BLOCKS_TITLE_HIDE', '隱藏標題');
+define('_MD_TAD_BLOCKS_TITLE_PIC', '產生圖片取代標題');
+define('_MD_TAD_BLOCKS_TITLE_IMG', '產生圖片取代標題，並套用標題格式');
+define('_MD_TAD_BLOCKS_TITLE_ICON', '文字標題左邊放上小圖示');
+define('_MD_TAD_BLOCKS_TITLE_LINK', '標題加上連結');
+define('_MD_TAD_BLOCKS_UPLOAD_PIC', '請上傳圖片');
+
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {
     if ($dh = opendir($dir)) {
