@@ -16,7 +16,7 @@
     <{/if}>
 </div>
 
-<{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_block_title_config.tpl"}>
+<{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_logo_form.tpl"}>
 
 <script>
 

@@ -1,5 +1,12 @@
 <?php
+use XoopsModules\Tadtools\FancyBox;
+use XoopsModules\Tadtools\FormValidator;
+use XoopsModules\Tadtools\Jeditable;
+use XoopsModules\Tadtools\MColorPicker;
+use XoopsModules\Tadtools\TadDataCenter;
+use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
+
 /**
  *  module
  *
@@ -33,8 +40,10 @@ function all_blocks()
 {
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
 
+    $jeditable = new Jeditable();
     tad_themes_setup();
     $all_blocks = [];
+    $tags = ['hide', 'pic', 'img', 'link', 'icon'];
     $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname from " . $xoopsDB->prefix("newblocks") . " as a
     left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
     left join " . $xoopsDB->prefix("modules") . " as c on a.mid=c.mid
@@ -42,11 +51,75 @@ function all_blocks()
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     while ($all = $xoopsDB->fetchArray($result)) {
         $side = $all['side'];
+        foreach ($tags as $tag) {
+            $start = strpos($all['title'], "[$tag]");
+            if ($start !== false) {
+                $all['title'] = substr($all['title'], 0, $start);
+                $all[$tag] = true;
+            } else {
+                $all[$tag] = false;
+            }
+        }
+
+        $jeditable->setTextCol("#b-title-{$all['bid']}", "ajax.php", '50%', '20px', "{'bid': {$all['bid']},'op' : 'update_title'}", "Click to edit");
+
         $all_blocks[$side][] = $all;
     }
     // dd($all_blocks);
     $xoopsTpl->assign('all_blocks', $all_blocks);
     Utility::get_jquery(true);
+
+    $FormValidator = new FormValidator('#myForm', true);
+    $FormValidator->render();
+
+    $MColorPicker = new MColorPicker('.color');
+    $MColorPicker->render();
+
+    $TadUpFontFiles = new TadUpFiles('tad_themes', '/fonts');
+    $TadUpFontFiles->set_col('logo_fonts', 0);
+    $fontUpForm = $TadUpFontFiles->upform(true, 'font');
+    $xoopsTpl->assign('fontUpForm', $fontUpForm);
+    $fonts = $TadUpFontFiles->get_file();
+    $xoopsTpl->assign('fonts', $fonts);
+
+    $TadDataCenter = new TadDataCenter('tad_blocks');
+    $TadDataCenter->set_col('block_logo', 0);
+    $logo_setting = $TadDataCenter->getData();
+    if ($logo_setting) {
+        foreach ($logo_setting as $key => $value) {
+            $xoopsTpl->assign($key, $value[0]);
+        }
+    } else {
+        $f = array_keys($fonts);
+        $data_arr = [
+            'size' => [24],
+            'border_size' => [1],
+            'shadow_size' => [1],
+            'color' => ['#ffffff'],
+            'border_color' => ['#005f86'],
+            'shadow_color' => ['#3b3b3b'],
+            'shadow_x' => [1],
+            'shadow_y' => [1],
+            'font_file_sn' => [$f[0]],
+        ];
+        $TadDataCenter->saveCustomData($data_arr);
+        foreach ($data_arr as $key => $value) {
+            $xoopsTpl->assign($key, $value[0]);
+        }
+    }
+
+    $jeditable->render();
+
+    $fancybox = new FancyBox('.block_setting', '50%');
+    $fancybox->render(true);
+    // $fancybox->renderForm('ajax.php',false);
+}
+
+function save_logo()
+{
+    $TadDataCenter = new TadDataCenter('tad_blocks');
+    $TadDataCenter->set_col('block_logo', 0);
+    $TadDataCenter->saveData();
 }
 
 /*-----------執行動作判斷區----------*/
@@ -57,7 +130,16 @@ $type = system_CleanVars($_REQUEST, 'type', '', 'string');
 $bid = system_CleanVars($_REQUEST, 'bid', '', 'int');
 
 switch ($op) {
-    /*---判斷動作請貼在下方---*/
+
+    case 'save_logo':
+        save_logo();
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    case 'mkTitlePic':
+        mkTitlePic($title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+        exit;
+
     case "block_form":
         block_form($type, $bid);
         break;

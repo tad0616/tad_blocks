@@ -17,6 +17,7 @@
  * @version    $Id $
  **/
 
+xoops_loadLanguage('admin', 'tad_themes');
 xoops_loadLanguage('main', 'tadtools');
 xoops_loadLanguage('admin/blocksadmin', 'system');
 define('_TAD_NEED_TADTOOLS', "This module needs TadTools module. You can download TadTools from <a href='http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1' target='_blank'>XOOPS Easy Go</a>.");
@@ -32,6 +33,7 @@ define('_MD_TAD_BLOCKS_FOOTER_LEFT', 'footer left');
 define('_MD_TAD_BLOCKS_FOOTER_CENTER', 'footer in');
 define('_MD_TAD_BLOCKS_FOOTER_RIGHT', 'footer right');
 define('_MD_TAD_BLOCKS_SAVE', 'Save and create block');
+define('_MD_TAD_BLOCKS_SETTING', 'Fast setting');
 define('_MD_TAD_ADD_ONE', 'Add a new item');
 define('_MD_TAD_BLOCKS_MY_BLOCKS', 'My custom block');
 define('_MD_TAD_BLOCKS_ADD_BLOCK', 'Add custom block');
@@ -51,7 +53,22 @@ define('_MD_TADBLOCKS_BLOCKS', 'Block Management');
 define('_MD_TAD_BLOCKS_ONLY_VISIBLE', 'Only visible');
 define('_MD_TAD_BLOCKS_TO_ENABLE', 'Enable this block');
 define('_MD_TAD_BLOCKS_TO_UNABLE', 'Close the block');
-
+define('_MD_TAD_BLOCKS_LOGO_DESIGN', 'Block title picture setting');
+define('_MD_TAD_BLOCKS_LOGO_INPUT_TEXT', 'Enter text');
+define('_MD_TAD_BLOCKS_LOGO_TEXT_COLOR', 'Text Color');
+define('_MD_TAD_BLOCKS_LOGO_BORDER_COLOR', 'Border Color');
+define('_MD_TAD_BLOCKS_LOGO_TEXT_SIZE', 'Text size');
+define('_MD_TAD_BLOCKS_LOGO_BORDER_SIZE', 'outline size');
+define('_MD_TAD_BLOCKS_LOGO_SHADOW_COLOR', 'Shadow Color');
+define('_MD_TAD_BLOCKS_LOGO_SHADOW_SIZE', 'Shadow Size');
+define('_MD_TAD_BLOCKS_LOGO_SHADOW_X', 'Shadow X');
+define('_MD_TAD_BLOCKS_LOGO_SHADOW_Y', 'Shadow Y');
+define('_MD_TAD_BLOCKS_LOGO_SELECT_FONT', 'Select font');
+define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', 'Generate and apply the title image of all blocks according to the settings below');
+define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', 'Please upload at least one font');
+define('_MD_TAD_BLOCKS_LOGO_SAVE_PIC', 'Save as Logo');
+define('_MD_TAD_BLOCKS_LOGO_SAVE_AS_LOGO', 'Save Picture');
+define('_MD_TAD_BLOCKS_LOGO_DEMO_BGCOLOR', 'Example Background Color:');
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {
     if ($dh = opendir($dir)) {

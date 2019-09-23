@@ -11,8 +11,23 @@
         <img src="images/coding.png" alt="<{$smarty.const._MD_TAD_BLOCKS_ALL_PAGES}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_TO_ONLY_HOME}>" id="display-<{$b.bid}>" data-bid="<{$b.bid}>" data-val="<{$b.module_id}>" class="module_id">
     <{/if}>
 
-    <span class="mx-2" data-toggle="tooltip" title="(<{$b.weight}>) <{if $b.mod_name}><{$b.mod_name}>/<{/if}><{$b.name}>"><{$b.title}></span>
+    <span class="mx-2" id="b-title-<{$b.bid}>" data-toggle="tooltip" title="(<{$b.weight}>) <{if $b.mod_name}><{$b.mod_name}>/<{/if}><{$b.name}>"><{$b.title}></span>
 
     <a href="<{$xoops_url}>/modules/system/admin.php?fct=blocksadmin&op=edit&bid=<{$b.bid}>" target="_blank"><img src="images/wrench.png" alt="<{$smarty.const._TAD_EDIT}>" data-toggle="tooltip" title="<{$smarty.const._TAD_EDIT}>"></a>
 
+    <a href="ajax.php?op=setting_form&bid=<{$b.bid}>"  data-fancybox-type="iframe" class="block_setting">
+        <img src="images/setting.png" alt="<{$smarty.const._MD_TAD_BLOCKS_SETTING}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_SETTING}>">
+    </a>
+
+    <{if $b.hide}>
+        <span class="bt-tag">[hide]</span>
+    <{elseif $b.pic}>
+        <span class="bt-tag">[pic]</span>
+    <{elseif $b.img}>
+        <span class="bt-tag">[img]</span>
+    <{elseif $b.link}>
+        <span class="bt-tag">[link]</span>
+    <{elseif $b.icon}>
+        <span class="bt-tag">[icon]</span>
+    <{/if}>
 </div>
