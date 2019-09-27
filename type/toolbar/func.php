@@ -56,7 +56,7 @@ EOD;
             continue;
         }
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
-        $img_url = !empty($TDC['img_url'][$key]) ? $TDC['img_url'][$key] : '';
+        $img_url = !empty($TDC['img_url'][$key]) ? $TDC['img_url'][$key] : $default['img_url'];
 
         $content .= <<<"EOD"
         <li>

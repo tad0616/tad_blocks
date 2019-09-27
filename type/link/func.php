@@ -13,7 +13,7 @@ function get_content($bid = 0)
     }
     // 傳回陣列的項目
     if ($bid) {
-        $arr = ['groups', 'text', 'url'];
+        $arr = ['groups', 'text', 'url', 'target', 'img_url'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
@@ -26,6 +26,7 @@ function get_content($bid = 0)
             }
         }
     }
+    Utility::add_migrate();
 
     return $block;
 }
@@ -37,6 +38,7 @@ function mk_content($TDC)
     $myts = \MyTextSanitizer::getInstance();
 
     $show_type = empty($TDC['show_type']) ? $default['show_type'] : $TDC['show_type'];
+    $item_css = empty($TDC['item_css']) ? $default['item_css'] : $TDC['item_css'];
 
     $url = XOOPS_URL;
 
@@ -55,19 +57,21 @@ function mk_content($TDC)
             continue;
         }
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
+        $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
+        $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" style="margin-right: 4px;">' : '';
 
         if ($show_type == 'ul' or $show_type == 'ol') {
             $content .= <<<"EOD"
-<li><a href="$url" target="_blank">{$text}</a></li>
+<li style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></li>
 EOD;
         } elseif ($show_type == 'table') {
             $content .= <<<"EOD"
-<tr><td><a href="$url" target="_blank">{$text}</a></td></tr>
+<tr><td style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></td></tr>
 EOD;
 
         } else {
             $content .= <<<"EOD"
-<li><a href="$url" target="_blank">{$text}</a></li>
+<li style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></li>
 EOD;
         }
     }

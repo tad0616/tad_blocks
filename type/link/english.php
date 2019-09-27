@@ -7,3 +7,7 @@ define('_LINK_DEFAULT', 'Default');
 define('_LINK_UL', 'Unordered list');
 define('_LINK_OL', 'Number list');
 define('_LINK_TABLE', 'Table');
+define('_LINK_ADD_TARGET', 'target');
+define('_LINK_ADD_TARGET_SELF', 'self');
+define('_LINK_ADD_TARGET_BLANK', 'blank');
+define('_LINK_ITEM_CSS', 'Custom link style:');

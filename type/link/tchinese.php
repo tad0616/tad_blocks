@@ -7,3 +7,7 @@ define('_LINK_DEFAULT', '預設');
 define('_LINK_UL', '無序清單');
 define('_LINK_OL', '數字清單');
 define('_LINK_TABLE', '表格');
+define('_LINK_ADD_TARGET', '開啟位置');
+define('_LINK_ADD_TARGET_SELF', '本視窗');
+define('_LINK_ADD_TARGET_BLANK', '新視窗');
+define('_LINK_ITEM_CSS', '自訂選項樣式：');
