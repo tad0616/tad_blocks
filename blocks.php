@@ -38,12 +38,12 @@ if (!$_SESSION['tad_blocks_adm']) {
 //列出所有區塊
 function all_blocks()
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
 
     $jeditable = new Jeditable();
     tad_themes_setup();
     $all_blocks = [];
-    $tags = ['hide', 'pic', 'img', 'link', 'icon'];
+
     $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname from " . $xoopsDB->prefix("newblocks") . " as a
     left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
     left join " . $xoopsDB->prefix("modules") . " as c on a.mid=c.mid
@@ -65,7 +65,7 @@ function all_blocks()
 
         $all_blocks[$side][] = $all;
     }
-    // dd($all_blocks);
+
     $xoopsTpl->assign('all_blocks', $all_blocks);
     Utility::get_jquery(true);
 
@@ -124,9 +124,7 @@ function save_logo()
 
 function re_build_logo()
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
-
-    $tags = ['hide', 'pic', 'img', 'link', 'icon'];
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
 
     $sql = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
     $result = $xoopsDB->query($sql) or die($sql);

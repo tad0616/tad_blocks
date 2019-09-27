@@ -77,6 +77,7 @@ define('_MD_TAD_BLOCKS_TITLE_IMG', 'Generate a picture to replace the title and 
 define('_MD_TAD_BLOCKS_TITLE_ICON', 'Put a small icon to the left of the text title');
 define('_MD_TAD_BLOCKS_TITLE_LINK', 'Add title link');
 define('_MD_TAD_BLOCKS_UPLOAD_PIC', 'Please upload image');
+define('_MD_TAD_BLOCKS_WYSIWYG', 'CkEditor');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

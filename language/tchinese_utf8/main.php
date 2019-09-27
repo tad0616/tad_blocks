@@ -71,7 +71,7 @@ define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', '請至少<a href="' . XOOPS_URL . '/mod
 define('_MD_TAD_BLOCKS_LOGO_SAVE_PIC', '儲存圖片');
 define('_MD_TAD_BLOCKS_LOGO_SAVE_AS_LOGO', '存為logo');
 define('_MD_TAD_BLOCKS_LOGO_DEMO_BGCOLOR', '範例背景色：');
-define('_MD_TAD_BLOCKS_LOGO_HELP', '若未上傳檔案，系統會自動根據下方設定產生對應圖片');
+define('_MD_TAD_BLOCKS_LOGO_HELP', '可以不上傳檔案，若未上傳檔案，系統會自動根據「區塊標題設定」自動產生對應圖片');
 define('_MD_TAD_BLOCKS_CHOOSE', '請選擇');
 define('_MD_TAD_BLOCKS_TITLE_HIDE', '隱藏標題');
 define('_MD_TAD_BLOCKS_TITLE_PIC', '產生圖片取代標題');
@@ -79,6 +79,7 @@ define('_MD_TAD_BLOCKS_TITLE_IMG', '產生圖片取代標題，並套用標題�
 define('_MD_TAD_BLOCKS_TITLE_ICON', '文字標題左邊放上小圖示');
 define('_MD_TAD_BLOCKS_TITLE_LINK', '標題加上連結');
 define('_MD_TAD_BLOCKS_UPLOAD_PIC', '請上傳圖片');
+define('_MD_TAD_BLOCKS_WYSIWYG', '一般圖文');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

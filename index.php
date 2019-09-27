@@ -77,7 +77,7 @@ function block_form($type = '', $bid = '')
     $xoopsTpl->assign('type', $type);
 
     //判斷目前使用者是否有：建立自訂區塊
-    $add_block = Utility::power_chk(module_dirname, 1);
+    $add_block = Utility::power_chk($module_dirname, 1);
     $xoopsTpl->assign('add_block', $add_block);
     $block = $all = [];
 
@@ -89,12 +89,13 @@ function block_form($type = '', $bid = '')
             $all = $xoopsDB->fetchArray($result);
             foreach ($all as $k => $v) {
                 $$k = $v;
+                // echo "$$k = $v<br>";
                 $xoopsTpl->assign($k, $v);
             }
 
-            $sql2 = "select max(weight) from " . $xoopsDB->prefix("newblocks") . " where  bid='{$all['bid']}'";
+            $sql2 = "select title,max(weight) from " . $xoopsDB->prefix("newblocks") . " where  bid='{$all['bid']}'";
             $result2 = $xoopsDB->queryF($sql2) or Utility::web_error($sql2);
-            list($weight) = $xoopsDB->fetchRow($result2);
+            list($title, $weight) = $xoopsDB->fetchRow($result2);
             $xoopsTpl->assign('weight', $weight);
         }
 
@@ -107,7 +108,8 @@ function block_form($type = '', $bid = '')
             $TadDataCenter = new TadDataCenter('tad_blocks');
             $TadDataCenter->set_col('bid', $bid);
             $block = $TadDataCenter->getData();
-
+            $xoopsTpl->assign('title', $block['title'][0]);
+            // ddd($block);
             $CkEditor = new CkEditor($module_dirname, "TDC[content]", $block['content'][0]);
             $CkEditor->setHeight(350);
             $editor = $CkEditor->render();
@@ -129,8 +131,9 @@ function block_form($type = '', $bid = '')
 //儲存並建立區塊
 function block_save($type = '', $TDC = array(), $bid = '')
 {
-    global $xoopsDB, $xoopsTpl, $xoopsUser;
+    global $xoopsDB, $xoopsTpl, $xoopsUser, $tags;
 
+    $mk_pic = ['pic', 'img'];
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
@@ -147,7 +150,7 @@ function block_save($type = '', $TDC = array(), $bid = '')
     } else {
         $content = $myts->addSlashes($TDC['content']);
     }
-    // dd($_FILES);
+
     $last_modified = time();
 
     if (empty($bid)) {
@@ -196,13 +199,36 @@ function block_save($type = '', $TDC = array(), $bid = '')
 
     } else {
 
+        $sql = "select * from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
+        $result = $xoopsDB->query($sql) or die($sql);
+        $block = $xoopsDB->fetchArray($result);
+        $old_tag = '';
+        foreach ($tags as $tag) {
+            $start = strpos($block['title'], "[$tag]");
+            if ($start !== false) {
+                if (!empty($title) and in_array($tag, $mk_pic)) {
+                    $TadDataCenter = new TadDataCenter('tad_blocks');
+                    $TadDataCenter->set_col('block_logo', 0);
+                    $logo_setting = $TadDataCenter->getData();
+                    if ($logo_setting) {
+                        foreach ($logo_setting as $key => $value) {
+                            $$key = $value[0];
+                        }
+                    }
+                    $tag2 = "[$tag]" . mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+                } else {
+                    $tag2 = substr($block['title'], $start);
+                }
+            }
+        }
+
         $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
 
         // 更新區塊設定
         $sql = "update " . $xoopsDB->prefix("tad_blocks") . " set create_date=now() where bid='{$bid}' $and_uid";
         if ($xoopsDB->queryF($sql)) {
             // 更新區塊
-            $sql = "update " . $xoopsDB->prefix("newblocks") . " set title='{$title}', content='{$content}', side='{$side}', weight='{$weight}', last_modified='{$last_modified}' where bid='$bid'";
+            $sql = "update " . $xoopsDB->prefix("newblocks") . " set title='{$title}{$tag2}', content='{$content}', side='{$side}', weight='{$weight}', last_modified='{$last_modified}' where bid='$bid'";
             $xoopsDB->queryF($sql) or Utility::web_error($sql);
 
             // 更新區塊顯示方式
@@ -223,16 +249,6 @@ function block_save($type = '', $TDC = array(), $bid = '')
             $TadDataCenter->set_col('bid', $bid);
             $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData();
-
-            // $TadUpFiles = new TadUpFiles($module_dirname);
-            // $TadUpFiles->set_col('bid', $bid);
-            // if (!empty($_FILES['TDC']['tmp_name'])) {
-            //     foreach ($_FILES['TDC']['tmp_name'] as $name => $items) {
-            //         foreach ($items as $sort => $tmp_name) {
-            //             $TadUpFiles->upload_one_file($_FILES['TDC']['name'][$name][$sort], $tmp_name, $_FILES['TDC']['type'][$name][$sort], $_FILES['TDC']['size'][$name][$sort], $width, $thumb_width, $files_sn, $desc, true);
-            //         }
-            //     }
-            // }
 
         } else {
             Utility::web_error($sql);

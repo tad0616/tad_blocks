@@ -18,7 +18,6 @@
  **/
 
 xoops_loadLanguage('admin_common', 'tadtools');
-define('_TAD_NEED_TADTOOLS', '需要 tadtools 模組，可至<a href="https://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1" target="_blank">XOOPS輕鬆架</a>下載。');
 
 define('_MA_TADBLOCKS_UID', '使用者');
 define('_MA_TADBLOCKS_CREATE_DATE', '日期');

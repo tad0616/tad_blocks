@@ -50,9 +50,8 @@ function change_block_module_link($bid, $module_id)
 
 function setting_form($bid)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $xoTheme;
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $xoTheme, $tags;
 
-    $tags = ['hide', 'pic', 'img', 'link', 'icon'];
     $show_file = ['pic', 'img', 'icon'];
     $show_link = ['link'];
     $show_help = ['pic', 'img'];
@@ -64,7 +63,7 @@ function setting_form($bid)
 
     $old_tag = '';
     $title = $block['title'];
-    $display_link = $display_file = 'style="display:none;"';
+    $display_link = $display_file = $display_help = 'style="display:none;"';
     $jquery = Utility::get_jquery(false, 'return');
     foreach ($tags as $tag) {
         $start = strpos($block['title'], "[$tag]");
@@ -75,7 +74,7 @@ function setting_form($bid)
             $$selected_tag = 'selected';
             $display_file = in_array($tag, $show_file) ? '' : $display_file;
             $display_link = in_array($tag, $show_link) ? '' : $display_link;
-            $help = in_array($tag, $show_help) ? _MD_TAD_BLOCKS_LOGO_HELP : '';
+            $display_help = in_array($tag, $show_help) ? '' : $display_help;
         } else {
             $$selected_tag = '';
         }
@@ -89,6 +88,7 @@ function setting_form($bid)
     $icon = _MD_TAD_BLOCKS_TITLE_ICON;
     $link = _MD_TAD_BLOCKS_TITLE_LINK;
     $upload = _MD_TAD_BLOCKS_UPLOAD_PIC;
+    $help = _MD_TAD_BLOCKS_LOGO_HELP;
 
     $form = <<<"EOD"
 $jquery
@@ -109,7 +109,7 @@ $jquery
     <input type="file" name="tag2" id="file" placeholder="$upload" $display_file>
     <input type="hidden" name="bid" value="$bid">
     <button type="submit" name="op" value="update_title">$save</button>
-    <div id="help">$help</div>
+    <div id="help" $display_help>$help</div>
 </form>
 <script>
 $(document).ready(function(){
@@ -118,12 +118,19 @@ $(document).ready(function(){
         if(tag=='hide' || tag==''){
             $('#link').hide();
             $('#file').hide();
-        }else if(tag=='pic' || tag=='img' || tag=='icon'){
+            $('#help').hide();
+        }else if(tag=='icon'){
             $('#link').hide();
             $('#file').show();
+            $('#help').hide();
+        }else if(tag=='pic' || tag=='img'){
+            $('#link').hide();
+            $('#file').show();
+            $('#help').show();
         }else if(tag=='link'){
             $('#link').show();
             $('#file').hide();
+            $('#help').hide();
         }
     });
 });
@@ -135,9 +142,8 @@ EOD;
 
 function update_title($bid, $title = '', $need_tag = '', $link_url = '')
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
 
-    $tags = ['hide', 'pic', 'img', 'link', 'icon'];
     $file_up = ['pic', 'img', 'icon'];
     $have_link = ['link'];
     $mk_pic = ['pic', 'img'];
@@ -180,6 +186,8 @@ function update_title($bid, $title = '', $need_tag = '', $link_url = '')
                     }
                 }
                 $tag2 = mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+            } else {
+                $tag2 = substr($block['title'], $start);
             }
 
             if ($tag2) {

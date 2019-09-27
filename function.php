@@ -34,7 +34,8 @@ $position_arr = [
     11 => _MD_TAD_BLOCKS_FOOTER_RIGHT,
 ];
 
-$type_arr[] = '一般圖文';
+$tags = ['hide', 'pic', 'img', 'link', 'icon'];
+$type_arr[] = _MD_TAD_BLOCKS_WYSIWYG;
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {
@@ -50,7 +51,7 @@ if (is_dir($dir)) {
 }
 
 // 除錯
-function dd($array = [])
+function ddd($array = [])
 {
     Utility::dd($array);
 }

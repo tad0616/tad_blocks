@@ -18,8 +18,6 @@
  **/
 
 xoops_loadLanguage('admin_common', 'tadtools');
-define('_TAD_NEED_TADTOOLS', "This module needs TadTools module. You can download TadTools from <a href='http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1' target='_blank'>XOOPS Easy Go</a>.");
-
 define('_MA_TADBLOCKS_UID', 'User');
 define('_MA_TADBLOCKS_CREATE_DATE', 'Date');
 
