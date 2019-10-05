@@ -119,7 +119,8 @@ function block_form($type = '', $bid = '')
         include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
 
         $groups = $block['groups'] ? $block['groups'] : [1, 2, 3];
-        $sel_grp = new \XoopsFormSelectCheckGroup('groups', "TDC[groups]", $groups);
+        // $sel_grp = new \XoopsFormSelectCheckGroup('groups', "TDC[groups]", $groups);
+        $sel_grp = new \XoopsFormSelectGroup('groups', "TDC[groups]", true, $groups, 6, true);
         $xoopsTpl->assign('sel_grp', $sel_grp->render());
 
         $xoopsTpl->assign('type_arr', $type_arr);
