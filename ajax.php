@@ -147,14 +147,17 @@ function update_title($bid, $title = '', $need_tag = '', $link_url = '')
     $file_up = ['pic', 'img', 'icon'];
     $have_link = ['link'];
     $mk_pic = ['pic', 'img'];
-    $tag2 = '';
+    $new_tag_url = '';
+    // 圖片類的
     if (in_array($need_tag, $file_up)) {
+        // 自行上傳的
         if ($_FILES['tag2']['name']) {
             $TadUpFiles = new TadUpFiles("tad_blocks");
             $TadUpFiles->set_col($need_tag, $bid);
             $files_sn = $TadUpFiles->upload_one_file($_FILES['tag2']['name'], $_FILES['tag2']['tmp_name'], $_FILES['tag2']['type'], $_FILES['tag2']['size'], null, null, null, null, true);
-            $tag2 = $TadUpFiles->get_pic_file('images', 'url', $files_sn);
+            $new_tag_url = $TadUpFiles->get_pic_file('images', 'url', $files_sn);
         } else {
+            // 沒上傳，自動產生的
             $TadDataCenter = new TadDataCenter('tad_blocks');
             $TadDataCenter->set_col('block_logo', 0);
             $logo_setting = $TadDataCenter->getData();
@@ -163,45 +166,14 @@ function update_title($bid, $title = '', $need_tag = '', $link_url = '')
                     $$key = $value[0];
                 }
             }
-            $tag2 = mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+            $new_tag_url = mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
         }
     } elseif (in_array($need_tag, $have_link)) {
-        $tag2 = $link_url;
-    }
-    // die("bid={$bid},title={$title},need_tag={$need_tag},tag2={$tag2}");
-    $sql = "select * from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
-    $result = $xoopsDB->query($sql) or die($sql);
-    $block = $xoopsDB->fetchArray($result);
-    $old_tag = '';
-    foreach ($tags as $tag) {
-        $start = strpos($block['title'], "[$tag]");
-        if ($start !== false) {
-            if (!empty($title) and empty($need_tag) and in_array($tag, $mk_pic)) {
-                $TadDataCenter = new TadDataCenter('tad_blocks');
-                $TadDataCenter->set_col('block_logo', 0);
-                $logo_setting = $TadDataCenter->getData();
-                if ($logo_setting) {
-                    foreach ($logo_setting as $key => $value) {
-                        $$key = $value[0];
-                    }
-                }
-                $tag2 = mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
-            } else {
-                $tag2 = substr($block['title'], $start);
-            }
-
-            if ($tag2) {
-                $old_tag = "[{$tag}]{$tag2}";
-            } else {
-                $old_tag = substr($block['title'], $start);
-            }
-        }
+        // 連結類
+        $new_tag_url = $link_url;
     }
 
-    $tag = $need_tag ? "[$need_tag]{$tag2}" : $old_tag;
-
-    $new_title = $title . $tag;
-
+    $new_title = $need_tag ? "{$title}[$need_tag]{$new_tag_url}" : $title;
     change_newblock($bid, 'title', $new_title);
     die($title);
 }

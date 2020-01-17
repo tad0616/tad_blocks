@@ -1,8 +1,13 @@
+tad_blocks 1.2 (released January 17, 2020)
+=====================================================
+1. Modify the group form to avoid abnormal display under bootstrap3
+2. There will be duplicate labels when changing the title label.
+
 Tad_blocks 1.1 (released from 2019-09-27)
-  ==========================================================
-  1. "General Link" adds a new icon and specifies the open location setting.
-  2. Add "Iframe page" function
+==========================================================
+1. "General Link" adds a new icon and specifies the open location setting.
+2. Add "Iframe page" function
 
 Tad_blocks 1.0 (released from 2019-09-16)
-  ==========================================================
-  1. release
+==========================================================
+1. release
