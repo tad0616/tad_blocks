@@ -48,6 +48,8 @@ function mk_content($TDC)
     $border_color = empty($TDC['border_color']) ? $default['border_color'] : $myts->addSlashes($TDC['border_color']);
     $height = $font_size + ($padding_y * 2) + ($border_size * 2);
 
+    $font_size_em = round($font_size / 16, 2);
+
     $content = '<link href="' . XOOPS_URL . '/modules/tad_blocks/type/marquee/jquery.marquee/css/jquery.marquee.css" rel="stylesheet" type="text/css">';
     $content .= '<script type="text/javascript" src="' . XOOPS_URL . '/modules/tad_blocks/type/marquee/jquery.marquee/lib/jquery.marquee.js"></script>';
     $content .= '<style type="text/css" media="screen">';
@@ -58,7 +60,7 @@ function mk_content($TDC)
     $content .= '    border: ' . $border_size . 'px ' . $border_type . ' ' . $border_color . ';';
     $content .= '}';
     $content .= 'ul#tad_blocks_marquee2 li {';
-    $content .= '    font-size: ' . $font_size . 'px;';
+    $content .= '    font-size: ' . $font_size_em . 'em;';
     $content .= '    color: ' . $text_color . ';';
     $content .= '    padding: ' . $padding_y . 'px 5px;';
     $content .= '}';

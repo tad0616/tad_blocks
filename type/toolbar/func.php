@@ -43,6 +43,7 @@ function mk_content($TDC)
     $hvr = empty($TDC['hvr']) ? $default['hvr'] : $myts->htmlSpecialChars($TDC['hvr']);
 
     $url = XOOPS_URL;
+    $font_size_em = round($font_size / 16, 2);
 
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/toolbar/hover-min.css" rel="stylesheet">
@@ -60,7 +61,7 @@ EOD;
 
         $content .= <<<"EOD"
         <li>
-            <a href="$url" target="_blank" style="font-size: {$font_size}px;"><img src="$img_url" alt="$text" class="$hvr"><p>$text</p></a>
+            <a href="$url" target="_blank" style="font-size: {$font_size_em}em;"><img src="$img_url" alt="$text" class="$hvr"><p>$text</p></a>
         </li>
 EOD;
     }

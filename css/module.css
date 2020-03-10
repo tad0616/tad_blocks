@@ -13,7 +13,7 @@ table#footer-position td {
 table#block-position td>label,
 table#footer-position td>label {
     margin: 6px auto;
-    font-size: 11px;
+    font-size: 97%;
 }
 
 .color-picker {
@@ -36,7 +36,7 @@ table#footer-position td>label {
     1px -1px 2px black,
    -1px  1px 2px black,
    -1px -1px 2px black;
-    font-size: 11pt;
+    font-size: 99%;
     margin: 3px;
     opacity: 1;
     background: #6f93c2 url('../images/blue.gif');
@@ -51,7 +51,7 @@ table#footer-position td>label {
     1px -1px 2px white,
    -1px  1px 2px white,
    -1px -1px 2px white;
-    font-size: 11pt;
+    font-size: 99%;
     margin: 3px;
     opacity: 0.6;
     background: none;
@@ -79,17 +79,17 @@ table#footer-position td>label {
 }
 
 .visible_block>.bt-tag{
-    font-size: 11px;
+    font-size: 97%;
     color:yellow;
 }
 
 .invisible_block>.bt-tag{
-    font-size: 11px;
+    font-size: 97%;
     color:rgb(95, 48, 204);
 }
 
 #help{
     color: rgb(129, 9, 49);
-    font-size: 11pt;
+    font-size: 99%;
     margin: 10px 0px;
 }

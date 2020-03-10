@@ -46,11 +46,12 @@ function mk_content($TDC)
     $left = $text_align == 'left' ? $font_size + 10 : 0;
     $url = XOOPS_URL;
 
+    $font_size_em = round($font_size / 16, 2);
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/menu/r_menu.css" rel="stylesheet" type="text/css">
 <style>
 .word {
-    font-size: {$font_size}px;
+    font-size: {$font_size_em}em;
     text-align: {$text_align};
     left: {$left}px;
 }
@@ -59,7 +60,7 @@ function mk_content($TDC)
     height: 45px;
     top: -45px;
     left: 4px;
-    font-size: {$font_size}px;
+    font-size: {$font_size_em}em;
 }
 </style>
 EOD;
