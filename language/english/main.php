@@ -20,7 +20,6 @@
 // xoops_loadLanguage('admin', 'tad_themes');
 xoops_loadLanguage('main', 'tadtools');
 xoops_loadLanguage('admin/blocksadmin', 'system');
-define('_TAD_NEED_TADTOOLS', "This module needs TadTools module. You can download TadTools from <a href='http://campus-xoops.tn.edu.tw/modules/tad_modules/index.php?module_sn=1' target='_blank'>XOOPS Easy Go</a>.");
 define('_MD_TAD_BLOCKS_LEFT', 'Left');
 define('_MD_TAD_BLOCKS_RIGHT', 'Right');
 define('_MD_TAD_BLOCKS_TOP_CENTER', 'Upper');
