@@ -1,4 +1,9 @@
-tad_blocks 1.2 (released January 17, 2020)
+tad_blocks 1.3 (released 2020-03-14)
+======================================
+1. Correction for accessibility 2.0 AA standard
+
+
+tad_blocks 1.2 (released 2020-01-17)
 =====================================================
 1. Modify the group form to avoid abnormal display under bootstrap3
 2. There will be duplicate labels when changing the title label.
