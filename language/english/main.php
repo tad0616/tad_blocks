@@ -36,6 +36,7 @@ define('_MD_TAD_BLOCKS_SETTING', 'Fast setting');
 define('_MD_TAD_ADD_ONE', 'Add a new item');
 define('_MD_TAD_BLOCKS_MY_BLOCKS', 'My custom block');
 define('_MD_TAD_BLOCKS_ADD_BLOCK', 'Add custom block');
+define('_MD_TAD_BLOCKS_CUSTOM_BLOCK', 'Custom block');
 define('_MD_TAD_BLOCKS_TITLE', 'Block title');
 define('_MD_TAD_BLOCKS_TYPE', 'Block type');
 define('_MD_TAD_BLOCKS_POSITION', 'Block location');
@@ -77,6 +78,7 @@ define('_MD_TAD_BLOCKS_TITLE_ICON', 'Put a small icon to the left of the text ti
 define('_MD_TAD_BLOCKS_TITLE_LINK', 'Add title link');
 define('_MD_TAD_BLOCKS_UPLOAD_PIC', 'Please upload image');
 define('_MD_TAD_BLOCKS_WYSIWYG', 'CkEditor');
+define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', 'Open edit with this module');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

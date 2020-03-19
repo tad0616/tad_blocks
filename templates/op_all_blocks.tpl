@@ -1,12 +1,21 @@
 
 <h3><{$smarty.const._MD_TADBLOCKS_BLOCKS}></h3>
 
-<div class="form-check">
-    <label class="form-check-label">
-        <input type="checkbox" class="form-check-input" id="only_visible">
-        <{$smarty.const._MD_TAD_BLOCKS_ONLY_VISIBLE}>
-    </label>
+<form class="form-inline">
+    <label for="only_mod">Only：</label>
+    <select id="only_mod">
+        <option value=""></option>
+        <{foreach from=$alldir key=mod item=dirname}>
+        <option value="<{$mod}>"><{$dirname}></option>
+        <{/foreach}>
+    </select>
+    <div class="form-check">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" id="only_visible" checked>
+            <{$smarty.const._MD_TAD_BLOCKS_ONLY_VISIBLE}>
+        </label>
     </div>
+</form>
 
 <div class="mb-5">
     <{if $theme_type}>
@@ -45,19 +54,19 @@
             }
         }).disableSelection();
 
-        if($('#only_visible').prop('checked')==true){
-            $('.invisible_block').hide();
-        }else{
-            $('.invisible_block').show();
-        }
+
+        invisible_block();
 
         $('#only_visible').change(function(){
-            if($('#only_visible').prop('checked')==true){
-                $('.invisible_block').hide();
-            }else{
-                $('.invisible_block').show();
-            }
+            invisible_block();
         });
+
+
+        $('#only_mod').change(function(){
+            invisible_block();
+        });
+
+
 
         $('.module_id').click(function(){
             var bid=$(this).data('bid');
@@ -113,4 +122,23 @@
 
     });
 
+    function invisible_block(){
+
+        var only_mod=$('#only_mod').val();
+        var only_visible=$('#only_visible').prop('checked');
+
+        if(only_mod!='' && only_visible==true){
+            $('.b-item').hide();
+            $('.visible_block.'+only_mod).show();
+        }else if(only_mod!='' && only_visible!=true){
+            $('.b-item').hide();
+            $('.'+only_mod).show();
+        }else if(only_mod=='' && only_visible==true){
+            $('.b-item').show();
+            $('.invisible_block').hide();
+        }else{
+            $('.b-item').show();
+        }
+
+    }
 </script>

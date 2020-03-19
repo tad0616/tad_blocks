@@ -36,6 +36,7 @@ define('_MD_TAD_BLOCKS_SETTING', '快速設定');
 define('_MD_TAD_ADD_ONE', '新增一組');
 define('_MD_TAD_BLOCKS_MY_BLOCKS', '我的自訂區塊');
 define('_MD_TAD_BLOCKS_ADD_BLOCK', '新增自訂區塊');
+define('_MD_TAD_BLOCKS_CUSTOM_BLOCK', '自訂區塊');
 define('_MD_TAD_BLOCKS_TITLE', '區塊標題');
 define('_MD_TAD_BLOCKS_TYPE', '區塊類型');
 define('_MD_TAD_BLOCKS_POSITION', '區塊位置');
@@ -79,6 +80,7 @@ define('_MD_TAD_BLOCKS_TITLE_ICON', '文字標題左邊放上小圖示');
 define('_MD_TAD_BLOCKS_TITLE_LINK', '標題加上連結');
 define('_MD_TAD_BLOCKS_UPLOAD_PIC', '請上傳圖片');
 define('_MD_TAD_BLOCKS_WYSIWYG', '一般圖文');
+define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', '用本模組開啟編輯');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

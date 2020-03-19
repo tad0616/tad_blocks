@@ -17,35 +17,29 @@
 
             <{/if}>
         </h3>
+        <div class="form-group">
+            <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{$title}>">
+        </div>
+        <div class="form-group">
+            <{if $type}>
+                <{includeq file="$xoops_rootpath/modules/tad_blocks/type/`$type`/sub_type_form.tpl"}>
+            <{else}>
+                <{$editor}>
+            <{/if}>
+        </div>
         <div class="row">
-            <div class="col-sm-9">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{$title}>">
-                </div>
-                <div class="form-group">
-                    <{if $type}>
-                        <{includeq file="$xoops_rootpath/modules/tad_blocks/type/`$type`/sub_type_form.tpl"}>
-                    <{else}>
-                        <{$editor}>
-                    <{/if}>
-                </div>
-
-                <div class="text-center">
-                    <input type="hidden" name="bid" value="<{$bid}>">
-                    <input type="hidden" name="op" value="block_save">
-                    <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_SAVE}></button>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <h4 class="block_side"><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
+            <div class="col-sm-4">
+                <h4><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
                 <{if $theme_type}>
                     <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
                 <{else}>
                     <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>
                 <{/if}>
+            </div>
+            <div class="col-sm-4">
 
                 <{if $bid}>
-                    <h4 class="mt-3"><{$smarty.const._MD_TAD_BLOCKS_SORT}></h4>
+                    <h4><{$smarty.const._MD_TAD_BLOCKS_SORT}></h4>
                     <input class="form-control" type="number" name="TDC[weight]" value="<{$weight}>">
                 <{/if}>
 
@@ -64,10 +58,19 @@
                         </label>
                     </div>
                 </div>
-                <h4 class="mt-3"><{$smarty.const._MD_TAD_BLOCKS_WHO_CAN_SEE}></h4>
+            </div>
+            <div class="col-sm-4">
+                <h4><{$smarty.const._MD_TAD_BLOCKS_WHO_CAN_SEE}></h4>
                 <{$sel_grp}>
             </div>
         </div>
+
+        <div class="text-center" style="margin:30px auto;">
+            <input type="hidden" name="bid" value="<{$bid}>">
+            <input type="hidden" name="op" value="block_save">
+            <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_SAVE}></button>
+        </div>
+
     </form>
 <{else}>
     <!-- 沒有權限時要做的事 -->

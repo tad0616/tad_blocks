@@ -93,3 +93,9 @@ table#footer-position td>label {
     font-size: 99%;
     margin: 10px 0px;
 }
+
+.position_title{
+    font-size: 0.75em;
+    color:rgb(40, 39, 46);
+    display: block;
+}

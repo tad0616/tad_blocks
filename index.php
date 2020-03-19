@@ -81,22 +81,39 @@ function block_form($type = '', $bid = '')
     $xoopsTpl->assign('add_block', $add_block);
     $block = $all = [];
 
+    $myts = \MyTextSanitizer::getInstance();
+
     if ($add_block) {
 
+        $TadDataCenter = new TadDataCenter('tad_blocks');
         if ($bid) {
+
+            $sql2 = "select title,weight,content from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
+            $result2 = $xoopsDB->queryF($sql2) or Utility::web_error($sql2);
+            list($title, $weight, $content) = $xoopsDB->fetchRow($result2);
+            $xoopsTpl->assign('weight', $weight);
+
             $sql = "select * from " . $xoopsDB->prefix("tad_blocks") . " where `bid`='{$bid}' $and_uid ";
             $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
             $all = $xoopsDB->fetchArray($result);
-            foreach ($all as $k => $v) {
-                $$k = $v;
-                // echo "$$k = $v<br>";
-                $xoopsTpl->assign($k, $v);
+            if ($all) {
+                foreach ($all as $k => $v) {
+                    $$k = $v;
+                    $xoopsTpl->assign($k, $v);
+                }
+            } else {
+                $sql = "insert into " . $xoopsDB->prefix("tad_blocks") . " (bid, type, uid, create_date) values('{$bid}','{$type}', '{$uid}', now())";
+                $xoopsDB->queryF($sql) or Utility::web_error($sql);
+
+                $TadDataCenter->set_col('bid', $bid);
+                $TadDataCenter->set_var('auto_col_id', true);
+                $data_arr['title'][0] = $title;
+                $data_arr['content'][0] = $content;
+                // $data_arr['title'][0] = $myts->addSlashes($title);
+                // $data_arr['content'][0] = $myts->addSlashes($content);
+                $TadDataCenter->saveCustomData($data_arr);
             }
 
-            $sql2 = "select title,max(weight) from " . $xoopsDB->prefix("newblocks") . " where  bid='{$all['bid']}'";
-            $result2 = $xoopsDB->queryF($sql2) or Utility::web_error($sql2);
-            list($title, $weight) = $xoopsDB->fetchRow($result2);
-            $xoopsTpl->assign('weight', $weight);
         }
 
         if ($type) {
@@ -105,10 +122,10 @@ function block_form($type = '', $bid = '')
         } else {
             // 傳回陣列的項目
             $arr = ['groups', 'content'];
-            $TadDataCenter = new TadDataCenter('tad_blocks');
             $TadDataCenter->set_col('bid', $bid);
             $block = $TadDataCenter->getData();
             $xoopsTpl->assign('title', $block['title'][0]);
+            $xoopsTpl->assign('side', $block['side'][0]);
             // ddd($block);
             $CkEditor = new CkEditor($module_dirname, "TDC[content]", $block['content'][0]);
             $CkEditor->setHeight(350);
@@ -187,15 +204,6 @@ function block_save($type = '', $TDC = array(), $bid = '')
             $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData();
 
-            // $TadUpFiles = new TadUpFiles($module_dirname);
-            // $TadUpFiles->set_col('bid', $bid);
-            // if (!empty($_FILES['TDC']['tmp_name'])) {
-            //     foreach ($_FILES['TDC']['tmp_name'] as $name => $items) {
-            //         foreach ($items as $sort => $tmp_name) {
-            //             $TadUpFiles->upload_one_file($_FILES['TDC']['name'][$name][$sort], $tmp_name, $_FILES['TDC']['type'][$name][$sort], $_FILES['TDC']['size'][$name][$sort], $width, $thumb_width, $files_sn, $desc, true);
-            //         }
-            //     }
-            // }
         }
 
     } else {
@@ -217,6 +225,8 @@ function block_save($type = '', $TDC = array(), $bid = '')
                         }
                     }
                     $tag2 = "[$tag]" . mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+                } elseif ($tag == 'hide') {
+                    $tag2 = '[hide]';
                 } else {
                     $tag2 = substr($block['title'], $start);
                 }

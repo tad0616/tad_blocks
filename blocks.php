@@ -42,7 +42,7 @@ function all_blocks()
 
     $jeditable = new Jeditable();
     tad_themes_setup();
-    $all_blocks = [];
+    $all_blocks = $alldir = [];
 
     $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname from " . $xoopsDB->prefix("newblocks") . " as a
     left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
@@ -51,6 +51,14 @@ function all_blocks()
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     while ($all = $xoopsDB->fetchArray($result)) {
         $side = $all['side'];
+        $dirname = $all['dirname'];
+
+        if (empty($dirname)) {
+            $alldir['custom'] = _MD_TAD_BLOCKS_CUSTOM_BLOCK;
+        } else {
+            $alldir[$dirname] = $dirname;
+        }
+
         foreach ($tags as $tag) {
             $start = strpos($all['title'], "[$tag]");
             if ($start !== false) {
@@ -65,6 +73,7 @@ function all_blocks()
 
         $all_blocks[$side][] = $all;
     }
+    $xoopsTpl->assign('alldir', $alldir);
 
     $xoopsTpl->assign('all_blocks', $all_blocks);
     Utility::get_jquery(true);
