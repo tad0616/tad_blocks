@@ -21,7 +21,7 @@ $modversion = array();
 
 //---模組基本資訊---//
 $modversion['name'] = _MI_TADBLOCKS_NAME;
-$modversion['version'] = '1.3';
+$modversion['version'] = '1.4';
 $modversion['description'] = _MI_TADBLOCKS_DESC;
 $modversion['author'] = _MI_TADBLOCKS_AUTHOR;
 $modversion['credits'] = _MI_TADBLOCKS_CREDITS;
@@ -32,7 +32,7 @@ $modversion['dirname'] = basename(__DIR__);
 
 //---模組狀態資訊---//
 $modversion['status_version'] = '1.3';
-$modversion['release_date'] = '2020-03-14';
+$modversion['release_date'] = '2020-03-19';
 $modversion['module_website_url'] = 'https://www.tad0616.net';
 $modversion['module_website_name'] = _MI_TADBLOCKS_AUTHOR_WEB;
 $modversion['module_status'] = 'release';
