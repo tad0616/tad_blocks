@@ -9,6 +9,7 @@ function get_content($bid = 0)
     foreach ($default as $k => $v) {
         $xoopsTpl->assign($k, $v);
     }
+    $xoopsTpl->assign('default', $default);
 
     // 傳回陣列的項目
     if ($bid) {

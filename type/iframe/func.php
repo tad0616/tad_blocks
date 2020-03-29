@@ -10,6 +10,8 @@ function get_content($bid = 0)
     foreach ($default as $k => $v) {
         $xoopsTpl->assign($k, $v);
     }
+    $xoopsTpl->assign('default', $default);
+
     // 傳回陣列的項目
     if ($bid) {
         $arr = ['groups'];
@@ -37,7 +39,7 @@ function mk_content($TDC)
 
     $iframe_width = empty($TDC['iframe_width']) ? (int) $default['iframe_width'] : (int) $TDC['iframe_width'];
     $iframe_height = empty($TDC['iframe_height']) ? (int) $default['iframe_height'] : (int) $TDC['iframe_height'];
-    $rate = round($iframe_height / $iframe_width,4) *100;
+    $rate = round($iframe_height / $iframe_width, 4) * 100;
     $url = XOOPS_URL;
     $iframe_url = $myts->htmlSpecialChars($TDC['iframe_url']);
 

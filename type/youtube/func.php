@@ -10,6 +10,8 @@ function get_content($bid = 0)
     foreach ($default as $k => $v) {
         $xoopsTpl->assign($k, $v);
     }
+    $xoopsTpl->assign('default', $default);
+
     // 傳回陣列的項目
     if ($bid) {
         $arr = ['groups'];
@@ -38,7 +40,7 @@ function mk_content($TDC)
     $rate = empty($TDC['rate']) ? $default['rate'] : $myts->htmlSpecialChars($TDC['rate']);
 
     $url = XOOPS_URL;
-    $youtube_id = getYTid($TDC['video_url']);
+    $youtube_id = getYouTubeId($TDC['video_url']);
 
     $content = <<<"EOD"
 <div class="embed-responsive embed-responsive-{$rate}">
@@ -51,7 +53,7 @@ EOD;
 }
 
 //抓取 Youtube ID
-function getYTid($ytURL = '')
+function getYouTubeId($ytURL = '')
 {
     if (0 === mb_strpos($ytURL, 'https://youtu.be/')) {
         return mb_substr($ytURL, 16);

@@ -36,20 +36,17 @@ function my_blocks()
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
     $TadDataCenter = new TadDataCenter($module_dirname);
     $my_blocks = [];
-    $sql = "select * from " . $xoopsDB->prefix("tad_blocks") . " where `uid`='{$uid}' order by create_date desc";
+    $where_uid = $_SESSION['tad_blocks_adm'] ? '' : "where a.`uid`='{$uid}'";
+    $sql = "select a.type , b.* from " . $xoopsDB->prefix("tad_blocks") . " as a
+    left join " . $xoopsDB->prefix("newblocks") . " as b on a.bid=b.bid
+    $where_uid order by a.create_date desc";
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     while ($all = $xoopsDB->fetchArray($result)) {
-
-        $sql2 = "select max(weight) from " . $xoopsDB->prefix("newblocks") . " where  bid='{$all['bid']}'";
-        $result2 = $xoopsDB->queryF($sql2) or Utility::web_error($sql2);
-        list($weight) = $xoopsDB->fetchRow($result2);
-
         $TadDataCenter->set_col('bid', $all['bid']);
         $block = $TadDataCenter->getData();
-        $all['position'] = $position_arr[$block['side'][0]];
+        $all['position'] = $position_arr[$all['side']];
         $all['type'] = $type_arr[$all['type']];
         $all['block'] = $block;
-        $all['weight'] = $weight;
         $my_blocks[] = $all;
     }
 
@@ -67,14 +64,11 @@ function my_blocks()
 //區塊編輯表單
 function block_form($type = '', $bid = '')
 {
-
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr;
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
-
-    $xoopsTpl->assign('type', $type);
 
     //判斷目前使用者是否有：建立自訂區塊
     $add_block = Utility::power_chk($module_dirname, 1);
@@ -84,24 +78,16 @@ function block_form($type = '', $bid = '')
     $myts = \MyTextSanitizer::getInstance();
 
     if ($add_block) {
-
         $TadDataCenter = new TadDataCenter('tad_blocks');
         if ($bid) {
-
-            $sql2 = "select title,weight,content from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
-            $result2 = $xoopsDB->queryF($sql2) or Utility::web_error($sql2);
-            list($title, $weight, $content) = $xoopsDB->fetchRow($result2);
-            $xoopsTpl->assign('weight', $weight);
-
-            $sql = "select * from " . $xoopsDB->prefix("tad_blocks") . " where `bid`='{$bid}' $and_uid ";
+            $sql = "select title,weight,side,content from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
             $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-            $all = $xoopsDB->fetchArray($result);
-            if ($all) {
-                foreach ($all as $k => $v) {
-                    $$k = $v;
-                    $xoopsTpl->assign($k, $v);
-                }
-            } else {
+            list($title, $weight, $side, $content) = $xoopsDB->fetchRow($result);
+
+            $sql = "select type from " . $xoopsDB->prefix("tad_blocks") . " where `bid`='{$bid}' $and_uid ";
+            $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            list($type) = $xoopsDB->fetchRow($result);
+            if (empty($type)) {
                 $sql = "insert into " . $xoopsDB->prefix("tad_blocks") . " (bid, type, uid, create_date) values('{$bid}','{$type}', '{$uid}', now())";
                 $xoopsDB->queryF($sql) or Utility::web_error($sql);
 
@@ -113,7 +99,12 @@ function block_form($type = '', $bid = '')
                 // $data_arr['content'][0] = $myts->addSlashes($content);
                 $TadDataCenter->saveCustomData($data_arr);
             }
+        } else {
+            $sql = "select max(weight) from " . $xoopsDB->prefix("newblocks") . " where  side='{$side}' and visible=1 and isactive=1";
+            $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            list($weight) = $xoopsDB->fetchRow($result);
 
+            $weight++;
         }
 
         if ($type) {
@@ -124,14 +115,17 @@ function block_form($type = '', $bid = '')
             $arr = ['groups', 'content'];
             $TadDataCenter->set_col('bid', $bid);
             $block = $TadDataCenter->getData();
-            $xoopsTpl->assign('title', $block['title'][0]);
-            $xoopsTpl->assign('side', $block['side'][0]);
-            // ddd($block);
             $CkEditor = new CkEditor($module_dirname, "TDC[content]", $block['content'][0]);
             $CkEditor->setHeight(350);
             $editor = $CkEditor->render();
             $xoopsTpl->assign('editor', $editor);
         }
+
+        $xoopsTpl->assign('title', $title);
+        $xoopsTpl->assign('side', $side);
+        $xoopsTpl->assign('weight', $weight);
+        $xoopsTpl->assign('type', $type);
+        $xoopsTpl->assign('bid', $bid);
 
         include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
 
@@ -172,12 +166,6 @@ function block_save($type = '', $TDC = array(), $bid = '')
     $last_modified = time();
 
     if (empty($bid)) {
-
-        $sql = "select max(weight) from " . $xoopsDB->prefix("newblocks") . " where  side='{$side}' and visible=1 and isactive=1";
-        $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-        list($weight) = $xoopsDB->fetchRow($result);
-
-        $weight++;
 
         // 新增區塊
         $sql = "insert into " . $xoopsDB->prefix("newblocks") . " (mid, func_num, options, name, title, content, side, weight, visible, block_type, c_type, isactive, bcachetime, last_modified) values('0', '0', '', '自訂區塊（HTML）', '{$title}', '{$content}', '{$side}', '{$weight}', '1', 'C', 'H', '1', '0', '{$last_modified}')";

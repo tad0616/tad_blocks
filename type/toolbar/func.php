@@ -11,9 +11,11 @@ function get_content($bid = 0)
     foreach ($default as $k => $v) {
         $xoopsTpl->assign($k, $v);
     }
+    $xoopsTpl->assign('default', $default);
+
     // 傳回陣列的項目
     if ($bid) {
-        $arr = ['groups', 'text', 'url', 'img_url'];
+        $arr = ['groups', 'text', 'url', 'img_url', 'target'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
@@ -58,10 +60,11 @@ EOD;
         }
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
         $img_url = !empty($TDC['img_url'][$key]) ? $TDC['img_url'][$key] : $default['img_url'];
+        $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
 
         $content .= <<<"EOD"
         <li>
-            <a href="$url" target="_blank" style="font-size: {$font_size_em}em;"><img src="$img_url" alt="$text" class="$hvr"><p>$text</p></a>
+            <a href="$url"  target="{$target}" style="font-size: {$font_size_em}em;"><img src="$img_url" alt="$text" class="$hvr"><p>$text</p></a>
         </li>
 EOD;
     }

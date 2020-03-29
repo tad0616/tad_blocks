@@ -36,7 +36,7 @@
             <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width: 24px;">
-            <div id="demo_pic" style="width:24px;height:24px;border:1px solid #cfcfcf;background-image:url('<{$img_url}>');background-size:cover;"></div>
+            <div id="demo_pic" style="width:24px;height:24px;border:1px solid #cfcfcf;background-image:url('<{$default.img_url}>');background-size:cover;"></div>
         </td>
         <td style="width: 120px;">
             <input type="file" data-name="img" id="img" class="upload" style="width: 120px;">

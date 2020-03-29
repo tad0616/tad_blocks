@@ -18,6 +18,12 @@
                 <td>
                     <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text}>">
                 </td>
+                <td>
+                    <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                        <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                        <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+                    </select>
+                </td>
                 <td style="width: 130px">
                     <input type="text" name="TDC[m_color][<{$i}>]" id="m_color<{$i}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
                 </td>
@@ -33,7 +39,7 @@
             <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width:100px;">
-            <input type="text" data-name="TDC[icon]" id="icon" class="icp demo form-control" value="<{$icon}>">
+            <input type="text" data-name="TDC[icon]" id="icon" class="icp demo form-control" value="<{$default.icon}>">
         </td>
         <td>
             <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>">
@@ -41,8 +47,14 @@
         <td>
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>">
         </td>
+        <td>
+            <select data-name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+            </select>
+        </td>
         <td style="width: 130px">
-            <input type="text" data-name="TDC[m_color]" id="m_color" class="form-control color-picker" value="<{$m_color}>">
+            <input type="text" data-name="TDC[m_color]" id="m_color" class="form-control color-picker" value="<{$default.m_color}>">
         </td>
     </tr>
 </table>

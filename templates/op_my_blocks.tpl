@@ -18,12 +18,12 @@
             <tr>
                 <td>
                     <span class="badge badge-info"><{$b.bid}></span>
-                    <{$b.block.title.0}>
+                    <{$b.title}>
                 </td>
                 <td>
                     <{$b.type}>
                 </td>
-                <td><{$b.position}></td>
+                <td><{$b.position}><{$b.weight}></td>
                 <td>
                     <{if $b.block.display.0==-1}>
                         <{$smarty.const._MD_TAD_BLOCKS_ONLY_HOME}>

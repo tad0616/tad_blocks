@@ -8,15 +8,21 @@
                 <td style="width: 32px;">
                     <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
                 </td>
+                <td style="width: 120px;">
+                    <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 120px;">
+                    <input type="hidden" name="TDC[img_url][<{$i}>]" id="img_url<{$i}>" value="<{$img_url.$i}>">
+                </td>
                 <td>
                     <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>" value="<{$url.$i}>">
                 </td>
                 <td>
                     <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>" value="<{$text}>">
                 </td>
-                <td style="width: 140px;">
-                    <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 140px;">
-                    <input type="hidden" name="TDC[img_url][<{$i}>]" id="img_url<{$i}>" value="<{$img_url.$i}>">
+                <td>
+                    <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                        <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                        <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+                    </select>
                 </td>
             </tr>
         <{/foreach}>
@@ -30,7 +36,11 @@
             <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width: 32px;">
-            <div id="demo_pic" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url}>');background-size:cover;"></div>
+            <div id="demo_pic" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$default.img_url}>');background-size:cover;"></div>
+        </td>
+        <td style="width: 120px;">
+            <input type="file" data-name="img" id="img" class="upload" style="width: 120px;">
+            <input type="hidden" data-name="TDC[img_url]" id="img_url">
         </td>
         <td>
             <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>">
@@ -38,9 +48,11 @@
         <td>
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>">
         </td>
-        <td style="width: 140px;">
-            <input type="file" data-name="img" id="img" class="upload" style="width: 140px;">
-            <input type="hidden" data-name="TDC[img_url]" id="img_url">
+        <td>
+            <select data-name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                <option value="_self" <{if $default.target == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                <option value="_blank" <{if $default.target != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+            </select>
         </td>
     </tr>
 </table>

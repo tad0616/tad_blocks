@@ -18,7 +18,7 @@
             <{/if}>
         </h3>
         <div class="form-group">
-            <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{$title}>">
+            <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{if $title}><{$title}><{else}><{$default.title}><{/if}>">
         </div>
         <div class="form-group">
             <{if $type}>
@@ -38,10 +38,8 @@
             </div>
             <div class="col-sm-4">
 
-                <{if $bid}>
-                    <h4><{$smarty.const._MD_TAD_BLOCKS_SORT}></h4>
-                    <input class="form-control" type="number" name="TDC[weight]" value="<{$weight}>">
-                <{/if}>
+                <h4><{$smarty.const._MD_TAD_BLOCKS_SORT}></h4>
+                <input class="form-control" type="number" name="TDC[weight]" value="<{$weight}>">
 
                 <h4 class="mt-3"><{$smarty.const._MD_TAD_BLOCKS_DISPLAY}></h4>
                 <div class="form-group">

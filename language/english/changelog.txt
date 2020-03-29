@@ -1,3 +1,9 @@
+tad_blocks 1.5 (2020-03-29 released)
+=====================================================
+1. Add "Open Target" setting to "Menu" and "Toolbar".
+2. Customize the block list to display the actual block name, location and sort
+3. Fix the problem of duplication of functions with other modules.
+
 tad_blocks 1.4 (2020-03-19 released)
 =====================================================
 1. Fixed the problem that some block locations would be incorrect when editing blocks.
