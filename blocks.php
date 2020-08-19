@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\FancyBox;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\Jeditable;
@@ -124,16 +125,13 @@ function all_blocks()
     // $fancybox->renderForm('ajax.php',false);
 }
 
-function save_logo()
+function save_and_re_build_logo()
 {
+    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
+
     $TadDataCenter = new TadDataCenter('tad_blocks');
     $TadDataCenter->set_col('block_logo', 0);
     $TadDataCenter->saveData();
-}
-
-function re_build_logo()
-{
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
 
     $sql = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
     $result = $xoopsDB->query($sql) or die($sql);
@@ -158,26 +156,16 @@ function re_build_logo()
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$TDC = system_CleanVars($_REQUEST, 'TDC', array(), 'array');
-$type = system_CleanVars($_REQUEST, 'type', '', 'string');
-$bid = system_CleanVars($_REQUEST, 'bid', '', 'int');
+$op = Request::getString('op');
+$TDC = Request::getArray('TDC');
+$type = Request::getString('type');
+$bid = Request::getInt('bid');
 
 switch ($op) {
 
-    case 're_build_logo':
-        re_build_logo();
+    case 'save_and_re_build_logo':
+        save_and_re_build_logo();
         header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    case 'save_logo':
-        save_logo();
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    case 'mkTitlePic':
-        mkTitlePic($title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
         exit;
 
     case "block_form":

@@ -1,35 +1,37 @@
 <{$migrate}>
 <link href="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome-iconpicker/css/fontawesome-iconpicker.css" rel="stylesheet">
 <script src="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js"></script>
-
+<div id="save_msg"></div>
 <table class="table" id="new_form">
-    <{if $text}>
-        <{foreach from=$text key=i item=text}>
-            <tr id="form_data<{$i}>">
-                <td style="width:40px;">
-                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
-                </td>
-                <td style="width:100px;">
-                    <input type="text" name="TDC[icon][<{$i}>]" id="icon<{$i}>" class="icp demo form-control" value="<{$icon.$i}>">
-                </td>
-                <td>
-                    <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
-                </td>
-                <td>
-                    <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text}>">
-                </td>
-                <td>
-                    <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
-                        <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
-                        <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
-                    </select>
-                </td>
-                <td style="width: 130px">
-                    <input type="text" name="TDC[m_color][<{$i}>]" id="m_color<{$i}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
-                </td>
-            </tr>
-        <{/foreach}>
-    <{/if}>
+    <tbody id="sort">
+        <{if $text}>
+            <{foreach from=$text key=i item=text}>
+                <tr id="form_data<{$i}>">
+                    <td style="width:40px;">
+                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                    </td>
+                    <td style="width:100px;">
+                        <input type="text" name="TDC[icon][<{$i}>]" id="icon<{$i}>" class="icp demo form-control" value="<{$icon.$i}>">
+                    </td>
+                    <td>
+                        <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
+                    </td>
+                    <td>
+                        <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text}>">
+                    </td>
+                    <td>
+                        <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                            <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                            <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+                        </select>
+                    </td>
+                    <td style="width: 130px">
+                        <input type="text" name="TDC[m_color][<{$i}>]" id="m_color<{$i}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
+                    </td>
+                </tr>
+            <{/foreach}>
+        <{/if}>
+    </tbody>
 </table>
 
 <!--表單樣板-->
@@ -60,21 +62,32 @@
 </table>
 
 <div class="text-right">
-    <a href="#block_setup" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
+    <a href="#xoops_contents" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._MENU_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>"> px<br>
-    <{$smarty.const._MENU_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align">
-    <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._MENU_LEFT}></option>
-    <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._MENU_CENTER}></option>
-    <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._MENU_RIGHT}></option>
+    <{$smarty.const._MENU_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>" class="my-input"> px<br>
+    <{$smarty.const._MENU_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align" class="my-input">
+        <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._MENU_LEFT}></option>
+        <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._MENU_CENTER}></option>
+        <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._MENU_RIGHT}></option>
     </select>
 </div>
 
 <script type="text/javascript">
 
     $(document).ready(function(){
+        <{if $bid}>
+            $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
+                var order = $(this).sortable('serialize');
+                order = order + '&col[]=icon&col[]=url&col[]=text&col[]=target&col[]=m_color&op=save_sort&bid=<{$bid}>';
+                console.log(order);
+                $.post('ajax.php', order, function(theResponse){
+                    $('#save_msg').html(theResponse);
+                });
+                }
+            });
+        <{/if}>
         <{if $text}>
             var form_index=<{$i}>;
         <{else}>

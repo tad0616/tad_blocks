@@ -1,3 +1,13 @@
+tad_blocks 1.6 (Released on 2020-08-20)
+=============================================================
+1. Add sorting function to "General Link", "Running Light", "Nice Toolbar", "Nice Menu".
+2. Add "Line Feed Only", "Don't Show Icons" and "Uniform Width" in "General Link".
+If you manually delete a custom block, you can delete advanced block settings or regenerate the block.
+4. Fix the problem that the title will repeat the tag when editing.
+5.List, edit form will show whether the current block is enabled or not, and you can switch directly.
+6.The list can directly present the pictures or icons applied to the domain.
+
+
 tad_blocks 1.5 (2020-03-29 released)
 =====================================================
 1. Add "Open Target" setting to "Menu" and "Toolbar".

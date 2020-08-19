@@ -1,32 +1,35 @@
+<div id="save_msg"></div>
 <table class="table" id="new_form">
-    <{if $text}>
-        <{foreach from=$text key=i item=text}>
-            <tr id="form_data<{$i}>">
-                <td style="width:40px;">
-                    <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
-                </td>
-                <td style="width: 32px;">
-                    <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
-                </td>
-                <td style="width: 120px;">
-                    <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 120px;">
-                    <input type="hidden" name="TDC[img_url][<{$i}>]" id="img_url<{$i}>" value="<{$img_url.$i}>">
-                </td>
-                <td>
-                    <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>" value="<{$url.$i}>">
-                </td>
-                <td>
-                    <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>" value="<{$text}>">
-                </td>
-                <td>
-                    <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
-                        <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
-                        <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
-                    </select>
-                </td>
-            </tr>
-        <{/foreach}>
-    <{/if}>
+    <tbody id="sort">
+        <{if $text}>
+            <{foreach from=$text key=i item=text}>
+                <tr id="form_data<{$i}>">
+                    <td style="width:40px;">
+                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                    </td>
+                    <td style="width: 32px;">
+                        <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
+                    </td>
+                    <td style="width: 120px;">
+                        <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 120px;">
+                        <input type="hidden" name="TDC[img_url][<{$i}>]" id="img_url<{$i}>" value="<{$img_url.$i}>">
+                    </td>
+                    <td>
+                        <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>" value="<{$url.$i}>">
+                    </td>
+                    <td>
+                        <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>" value="<{$text}>">
+                    </td>
+                    <td>
+                        <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                            <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                            <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+                        </select>
+                    </td>
+                </tr>
+            <{/foreach}>
+        <{/if}>
+    </tbody>
 </table>
 
 <!--表單樣板-->
@@ -58,23 +61,23 @@
 </table>
 
 <div class="text-right">
-    <a href="#block_setup" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
+    <a href="#xoops_contents" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._TOOLBAR_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>"> px<br>
-    <{$smarty.const._TOOLBAR_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align">
-    <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._TOOLBAR_LEFT}></option>
-    <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._TOOLBAR_CENTER}></option>
-    <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._TOOLBAR_RIGHT}></option>
+    <{$smarty.const._TOOLBAR_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>" class="my-input"> px<br>
+    <{$smarty.const._TOOLBAR_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align" class="my-input">
+        <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._TOOLBAR_LEFT}></option>
+        <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._TOOLBAR_CENTER}></option>
+        <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._TOOLBAR_RIGHT}></option>
     </select><br>
-    <{$smarty.const._TOOLBAR_HVR}><select name="TDC[hvr]" id="hvr">
-    <option value="hvr-wobble-vertical" <{if $hvr=='hvr-wobble-vertical'}>selected<{/if}>>Wobble Vertical</option>
-    <option value="hvr-wobble-top" <{if $hvr=='hvr-wobble-top'}>selected<{/if}>>Wobble Top</option>
-    <option value="hvr-wobble-bottom" <{if $hvr=='hvr-wobble-bottom'}>selected<{/if}>>Wobble Bottom</option>
-    <option value="hvr-buzz-out" <{if $hvr=='hvr-buzz-out'}>selected<{/if}>>Buzz Out</option>
-    <option value="hvr-grow-shadow" <{if $hvr=='hvr-grow-shadow'}>selected<{/if}>>Grow Shadow</option>
-    <option value="hvr-float-shadow" <{if $hvr=='hvr-float-shadow'}>selected<{/if}>>Float Shadow</option>
+    <{$smarty.const._TOOLBAR_HVR}><select name="TDC[hvr]" id="hvr" class="my-input">
+        <option value="hvr-wobble-vertical" <{if $hvr=='hvr-wobble-vertical'}>selected<{/if}>>Wobble Vertical</option>
+        <option value="hvr-wobble-top" <{if $hvr=='hvr-wobble-top'}>selected<{/if}>>Wobble Top</option>
+        <option value="hvr-wobble-bottom" <{if $hvr=='hvr-wobble-bottom'}>selected<{/if}>>Wobble Bottom</option>
+        <option value="hvr-buzz-out" <{if $hvr=='hvr-buzz-out'}>selected<{/if}>>Buzz Out</option>
+        <option value="hvr-grow-shadow" <{if $hvr=='hvr-grow-shadow'}>selected<{/if}>>Grow Shadow</option>
+        <option value="hvr-float-shadow" <{if $hvr=='hvr-float-shadow'}>selected<{/if}>>Float Shadow</option>
     </select>
 </div>
 
@@ -83,6 +86,17 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
+        <{if $bid}>
+            $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
+                var order = $(this).sortable('serialize');
+                order = order + '&col[]=img_url&col[]=url&col[]=text&col[]=target&op=save_sort&bid=<{$bid}>';
+                console.log(order);
+                $.post('ajax.php', order, function(theResponse){
+                    $('#save_msg').html(theResponse);
+                });
+                }
+            });
+        <{/if}>
         <{if $text}>
             var form_index=<{$i}>;
         <{else}>

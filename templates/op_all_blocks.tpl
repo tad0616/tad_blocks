@@ -1,8 +1,10 @@
 
-<h3><{$smarty.const._MD_TADBLOCKS_BLOCKS}></h3>
+<h3>
+<{$smarty.const._MD_TADBLOCKS_BLOCKS}>
+    <a href="index.php?op=block_form#xoops_contents" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a></h3>
 
 <form class="form-inline">
-    <label for="only_mod">Only：</label>
+    <label for="only_mod"><{$smarty.const._MD_TAD_BLOCKS_ONLY}></label>
     <select id="only_mod">
         <option value=""></option>
         <{foreach from=$alldir key=mod item=dirname}>

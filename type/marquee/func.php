@@ -13,7 +13,7 @@ function get_content($bid = 0)
 
     // 傳回陣列的項目
     if ($bid) {
-        $arr = ['groups', 'content'];
+        $arr = ['groups', 'content', 'url', 'target'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
@@ -37,7 +37,11 @@ function mk_content($TDC)
     $myts = \MyTextSanitizer::getInstance();
     $marquee = '';
     foreach ($TDC['content'] as $key => $item) {
-        $marquee .= '<li>' . $item . '</li>';
+        if (!empty($TDC['url'][$key])) {
+            $marquee .= '<li><a href="' . $TDC['url'][$key] . '" target="' . $TDC['target'][$key] . '">' . $item . '</a></li>';
+        } else {
+            $marquee .= '<li>' . $item . '</li>';
+        }
     }
 
     $font_size = empty($TDC['font_size']) ? $default['font_size'] : (int) $TDC['font_size'];

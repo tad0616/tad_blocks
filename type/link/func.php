@@ -13,8 +13,6 @@ function get_content($bid = 0)
     }
     $xoopsTpl->assign('default', $default);
 
-    $xoopsTpl->assign('default', $default);
-
     // 傳回陣列的項目
     if ($bid) {
         $arr = ['groups', 'text', 'url', 'target', 'img_url'];
@@ -43,6 +41,8 @@ function mk_content($TDC)
 
     $show_type = empty($TDC['show_type']) ? $default['show_type'] : $TDC['show_type'];
     $item_css = empty($TDC['item_css']) ? $default['item_css'] : $TDC['item_css'];
+    $hide_pic = empty($TDC['hide_pic']) ? $default['hide_pic'] : $TDC['hide_pic'];
+    $pic_width = empty($TDC['pic_width']) ? $default['pic_width'] : $TDC['pic_width'];
 
     $url = XOOPS_URL;
 
@@ -52,8 +52,11 @@ function mk_content($TDC)
         $content = '<ol style="list-style-position:inside;">';
     } elseif ($show_type == 'table') {
         $content = '<table class="table table-bordered table-condensed table-hover">';
+    } elseif ($show_type == 'none') {
+        $content = '';
     } else {
-        $content = '<ul class="vertical_menu">';
+        $content = '<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="' . XOOPS_URL . '/modules/tadtools/css/vertical_menu.css">
+        <ul class="vertical_menu">';
     }
 
     foreach ($TDC['url'] as $key => $url) {
@@ -62,7 +65,11 @@ function mk_content($TDC)
         }
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
         $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
-        $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" style="margin-right: 4px;">' : '';
+        $widht = !empty($pic_width) ? "width: {$pic_width}px;" : '';
+        $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" style="margin-right: 4px;' . $widht . '">' : '';
+        if ($hide_pic == 'hide') {
+            $icon = '';
+        }
 
         if ($show_type == 'ul' or $show_type == 'ol') {
             $content .= <<<"EOD"
@@ -72,7 +79,10 @@ EOD;
             $content .= <<<"EOD"
 <tr><td style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></td></tr>
 EOD;
-
+        } elseif ($show_type == 'none') {
+            $content .= <<<"EOD"
+<div><a href="$url" target="{$target}">{$icon}{$text}</a></div>
+EOD;
         } else {
             $content .= <<<"EOD"
 <li style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></li>
@@ -86,6 +96,8 @@ EOD;
         $content .= '</ol>';
     } elseif ($show_type == 'table') {
         $content .= '</table>';
+    } elseif ($show_type == 'none') {
+        $content .= '';
     } else {
         $content .= '</ul>';
     }

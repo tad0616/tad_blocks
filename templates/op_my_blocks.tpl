@@ -1,6 +1,6 @@
 <h3>
     <{$smarty.const._MD_TAD_BLOCKS_MY_BLOCKS}>
-    <a href="index.php?op=block_form#block_setup" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a>
+    <a href="index.php?op=block_form#xoops_contents" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a>
 </h3>
 
 <table class="table">
@@ -17,8 +17,19 @@
         <{foreach from=$my_blocks key=i item=b}>
             <tr>
                 <td>
-                    <span class="badge badge-info"><{$b.bid}></span>
-                    <{$b.title}>
+                    <{if $b.bid}>
+                        <{if $b.visible=='1'}>
+                            <a href="ajax.php?op=change_newblock&bid=<{$b.bid}>&col=visible&val=0"><img src="images/yes.gif" alt="enable"></a>
+                        <{else}>
+                            <a href="ajax.php?op=change_newblock&bid=<{$b.bid}>&col=visible&val=1"><img src="images/no.gif" alt="unable"></a>
+                        <{/if}>
+                        <span class="badge badge-info"><{$b.bid}></span>
+                        <{$b.clean_title}>
+                        <{$b.tag}>
+                        <{$b.pic}>
+                    <{else}>
+                        已刪除 <{$b.bbid}> 自訂區塊
+                    <{/if}>
                 </td>
                 <td>
                     <{$b.type}>
@@ -32,8 +43,13 @@
                     <{/if}>
                 </td>
                 <td>
-                    <a href="javascript:block_del(<{$b.bid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
-                    <a href="index.php?op=block_form&bid=<{$b.bid}>#block_setup" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
+                    <{if $b.bid}>
+                        <a href="javascript:block_del(<{$b.bid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
+                        <a href="index.php?op=block_form&bid=<{$b.bid}>#xoops_contents" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
+                    <{else}>
+                        <a href="javascript:block_del(<{$b.bbid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
+                        <a href="index.php?op=block_form&bbid=<{$b.bbid}>#xoops_contents" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
+                    <{/if}>
                 </td>
             </tr>
         <{/foreach}>

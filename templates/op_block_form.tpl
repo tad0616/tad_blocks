@@ -2,14 +2,20 @@
 <{if $add_block}>
     <!-- 有權限時要做的事 -->
     <form method="post" action="index.php" id="block_setup" enctype="multipart/form-data">
-        <h3>
+        <h3 class="my">
             <{if $bid}>
+                <{if $visible=='1'}>
+                    <a href="ajax.php?op=change_newblock&bid=<{$bid}>&col=visible&val=0"><img src="images/yes.gif" alt="enable"></a>
+                <{else}>
+                    <a href="ajax.php?op=change_newblock&bid=<{$bid}>&col=visible&val=1"><img src="images/no.gif" alt="unable"></a>
+                <{/if}>
+
                 <{$smarty.const._MD_TAD_BLOCKS_MODIFY}>
                 <{$title}>
                 <input type="hidden" name="type" value="<{$type}>">
             <{else}>
                 <{$smarty.const._MD_TAD_BLOCKS_NEW}>
-                <select name="type" onchange="location.href='index.php?op=block_form&type='+this.value+'#block_setup'">
+                <select name="type" onchange="location.href='index.php?op=block_form&type='+this.value+'#xoops_contents'">
                     <{foreach from=$type_arr key=val item=txt}>
                         <option value="<{$val}>" <{if $type==$val}>selected<{/if}>><{$txt}></option>
                     <{/foreach}>
@@ -65,6 +71,7 @@
 
         <div class="text-center" style="margin:30px auto;">
             <input type="hidden" name="bid" value="<{$bid}>">
+            <input type="hidden" name="bbid" value="<{$bbid}>">
             <input type="hidden" name="op" value="block_save">
             <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_SAVE}></button>
         </div>

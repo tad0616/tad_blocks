@@ -66,9 +66,8 @@ define('_MD_TAD_BLOCKS_LOGO_SHADOW_SIZE', '陰影大小');
 define('_MD_TAD_BLOCKS_LOGO_SHADOW_X', '陰影左右位置');
 define('_MD_TAD_BLOCKS_LOGO_SHADOW_Y', '陰影上下位置');
 define('_MD_TAD_BLOCKS_LOGO_SELECT_FONT', '選擇字型');
-define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', '根據底下設定，重新產生所有區塊的標題圖片');
+define('_MD_TAD_BLOCKS_LOGO_MAKE_PNG', '儲存設定並產生所有區塊的標題圖片');
 define('_MD_TAD_BLOCKS_LOGO_NEED_FONT', '請至少<a href="' . XOOPS_URL . '/modules/tad_themes/admin/font2pic.php">至logo設計</a>先上傳一個字型');
-define('_MD_TAD_BLOCKS_LOGO_SAVE_PIC', '儲存圖片');
 define('_MD_TAD_BLOCKS_LOGO_SAVE_AS_LOGO', '存為logo');
 define('_MD_TAD_BLOCKS_LOGO_DEMO_BGCOLOR', '範例背景色：');
 define('_MD_TAD_BLOCKS_LOGO_HELP', '可以不上傳檔案，若未上傳檔案，系統會自動根據「區塊標題設定」自動產生對應圖片');
@@ -81,6 +80,8 @@ define('_MD_TAD_BLOCKS_TITLE_LINK', '標題加上連結');
 define('_MD_TAD_BLOCKS_UPLOAD_PIC', '請上傳圖片');
 define('_MD_TAD_BLOCKS_WYSIWYG', '一般圖文');
 define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', '用本模組開啟編輯');
+define('_MD_TAD_BLOCKS_ONLY', '僅顯示：');
+define('_MD_TADBLOCKS_LIST', '進階區塊列表');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

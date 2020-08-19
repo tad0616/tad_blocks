@@ -16,3 +16,7 @@ define('_MARQUEE_RIDGE', 'ridge');
 define('_MARQUEE_INSET', 'inset');
 define('_MARQUEE_OUTSET', 'outset');
 define('_MARQUEE_BORDER_COLOR', 'Border color:');
+define('_MARQUEE_ADD_TARGET', 'target');
+define('_MARQUEE_ADD_TARGET_SELF', 'self');
+define('_MARQUEE_ADD_TARGET_BLANK', 'blank');
+define('_MARQUEE_ADD_URL', 'Please enter a URL (unnecessary)');

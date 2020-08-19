@@ -1,4 +1,5 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
@@ -177,18 +178,39 @@ function update_title($bid, $title = '', $need_tag = '', $link_url = '')
     change_newblock($bid, 'title', $new_title);
     die($title);
 }
+
+function save_sort()
+{
+    global $xoopsDB;
+    $bid = (int) $_POST['bid'];
+    foreach ($_POST['col'] as $col) {
+        $sql = "update " . $xoopsDB->prefix("tad_blocks_data_center") . " set `data_sort`= `data_sort` + 10000 where `col_name`='bid' and `col_sn`='{$bid}' and `data_name`='{$col}'";
+        $xoopsDB->queryF($sql) or die(_TAD_SORT_FAIL . " (" . date("Y-m-d H:i:s") . ")" . $sql);
+    }
+
+    $sort = 1;
+    foreach ($_POST['form'] as $item) {
+        $old_sort = (int) str_replace('data', '', $item) + 10000;
+        foreach ($_POST['col'] as $col) {
+            $sql = "update " . $xoopsDB->prefix("tad_blocks_data_center") . " set `data_sort`='{$sort}' where`col_name`='bid' and `col_sn`='{$bid}' and `data_name`='{$col}' and `data_sort`='{$old_sort}'";
+            $xoopsDB->queryF($sql) or die(_TAD_SORT_FAIL . " (" . date("Y-m-d H:i:s") . ")" . $sql);
+        }
+        $sort++;
+    }
+    die(_TAD_SORTED . "(" . date("Y-m-d H:i:s") . ")");
+}
+
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$op = system_CleanVars($_REQUEST, 'op', '', 'string');
-$bid = system_CleanVars($_REQUEST, 'bid', '', 'int');
-$module_id = system_CleanVars($_REQUEST, 'module_id', '', 'string');
-$col = system_CleanVars($_REQUEST, 'col', '', 'string');
-$val = system_CleanVars($_REQUEST, 'val', '', 'string');
-$weight = system_CleanVars($_REQUEST, 'weight', '', 'int');
-$side = system_CleanVars($_REQUEST, 'side', '', 'int');
-$title = system_CleanVars($_REQUEST, 'value', '', 'string');
-$tag = system_CleanVars($_REQUEST, 'tag', '', 'string');
-$link_url = system_CleanVars($_REQUEST, 'link_url', '', 'string');
+$op = Request::getString('op');
+$bid = Request::getInt('bid');
+$module_id = Request::getString('module_id');
+$col = Request::getString('col');
+$val = Request::getString('val');
+$weight = Request::getInt('weight');
+$side = Request::getInt('side');
+$title = Request::getString('title');
+$tag = Request::getString('tag');
+$link_url = Request::getString('link_url');
 
 switch ($op) {
 
@@ -202,6 +224,7 @@ switch ($op) {
 
     case "change_newblock":
         change_newblock($bid, $col, $val);
+        header("location: {$_SERVER['HTTP_REFERER']}");
         exit;
 
     case "visible":
@@ -222,6 +245,10 @@ switch ($op) {
 
     case "echo":
         die("<img src='$val'>");
+
+    case "save_sort":
+        save_sort();
+        exit;
 
 }
 

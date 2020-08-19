@@ -16,3 +16,7 @@ define('_MARQUEE_RIDGE', '凸線');
 define('_MARQUEE_INSET', '嵌入線');
 define('_MARQUEE_OUTSET', '浮出線');
 define('_MARQUEE_BORDER_COLOR', '框線顏色：');
+define('_MARQUEE_ADD_TARGET', '開啟位置');
+define('_MARQUEE_ADD_TARGET_SELF', '本視窗');
+define('_MARQUEE_ADD_TARGET_BLANK', '新視窗');
+define('_MARQUEE_ADD_URL', '請輸入網址（非必要）');
