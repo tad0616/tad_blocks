@@ -28,7 +28,7 @@
     <a href="<{$xoops_url}>/modules/system/admin.php?fct=blocksadmin&op=edit&bid=<{$b.bid}>" target="_blank"><img src="images/wrench.png" alt="<{$smarty.const._TAD_EDIT}>" data-toggle="tooltip" title="<{$smarty.const._TAD_EDIT}>"></a>
 
     <{if $b.dirname=='' and $b.c_type=='H'}>
-        <a href="index.php?op=block_form&bid=<{$b.bid}>#xoops_contents"><img src="images/pencil.png" alt="<{$smarty.const._MD_TAD_BLOCKS_OPEN_WIDTH_TB}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_OPEN_WIDTH_TB}>"></a>
+        <a href="index.php?op=block_form&bid=<{$b.bid}>"><img src="images/pencil.png" alt="<{$smarty.const._MD_TAD_BLOCKS_OPEN_WIDTH_TB}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_OPEN_WIDTH_TB}>"></a>
     <{/if}>
 
 

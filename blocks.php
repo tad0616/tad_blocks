@@ -51,7 +51,7 @@ function all_blocks()
     order by a.side, a.weight";
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     while ($all = $xoopsDB->fetchArray($result)) {
-        $side = $all['side'];
+        $side    = $all['side'];
         $dirname = $all['dirname'];
 
         if (empty($dirname)) {
@@ -64,7 +64,7 @@ function all_blocks()
             $start = strpos($all['title'], "[$tag]");
             if ($start !== false) {
                 $all['title'] = substr($all['title'], 0, $start);
-                $all[$tag] = true;
+                $all[$tag]    = true;
             } else {
                 $all[$tag] = false;
             }
@@ -100,16 +100,16 @@ function all_blocks()
             $xoopsTpl->assign($key, $value[0]);
         }
     } else {
-        $f = array_keys($fonts);
+        $f        = array_keys($fonts);
         $data_arr = [
-            'size' => [24],
-            'border_size' => [1],
-            'shadow_size' => [1],
-            'color' => ['#ffffff'],
+            'size'         => [24],
+            'border_size'  => [1],
+            'shadow_size'  => [1],
+            'color'        => ['#ffffff'],
             'border_color' => ['#005f86'],
             'shadow_color' => ['#3b3b3b'],
-            'shadow_x' => [1],
-            'shadow_y' => [1],
+            'shadow_x'     => [1],
+            'shadow_y'     => [1],
             'font_file_sn' => [$f[0]],
         ];
         $TadDataCenter->saveCustomData($data_arr);
@@ -133,7 +133,7 @@ function save_and_re_build_logo()
     $TadDataCenter->set_col('block_logo', 0);
     $TadDataCenter->saveData();
 
-    $sql = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
+    $sql    = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
     $result = $xoopsDB->query($sql) or die($sql);
     while (list($bid, $title) = $xoopsDB->fetchRow($result)) {
         foreach ($tags as $tag) {
@@ -156,10 +156,12 @@ function save_and_re_build_logo()
 }
 
 /*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$TDC = Request::getArray('TDC');
+include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+$TDC = system_CleanVars($_REQUEST, 'TDC', '', 'array');
+$op  = Request::getString('op');
+// $TDC = Request::getArray('TDC');
 $type = Request::getString('type');
-$bid = Request::getInt('bid');
+$bid  = Request::getInt('bid');
 
 switch ($op) {
 

@@ -70,7 +70,7 @@ function my_blocks()
     }
 
     if (empty($my_blocks)) {
-        header("location:index.php?op=block_form#xoops_contents");
+        header("location:index.php?op=block_form");
         exit;
     } else {
         $SweetAlert = new SweetAlert();
@@ -339,8 +339,10 @@ function block_del($bid = '')
 }
 
 /*-----------執行動作判斷區----------*/
+include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
+$TDC = system_CleanVars($_REQUEST, 'TDC', '', 'array');
 $op = Request::getString('op');
-$TDC = Request::getArray('TDC');
+// $TDC = Request::getArray('TDC');
 $type = Request::getString('type');
 $bid = Request::getInt('bid');
 $bbid = Request::getInt('bbid');

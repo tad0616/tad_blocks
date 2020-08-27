@@ -1,7 +1,7 @@
 
 <h3>
 <{$smarty.const._MD_TADBLOCKS_BLOCKS}>
-    <a href="index.php?op=block_form#xoops_contents" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a></h3>
+    <a href="index.php?op=block_form" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a></h3>
 
 <form class="form-inline">
     <label for="only_mod"><{$smarty.const._MD_TAD_BLOCKS_ONLY}></label>

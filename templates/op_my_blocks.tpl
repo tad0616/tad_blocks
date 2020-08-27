@@ -1,6 +1,6 @@
 <h3>
     <{$smarty.const._MD_TAD_BLOCKS_MY_BLOCKS}>
-    <a href="index.php?op=block_form#xoops_contents" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a>
+    <a href="index.php?op=block_form" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_ADD_BLOCK}></a>
 </h3>
 
 <table class="table">
@@ -45,10 +45,10 @@
                 <td>
                     <{if $b.bid}>
                         <a href="javascript:block_del(<{$b.bid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
-                        <a href="index.php?op=block_form&bid=<{$b.bid}>#xoops_contents" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
+                        <a href="index.php?op=block_form&bid=<{$b.bid}>" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
                     <{else}>
                         <a href="javascript:block_del(<{$b.bbid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
-                        <a href="index.php?op=block_form&bbid=<{$b.bbid}>#xoops_contents" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
+                        <a href="index.php?op=block_form&bbid=<{$b.bbid}>" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
                     <{/if}>
                 </td>
             </tr>
