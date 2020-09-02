@@ -29,7 +29,7 @@
     transition: 0.2s;
 }
 
-.shadow {
+.R_menu_bot>.shadow {
     width: 78px;
     height: 45px;
     left: -27px;
@@ -39,7 +39,7 @@
     opacity: 0.2;
 }
 
-.icon {
+.R_menu_bot>.icon {
     width: 100%;
     height: 45px;
     top: -45px;
@@ -50,7 +50,7 @@
     text-shadow: 1px 1px 2px #000000;
 }
 
-.fa {
+.R_menu_bot .fa {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
@@ -59,7 +59,7 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-.word {
+.R_menu_bot>.word {
     width: 100%;
     height: 45px;
     top: -90px;

@@ -51,12 +51,12 @@ function mk_content($TDC)
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/menu/r_menu.css" rel="stylesheet" type="text/css">
 <style>
-.word {
+.R_menu_bot>.word {
     font-size: {$font_size_em}em;
     text-align: {$text_align};
     left: {$left}px;
 }
-.icon {
+.R_menu_bot>.icon {
     width: 100%;
     height: 45px;
     top: -45px;

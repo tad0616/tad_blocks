@@ -26,6 +26,7 @@ table#footer-position td>label {
     color: white;
     margin: 0px;
     padding: 4px;
+
 }
 
 .visible_block {
@@ -95,7 +96,7 @@ table#footer-position td>label {
 }
 
 .position_title{
-    font-size: 0.75em;
+    font-size: 0.75rem;
     color:rgb(40, 39, 46);
     display: block;
 }
