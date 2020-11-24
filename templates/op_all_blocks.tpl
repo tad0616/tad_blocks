@@ -8,7 +8,7 @@
     <select id="only_mod">
         <option value=""></option>
         <{foreach from=$alldir key=mod item=dirname}>
-        <option value="<{$mod}>"><{$dirname}></option>
+            <option value="<{$mod}>"><{$dirname}></option>
         <{/foreach}>
     </select>
     <div class="form-check">

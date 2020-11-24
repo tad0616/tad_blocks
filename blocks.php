@@ -1,8 +1,8 @@
 <?php
 use Xmf\Request;
+use XoopsModules\Tadtools\Bootstrap3Editable;
 use XoopsModules\Tadtools\FancyBox;
 use XoopsModules\Tadtools\FormValidator;
-use XoopsModules\Tadtools\Jeditable;
 use XoopsModules\Tadtools\MColorPicker;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
@@ -41,7 +41,10 @@ function all_blocks()
 {
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
 
-    $jeditable = new Jeditable();
+    $Bootstrap3Editable = new Bootstrap3Editable();
+    $Bootstrap3EditableCode = $Bootstrap3Editable->render('.editable', 'ajax.php');
+    $xoopsTpl->assign('Bootstrap3EditableCode', $Bootstrap3EditableCode);
+
     tad_themes_setup();
     $all_blocks = $alldir = [];
 
@@ -51,7 +54,7 @@ function all_blocks()
     order by a.side, a.weight";
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     while ($all = $xoopsDB->fetchArray($result)) {
-        $side    = $all['side'];
+        $side = $all['side'];
         $dirname = $all['dirname'];
 
         if (empty($dirname)) {
@@ -64,13 +67,13 @@ function all_blocks()
             $start = strpos($all['title'], "[$tag]");
             if ($start !== false) {
                 $all['title'] = substr($all['title'], 0, $start);
-                $all[$tag]    = true;
+                $all[$tag] = true;
             } else {
                 $all[$tag] = false;
             }
         }
 
-        $jeditable->setTextCol("#b-title-{$all['bid']}", "ajax.php", '50%', '20px', "{'bid': {$all['bid']},'op' : 'update_title'}", "Click to edit");
+        // $jeditable->setTextCol("#b-title-{$all['bid']}", "ajax.php", '50%', '20px', "{'bid': {$all['bid']},'op' : 'update_title'}", "Click to edit");
 
         $all_blocks[$side][] = $all;
     }
@@ -100,16 +103,16 @@ function all_blocks()
             $xoopsTpl->assign($key, $value[0]);
         }
     } else {
-        $f        = array_keys($fonts);
+        $f = array_keys($fonts);
         $data_arr = [
-            'size'         => [24],
-            'border_size'  => [1],
-            'shadow_size'  => [1],
-            'color'        => ['#ffffff'],
+            'size' => [24],
+            'border_size' => [1],
+            'shadow_size' => [1],
+            'color' => ['#ffffff'],
             'border_color' => ['#005f86'],
             'shadow_color' => ['#3b3b3b'],
-            'shadow_x'     => [1],
-            'shadow_y'     => [1],
+            'shadow_x' => [1],
+            'shadow_y' => [1],
             'font_file_sn' => [$f[0]],
         ];
         $TadDataCenter->saveCustomData($data_arr);
@@ -118,7 +121,7 @@ function all_blocks()
         }
     }
 
-    $jeditable->render();
+    // $jeditable->render();
 
     $fancybox = new FancyBox('.block_setting', '50%');
     $fancybox->render(true);
@@ -133,7 +136,7 @@ function save_and_re_build_logo()
     $TadDataCenter->set_col('block_logo', 0);
     $TadDataCenter->saveData();
 
-    $sql    = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
+    $sql = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
     $result = $xoopsDB->query($sql) or die($sql);
     while (list($bid, $title) = $xoopsDB->fetchRow($result)) {
         foreach ($tags as $tag) {
@@ -158,10 +161,10 @@ function save_and_re_build_logo()
 /*-----------執行動作判斷區----------*/
 include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
 $TDC = system_CleanVars($_REQUEST, 'TDC', '', 'array');
-$op  = Request::getString('op');
+$op = Request::getString('op');
 // $TDC = Request::getArray('TDC');
 $type = Request::getString('type');
-$bid  = Request::getInt('bid');
+$bid = Request::getInt('bid');
 
 switch ($op) {
 

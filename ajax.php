@@ -202,13 +202,13 @@ function save_sort()
 
 /*-----------執行動作判斷區----------*/
 $op = Request::getString('op');
-$bid = Request::getInt('bid');
+$bid = !empty($_REQUEST['pk']) ? Request::getInt('pk') : Request::getInt('bid');
 $module_id = Request::getString('module_id');
 $col = Request::getString('col');
 $val = Request::getString('val');
 $weight = Request::getInt('weight');
 $side = Request::getInt('side');
-$title = Request::getString('title');
+$title = !empty($_REQUEST['value']) ? Request::getString('value') : Request::getString('title');
 $tag = Request::getString('tag');
 $link_url = Request::getString('link_url');
 

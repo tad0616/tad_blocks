@@ -11,8 +11,7 @@
         <img src="images/coding.png" alt="<{$smarty.const._MD_TAD_BLOCKS_ALL_PAGES}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_TO_ONLY_HOME}>" id="display-<{$b.bid}>" data-bid="<{$b.bid}>" data-val="<{$b.module_id}>" class="module_id">
     <{/if}>
 
-
-    <span class="mx-2" id="b-title-<{$b.bid}>" data-toggle="tooltip" title="(<{$b.weight}>) <{if $b.mod_name}><{$b.mod_name}>/<{/if}><{$b.name}>"><{$b.title}></span>
+    <span class="editable mx-2" id="b-title-<{$b.bid}>" data-name="title" data-type="text" data-pk="<{$b.bid}>" data-title="Enter title" data-params="{op: 'update_title'}" title="(<{$b.weight}>) <{if $b.mod_name}><{$b.mod_name}>/<{/if}><{$b.name}>"><{$b.title}></span>
     <{if $b.hide}>
         <span class="bt-tag">[hide]</span>
     <{elseif $b.pic}>
