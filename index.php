@@ -339,10 +339,8 @@ function block_del($bid = '')
 }
 
 /*-----------執行動作判斷區----------*/
-include_once $GLOBALS['xoops']->path('/modules/system/include/functions.php');
-$TDC = system_CleanVars($_REQUEST, 'TDC', '', 'array');
 $op = Request::getString('op');
-// $TDC = Request::getArray('TDC');
+$TDC = Request::getVar('TDC', [], null, 'array', 4);
 $type = Request::getString('type');
 $bid = Request::getInt('bid');
 $bbid = Request::getInt('bbid');
