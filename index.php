@@ -340,7 +340,7 @@ function block_del($bid = '')
 
 /*-----------執行動作判斷區----------*/
 $op = Request::getString('op');
-$TDC = Request::getVar('TDC', [], null, 'array', 4);
+$TDC = Request::getVar('TDC', [], null, 'array', 2);
 $type = Request::getString('type');
 $bid = Request::getInt('bid');
 $bbid = Request::getInt('bbid');
