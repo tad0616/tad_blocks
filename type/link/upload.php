@@ -1,5 +1,8 @@
 <?php
 use XoopsModules\Tadtools\TadUpFiles;
+if (!class_exists('XoopsModules\Tadtools\TadUpFiles')) {
+    require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
+}
 
 require_once '../../../../mainfile.php';
 $TadUpFiles = new TadUpFiles('tad_blocks');

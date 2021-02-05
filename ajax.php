@@ -3,6 +3,9 @@ use Xmf\Request;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
+if (!class_exists('XoopsModules\Tadtools\TadUpFiles')) {
+    require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
+}
 
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';

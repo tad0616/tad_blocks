@@ -1,6 +1,9 @@
 <?php
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
+if (!class_exists('XoopsModules\Tadtools\TadUpFiles')) {
+    require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
+}
 /**
  * Tad Blocks module
  *
@@ -50,12 +53,6 @@ if (is_dir($dir)) {
     }
 }
 
-// 除錯
-function ddd($array = [])
-{
-    Utility::dd($array);
-}
-
 // tad_themes 的設定
 function tad_themes_setup()
 {
@@ -72,7 +69,7 @@ function tad_themes_setup()
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     list($footer_bgcolor) = $xoopsDB->fetchRow($result);
 
-    if ($lw == 'auto') {
+    if ($lb_width == 'auto') {
         $cw = round(($cb_width / $theme_width) * 100, 1);
         $lw = $rw = (100 - $cw) / 2;
     } else {
