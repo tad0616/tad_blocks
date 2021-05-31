@@ -157,6 +157,7 @@ function block_form($type = '', $bid = '', $bbid = '')
         $xoopsTpl->assign('weight', $weight);
         $xoopsTpl->assign('type', $type);
         $xoopsTpl->assign('visible', $visible);
+        $xoopsTpl->assign('display', $block['display'][0]);
 
         include_once XOOPS_ROOT_PATH . "/class/xoopsformloader.php";
 
