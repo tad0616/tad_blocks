@@ -26,29 +26,24 @@ namespace XoopsModules\Tad_blocks;
 class Update
 {
 
-    /*
-public static function chk_1()
-{
-global $xoopsDB;
-$sql = 'SELECT count(`tag`) FROM ' . $xoopsDB->prefix('tadnews_files_center');
-$result = $xoopsDB->query($sql);
-if (empty($result)) {
-return true;
-}
+    //data_center 加入 sort
+    public static function chk_dc_sort()
+    {
+        global $xoopsDB;
+        $sql = 'select count(`sort`) from ' . $xoopsDB->prefix('tad_blocks_data_center');
+        $result = $xoopsDB->query($sql);
+        if (empty($result)) {
+            return true;
+        }
 
-return false;
-}
+        return false;
+    }
 
-public static function go_1()
-{
-global $xoopsDB;
-$sql = 'ALTER TABLE ' . $xoopsDB->prefix('tadnews_files_center') . "
-ADD `upload_date` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '上傳時間',
-ADD `uid` MEDIUMINT(8) UNSIGNED NOT NULL DEFAULT 0 COMMENT '上傳者',
-ADD `tag` VARCHAR(255) NOT NULL DEFAULT '' COMMENT '註記'
-";
-$xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/system/admin.php?fct=modulesadmin', 30, $xoopsDB->error());
-}
- */
+    public static function go_dc_sort()
+    {
+        global $xoopsDB;
+        $sql = 'ALTER TABLE ' . $xoopsDB->prefix('tad_blocks_data_center') . " ADD `sort` mediumint(9) unsigned COMMENT '顯示順序' after `col_id`";
+        $xoopsDB->queryF($sql) or redirect_header(XOOPS_URL . '/modules/tad_blocks/admin/index.php', 30, $xoopsDB->error());
+    }
 
 }

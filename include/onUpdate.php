@@ -1,5 +1,4 @@
 <?php
-use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tad_blocks\Update;
 
 if (!class_exists('XoopsModules\Tadtools\Utility')) {
@@ -27,12 +26,14 @@ if (!class_exists('XoopsModules\Tad_blocks\Update')) {
  * @version    $Id $
  **/
 
-
 function xoops_module_update_tad_blocks($module, $old_version)
 {
     global $xoopsDB;
 
-    //if(Update::chk_1()) Update::go_1();
+    // data_center 加入 sort
+    if (Update::chk_dc_sort()) {
+        Update::go_dc_sort();
+    }
 
     return true;
 }
