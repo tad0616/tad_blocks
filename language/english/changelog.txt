@@ -1,3 +1,8 @@
+tad_blocks 1.8 (released on 2021-07-12)
+ =================================================
+ 1. Avoid the problem that the block cannot get the object when it is loaded for the first time.
+ 2. Adjust tad_blocks_data_center field
+
 tad_blocks 1.7 (released 2020-12-16)
 =================================================
 1. Fix the problem that the "Edit" button does not work in some cases.
