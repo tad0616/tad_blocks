@@ -42,9 +42,12 @@ function mk_content($TDC)
     $url = XOOPS_URL;
     $youtube_id = getYouTubeId($TDC['video_url']);
 
+    $title = strip_tags($TDC['title']);
+    $title = $title ? $title : 'iframe';
+
     $content = <<<"EOD"
 <div class="embed-responsive embed-responsive-{$rate}">
-    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{$youtube_id}" allowfullscreen></iframe>
+    <iframe title="$title" class="embed-responsive-item" src="https://www.youtube.com/embed/{$youtube_id}" allowfullscreen></iframe>
 </div>
 EOD;
 

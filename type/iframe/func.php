@@ -42,10 +42,11 @@ function mk_content($TDC)
     $rate = round($iframe_height / $iframe_width, 4) * 100;
     $url = XOOPS_URL;
     $iframe_url = $myts->htmlSpecialChars($TDC['iframe_url']);
-
+    $title = strip_tags($TDC['title']);
+    $title = $title ? $title : 'iframe';
     $content = <<<"EOD"
 <div class="embed-responsive" style="padding-bottom: $rate%;">
-    <iframe class="embed-responsive-item" src="{$iframe_url}" allowfullscreen></iframe>
+    <iframe title="$title" class="embed-responsive-item" src="{$iframe_url}" allowfullscreen></iframe>
 </div>
 EOD;
 

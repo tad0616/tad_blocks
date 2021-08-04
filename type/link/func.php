@@ -66,7 +66,7 @@ function mk_content($TDC)
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
         $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
         $widht = !empty($pic_width) ? "width: {$pic_width}px;" : '';
-        $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" style="margin-right: 4px;' . $widht . '">' : '';
+        $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . ' icon" style="margin-right: 4px;' . $widht . '">' : '';
         if ($hide_pic == 'hide') {
             $icon = '';
         }

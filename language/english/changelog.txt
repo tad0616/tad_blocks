@@ -1,3 +1,7 @@
+tad_blocks 1.9 (released on 2021-08-04)
+ =================================================
+ 1.Compliant with the new Accessibility AA Standard 2021/07
+
 tad_blocks 1.8 (released on 2021-07-12)
  =================================================
  1. Avoid the problem that the block cannot get the object when it is loaded for the first time.

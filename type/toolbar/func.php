@@ -64,7 +64,7 @@ EOD;
 
         $content .= <<<"EOD"
         <li>
-            <a href="$url"  target="{$target}" style="font-size: {$font_size_em}em;"><img src="$img_url" alt="$text" class="$hvr"><p>$text</p></a>
+            <a href="$url"  target="{$target}" style="font-size: {$font_size_em}em;"><img src="$img_url" alt="$text icon" class="$hvr"><p>$text</p></a>
         </li>
 EOD;
     }

@@ -44,11 +44,13 @@ function mk_content($TDC)
     $scrolling = empty($TDC['scrolling']) ? $default['scrolling'] : $myts->htmlSpecialChars($TDC['scrolling']);
 
     $url = XOOPS_URL;
+    $title = strip_tags($TDC['title']);
+    $title = $title ? $title : 'iframe';
 
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/pdf/embed-responsive.css" rel="stylesheet">
 <div class="embed-responsive embed-responsive-{$rate}">
-    <iframe class="embed-responsive-item" src="{$pdf_url}" allowfullscreen scrolling="{$scrolling}"></iframe>
+    <iframe title="$title" class="embed-responsive-item" src="{$pdf_url}" allowfullscreen scrolling="{$scrolling}"></iframe>
 </div>
 EOD;
 
