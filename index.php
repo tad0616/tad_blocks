@@ -81,7 +81,7 @@ function my_blocks()
 }
 
 //區塊編輯表單
-function block_form($type = '', $bid = '', $bbid = '')
+function block_form($type = '', $bid = 0, $bbid = 0)
 {
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr, $tags;
     $module_dirname = 'tad_blocks';
@@ -144,8 +144,10 @@ function block_form($type = '', $bid = '', $bbid = '')
         } else {
             // 傳回陣列的項目
             $arr = ['groups', 'content'];
-            $TadDataCenter->set_col('bid', $bid);
-            $block = $TadDataCenter->getData();
+            if ($bid) {
+                $TadDataCenter->set_col('bid', $bid);
+                $block = $TadDataCenter->getData();
+            }
             $CkEditor = new CkEditor($module_dirname, "TDC[content]", $block['content'][0]);
             $CkEditor->setHeight(350);
             $editor = $CkEditor->render();
