@@ -4,6 +4,7 @@ use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
+use XoopsModules\Tadtools\Wcag;
 /**
  *  module
  *
@@ -196,7 +197,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
     } else {
         $content = $myts->addSlashes($TDC['content']);
     }
-
+    $content = Wcag::amend($content);
     $last_modified = time();
 
     if (empty($bid)) {
