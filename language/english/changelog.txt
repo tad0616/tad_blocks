@@ -1,3 +1,10 @@
+tad_blocks 2.0 (Released 2021-08-22)
+ =================================================
+1. Fix for 2021/07 new version of AA accessibility standard
+2. Fix the problem of old content running out when adding new blocks
+3. Add accessibility 2.1 AA auto-correction function.
+
+
 tad_blocks 1.9 (released on 2021-08-04)
  =================================================
  1.Compliant with the new Accessibility AA Standard 2021/07
