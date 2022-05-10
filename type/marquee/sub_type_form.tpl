@@ -46,7 +46,7 @@
     </tr>
 </table>
 
-<div class="text-right">
+<div class="text-right text-end">
     <a href="#xoops_contents" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
@@ -70,7 +70,6 @@
 </div>
 
 <script type="text/javascript">
-
     $(document).ready(function(){
         <{if $bid}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {

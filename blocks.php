@@ -39,7 +39,7 @@ if (!$_SESSION['tad_blocks_adm']) {
 //列出所有區塊
 function all_blocks()
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
+    global $xoopsDB, $xoopsTpl, $tags;
 
     $Bootstrap3Editable = new Bootstrap3Editable();
     $Bootstrap3EditableCode = $Bootstrap3Editable->render('.editable', 'ajax.php');
@@ -48,7 +48,7 @@ function all_blocks()
     tad_themes_setup();
     $all_blocks = $alldir = [];
 
-    $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname from " . $xoopsDB->prefix("newblocks") . " as a
+    $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname, c.name from " . $xoopsDB->prefix("newblocks") . " as a
     left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
     left join " . $xoopsDB->prefix("modules") . " as c on a.mid=c.mid
     order by a.side, a.weight";
@@ -56,11 +56,12 @@ function all_blocks()
     while ($all = $xoopsDB->fetchArray($result)) {
         $side = $all['side'];
         $dirname = $all['dirname'];
+        $name = $all['name'];
 
         if (empty($dirname)) {
             $alldir['custom'] = _MD_TAD_BLOCKS_CUSTOM_BLOCK;
         } else {
-            $alldir[$dirname] = $dirname;
+            $alldir[$dirname] = $name;
         }
 
         foreach ($tags as $tag) {
@@ -124,13 +125,14 @@ function all_blocks()
     // $jeditable->render();
 
     $fancybox = new FancyBox('.block_setting', '50%');
+    $fancybox->set_type('iframe');
     $fancybox->render(true);
     // $fancybox->renderForm('ajax.php',false);
 }
 
 function save_and_re_build_logo()
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
+    global $xoopsDB, $tags;
 
     $TadDataCenter = new TadDataCenter('tad_blocks');
     $TadDataCenter->set_col('block_logo', 0);

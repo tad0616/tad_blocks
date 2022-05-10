@@ -1,4 +1,4 @@
-<div id="bid-<{$b.bid}>" data-bid="<{$b.bid}>" class="b-item <{if $b.visible==1}>visible_block<{else}>invisible_block<{/if}> <{if $b.dirname}><{$b.dirname}><{else}>custom<{/if}> text-left ">
+<div id="bid-<{$b.bid}>" data-bid="<{$b.bid}>" class="b-item <{if $b.visible==1}>visible_block<{else}>invisible_block<{/if}> <{if $b.dirname}><{$b.dirname}><{else}>custom<{/if}> text-left text-start ">
     <{if $b.visible==1}>
         <img src="images/yes.png" alt="<{$smarty.const._MD_TAD_BLOCKS_TO_UNABLE}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_TO_UNABLE}>" data-bid="<{$b.bid}>" class="change_visible">
     <{else}>

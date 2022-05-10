@@ -7,8 +7,8 @@
     <label for="only_mod"><{$smarty.const._MD_TAD_BLOCKS_ONLY}></label>
     <select id="only_mod">
         <option value=""></option>
-        <{foreach from=$alldir key=mod item=dirname}>
-            <option value="<{$mod}>"><{$dirname}></option>
+        <{foreach from=$alldir key=dirname item=name}>
+            <option value="<{$dirname}>"><{$name}> (<{$dirname}>)</option>
         <{/foreach}>
     </select>
     <div class="form-check">

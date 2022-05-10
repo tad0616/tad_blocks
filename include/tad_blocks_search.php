@@ -4,12 +4,15 @@
 // function 搜尋函數名稱($queryarray, $andor, $limit, $offset, $userid)
 // {
 //     global $xoopsDB;
-//     if (get_magic_quotes_gpc()) {
-//         foreach ($queryarray as $k => $v) {
-//             $arr[$k] = addslashes($v);
-//         }
-//         $queryarray = $arr;
+// $myts = \MyTextSanitizer::getInstance();
+// if (is_array($queryarray)) {
+//     foreach ($queryarray as $k => $v) {
+//         $arr[$k] = $myts->addSlashes($v);
 //     }
+//     $queryarray = $arr;
+// } else {
+//     $queryarray = [];
+// }
 //     $sql = "SELECT `流水號欄位`,`標題欄位`,`日期欄位`, `uid欄位` FROM " . $xoopsDB->prefix("資料表") . " WHERE 篩選條件";
 //     if ($userid != 0) {
 //         $sql .= " AND `uid欄位`=" . $userid . " ";

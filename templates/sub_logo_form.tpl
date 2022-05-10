@@ -4,7 +4,7 @@
 <{if $fonts}>
     <form action="blocks.php" id="myForm" method="post" role="form" class="form-horizontal">
         <div class="alert alert-success">
-            <div class="form-group row">
+            <div class="form-group row mb-3">
                 <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TAD_BLOCKS_LOGO_TEXT_SIZE}></label>
                 <div class="col-sm-2">
                     <input type="number" class="form-control validate[required]" name="TDC[size]" id="size" placeholder="<{$smarty.const._MD_TAD_BLOCKS_LOGO_TEXT_SIZE}>" value="<{$size}>">
@@ -18,7 +18,7 @@
                     <input type="number" class="form-control validate[required]" name="TDC[shadow_size]" id="shadow_size" placeholder="<{$smarty.const._MD_TAD_BLOCKS_LOGO_SHADOW_SIZE}>" value="<{$shadow_size}>">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row mb-3">
                 <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TAD_BLOCKS_LOGO_TEXT_COLOR}></label>
                 <div class="col-sm-2">
                     <input type="text" name="TDC[color]" class="form-control color-picker" value="<{$color}>" id="font_color" data-hex="true">
@@ -34,7 +34,7 @@
             </div>
 
 
-            <div class="form-group row">
+            <div class="form-group row mb-3">
                 <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TAD_BLOCKS_LOGO_SELECT_FONT}></label>
                 <div class="col-sm-2">
                     <select name="TDC[font_file_sn]" id="font_file_sn" class="form-control">
