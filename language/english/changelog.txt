@@ -1,3 +1,8 @@
+tad_blocks 2.2 (released on 2022-08-07)
+=================================================
+1.Add module name to module list
+
+
 tad_blocks 2.1 (Released 2021-12-13)
 =================================================
 1.Support BootStrap5
