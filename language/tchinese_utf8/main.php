@@ -32,7 +32,7 @@ define('_MD_TAD_BLOCKS_FOOTER_LEFT', '尾左');
 define('_MD_TAD_BLOCKS_FOOTER_CENTER', '尾中');
 define('_MD_TAD_BLOCKS_FOOTER_RIGHT', '尾右');
 define('_MD_TAD_BLOCKS_SAVE', '儲存並建立區塊');
-define('_MD_TAD_BLOCKS_SETTING', '快速設定');
+define('_MD_TAD_BLOCKS_SETTING', '標題顯示設定');
 define('_MD_TAD_ADD_ONE', '新增一組');
 define('_MD_TAD_BLOCKS_MY_BLOCKS', '我的自訂區塊');
 define('_MD_TAD_BLOCKS_ADD_BLOCK', '新增自訂區塊');
@@ -50,7 +50,7 @@ define('_MD_TAD_BLOCKS_SORT', '排序');
 define('_MD_TAD_BLOCKS_WHO_CAN_SEE', '誰可以看到');
 define('_MD_TAD_BLOCKS_NO_PERMISSION', '您沒有權限喔！');
 define('_MD_TADBLOCKS_BLOCKS', '區塊管理');
-define('_MD_TAD_BLOCKS_ONLY_VISIBLE', '僅顯示啟用');
+define('_MD_TAD_BLOCKS_ONLY_VISIBLE', '僅顯示啟用的區塊');
 define('_MD_TAD_BLOCKS_TO_ENABLE', '關閉中，點擊啟用之');
 define('_MD_TAD_BLOCKS_TO_UNABLE', '啟用中，點擊關閉之');
 define('_MD_TAD_BLOCKS_TO_ONLY_HOME', '全部頁面，改為：僅首頁');
@@ -81,7 +81,6 @@ define('_MD_TAD_BLOCKS_UPLOAD_PIC', '請上傳圖片');
 define('_MD_TAD_BLOCKS_WYSIWYG', '一般圖文');
 define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', '用本模組開啟編輯');
 define('_MD_TAD_BLOCKS_ONLY', '僅顯示：');
-define('_MD_TADBLOCKS_LIST', '進階區塊列表');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {

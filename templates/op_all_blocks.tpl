@@ -11,7 +11,8 @@
             <option value="<{$dirname}>"><{$name}> (<{$dirname}>)</option>
         <{/foreach}>
     </select>
-    <div class="form-check">
+
+    <div class="form-check-inline checkbox-inline">
         <label class="form-check-label">
             <input type="checkbox" class="form-check-input" id="only_visible" checked>
             <{$smarty.const._MD_TAD_BLOCKS_ONLY_VISIBLE}>

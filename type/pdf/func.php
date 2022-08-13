@@ -49,7 +49,7 @@ function mk_content($TDC)
 
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/pdf/embed-responsive.css" rel="stylesheet">
-<div class="embed-responsive embed-responsive-{$rate}">
+<div class="embed-responsive embed-responsive-{$rate} ratio ratio-{$rate}">
     <iframe title="$title" class="embed-responsive-item" src="{$pdf_url}" allowfullscreen scrolling="{$scrolling}"></iframe>
 </div>
 EOD;

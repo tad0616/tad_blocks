@@ -38,6 +38,7 @@ function mk_content($TDC)
     $myts = \MyTextSanitizer::getInstance();
 
     $rate = empty($TDC['rate']) ? $default['rate'] : $myts->htmlSpecialChars($TDC['rate']);
+    $rate5 = str_replace('by', 'x', $rate);
 
     $url = XOOPS_URL;
     $youtube_id = getYouTubeId($TDC['video_url']);
@@ -46,7 +47,7 @@ function mk_content($TDC)
     $title = $title ? $title : 'iframe';
 
     $content = <<<"EOD"
-<div class="embed-responsive embed-responsive-{$rate}">
+<div class="embed-responsive embed-responsive-{$rate} ratio ratio-{$rate5}">
     <iframe title="$title" class="embed-responsive-item" src="https://www.youtube.com/embed/{$youtube_id}" allowfullscreen></iframe>
 </div>
 EOD;
