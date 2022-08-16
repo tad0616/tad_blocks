@@ -3,6 +3,7 @@ use Xmf\Request;
 use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadDataCenter;
+use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tadtools\Wcag;
 /**
@@ -178,7 +179,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 //儲存並建立區塊
 function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 {
-    global $xoopsDB, $xoopsTpl, $xoopsUser, $tags;
+    global $xoopsDB, $xoopsUser, $tags;
 
     $mk_pic = ['pic', 'img'];
     $module_dirname = 'tad_blocks';
@@ -348,9 +349,17 @@ $TDC = Request::getVar('TDC', [], null, 'array', 2);
 $type = Request::getString('type');
 $bid = Request::getInt('bid');
 $bbid = Request::getInt('bbid');
+$files_sn = Request::getInt('files_sn');
 
 switch ($op) {
     /*---判斷動作請貼在下方---*/
+
+//下載檔案
+    case "tufdl":
+        $TadUpFiles = new TadUpFiles("tad_blocks");
+        $TadUpFiles->add_file_counter($files_sn);
+        exit;
+
     case "block_form":
         block_form($type, $bid, $bbid);
         break;
