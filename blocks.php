@@ -51,6 +51,7 @@ function all_blocks()
     $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname, c.name from " . $xoopsDB->prefix("newblocks") . " as a
     left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
     left join " . $xoopsDB->prefix("modules") . " as c on a.mid=c.mid
+    where c.`isactive`=1  or a.mid=0
     order by a.side, a.weight";
     $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
     while ($all = $xoopsDB->fetchArray($result)) {

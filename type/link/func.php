@@ -52,7 +52,7 @@ function mk_content($TDC)
         $content = '<ol style="list-style-position:inside;">';
     } elseif ($show_type == 'table') {
         $content = '<table class="table table-bordered table-condensed table-hover">';
-    } elseif ($show_type == 'none') {
+    } elseif ($show_type == 'none' || $show_type == 'image') {
         $content = '';
     } else {
         $content = '<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="' . XOOPS_URL . '/modules/tadtools/css/vertical_menu.css">
@@ -66,7 +66,12 @@ function mk_content($TDC)
         $text = !empty($TDC['text'][$key]) ? $TDC['text'][$key] : $url;
         $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
         $widht = !empty($pic_width) ? "width: {$pic_width}px;" : '';
-        $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . ' icon" style="margin-right: 4px;' . $widht . '">' : '';
+        if ($show_type == 'image') {
+            $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" class="img-fluid img-responsive">' : '';
+        } else {
+            $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . ' icon" style="margin-right: 4px;' . $widht . '">' : '';
+        }
+
         if ($hide_pic == 'hide') {
             $icon = '';
         }
@@ -78,6 +83,10 @@ EOD;
         } elseif ($show_type == 'table') {
             $content .= <<<"EOD"
 <tr><td style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></td></tr>
+EOD;
+        } elseif ($show_type == 'image') {
+            $content .= <<<"EOD"
+<div style="$item_css"><a href="$url" target="{$target}" title="{$text}">{$icon}</a></div>
 EOD;
         } elseif ($show_type == 'none') {
             $content .= <<<"EOD"
@@ -96,7 +105,7 @@ EOD;
         $content .= '</ol>';
     } elseif ($show_type == 'table') {
         $content .= '</table>';
-    } elseif ($show_type == 'none') {
+    } elseif ($show_type == 'none' || $show_type == 'image') {
         $content .= '';
     } else {
         $content .= '</ul>';

@@ -1,11 +1,14 @@
 <?php
+use Xmf\Request;
 use XoopsModules\Tadtools\TadUpFiles;
 
 require_once '../../../../mainfile.php';
-$TadUpFiles = new TadUpFiles('tad_blocks');
 
-$op = isset($_POST['op']) ? $_POST['op'] : '';
-$sort = isset($_POST['sort']) ? (int) $_POST['sort'] : 0;
+$op = Request::getString('op');
+$sort = Request::getInt('sort');
+
+require_once '../../../../mainfile.php';
+$TadUpFiles = new TadUpFiles('tad_blocks');
 
 $rand = mt_rand(0, 999999);
 $TadUpFiles->set_col('toolbar', $rand, 1);

@@ -7,6 +7,7 @@ define('_LINK_DEFAULT', 'Default');
 define('_LINK_UL', 'Unordered list');
 define('_LINK_OL', 'Number list');
 define('_LINK_TABLE', 'Table');
+define('_LINK_IMAGE', 'Image');
 define('_LINK_NONE', 'Only list');
 define('_LINK_ADD_TARGET', 'target');
 define('_LINK_ADD_TARGET_SELF', 'self');

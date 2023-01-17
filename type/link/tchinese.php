@@ -8,6 +8,7 @@ define('_LINK_UL', '無序清單');
 define('_LINK_OL', '數字清單');
 define('_LINK_NONE', '僅換行');
 define('_LINK_TABLE', '表格');
+define('_LINK_IMAGE', '圖片');
 define('_LINK_ADD_TARGET', '開啟位置');
 define('_LINK_ADD_TARGET_SELF', '本視窗');
 define('_LINK_ADD_TARGET_BLANK', '新視窗');

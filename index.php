@@ -59,7 +59,7 @@ function my_blocks()
         foreach ($tags as $tag) {
             $start = strpos($all['title'], "[$tag]");
             if ($start !== false) {
-                $all['tag'] = "<span class='badge badge-success'>$tag</span>";
+                $all['tag'] = "<span class='badge badge-success bg-success'>$tag</span>";
                 $all['clean_title'] = substr($all['title'], 0, $start);
                 if (in_array($tag, $show_file)) {
                     $start = $start + strlen("[$tag]");

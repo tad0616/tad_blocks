@@ -4,11 +4,11 @@
         <{if $text}>
             <{foreach from=$text key=i item=text}>
                 <tr id="form_data<{$i}>">
-                    <td style="width:40px;">
-                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                    <td>
+                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </td>
-                    <td style="width: 24px;">
-                        <div id="demo_pic<{$i}>" style="width:24px;height:24px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
+                    <td>
+                        <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
                     </td>
                     <td style="width: 120px;">
                         <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 120px;">
@@ -35,11 +35,11 @@
 <!--表單樣板-->
 <table style="display:none;">
     <tr id="form_data">
-        <td style="width:40px;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
+        <td>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
         </td>
-        <td style="width: 24px;">
-            <div id="demo_pic" style="width:24px;height:24px;border:1px solid #cfcfcf;background-image:url('<{$default.img_url}>');background-size:cover;"></div>
+        <td>
+            <div id="demo_pic" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$default.img_url}>');background-size:cover;"></div>
         </td>
         <td style="width: 120px;">
             <input type="file" data-name="img" id="img" class="upload" style="width: 120px;">
@@ -71,6 +71,7 @@
     <option value="ul" <{if $show_type=='ul'}>selected<{/if}>><{$smarty.const._LINK_UL}></option>
     <option value="ol" <{if $show_type=='ol'}>selected<{/if}>><{$smarty.const._LINK_OL}></option>
     <option value="table" <{if $show_type=='table'}>selected<{/if}>><{$smarty.const._LINK_TABLE}></option>
+    <option value="image" <{if $show_type=='image'}>selected<{/if}>><{$smarty.const._LINK_IMAGE}></option>
     </select><br>
 
     <{$smarty.const._LINK_HIDE_PIC}><select name="TDC[hide_pic]]" id="hide_pic" class="my-input">

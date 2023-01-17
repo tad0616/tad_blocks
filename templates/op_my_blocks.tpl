@@ -23,7 +23,7 @@
                         <{else}>
                             <a href="ajax.php?op=change_newblock&bid=<{$b.bid}>&col=visible&val=1"><img src="images/no.gif" alt="unable"></a>
                         <{/if}>
-                        <span class="badge badge-info"><{$b.bid}></span>
+                        <span class="badge badge-info bg-info"><{$b.bid}></span>
                         <{$b.clean_title}>
                         <{$b.tag}>
                         <{$b.pic}>
