@@ -82,6 +82,10 @@
     <br>
     <{$smarty.const._LINK_ITEM_CSS}><input type="text" name="TDC[item_css]" id="item_css" value="<{$item_css}>" style="width:80%;" class="my-input">
     <br>
+    <{$smarty.const._LINK_IMG_CSS}><input type="text" name="TDC[img_css]" id="img_css" value="<{$img_css}>" style="width:80%;" class="my-input">
+    <br>
+    <{$smarty.const._LINK_TXT_CSS}><input type="text" name="TDC[txt_css]" id="txt_css" value="<{$txt_css}>" style="width:80%;" class="my-input">
+    <br>
     <{$smarty.const._LINK_PIC_WIDTH}><input type="number" name="TDC[pic_width]" id="pic_width" value="<{$pic_width}>"  class="my-input">px
     <{$smarty.const._LINK_PIC_DESC}>
     <br>

@@ -41,6 +41,8 @@ function mk_content($TDC)
 
     $show_type = empty($TDC['show_type']) ? $default['show_type'] : $TDC['show_type'];
     $item_css = empty($TDC['item_css']) ? $default['item_css'] : $TDC['item_css'];
+    $img_css = empty($TDC['img_css']) ? $default['img_css'] : $TDC['img_css'];
+    $txt_css = empty($TDC['txt_css']) ? $default['txt_css'] : $TDC['txt_css'];
     $hide_pic = empty($TDC['hide_pic']) ? $default['hide_pic'] : $TDC['hide_pic'];
     $pic_width = empty($TDC['pic_width']) ? $default['pic_width'] : $TDC['pic_width'];
 
@@ -67,9 +69,9 @@ function mk_content($TDC)
         $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
         $widht = !empty($pic_width) ? "width: {$pic_width}px;" : '';
         if ($show_type == 'image') {
-            $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" class="img-fluid img-responsive">' : '';
+            $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . '" class="img-fluid img-responsive" style="' . $img_css . '">' : '';
         } else {
-            $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . ' icon" style="margin-right: 4px;' . $widht . '">' : '';
+            $icon = !empty($TDC['img_url'][$key]) ? '<img src="' . $TDC['img_url'][$key] . '" alt="' . $text . ' icon" style="margin-right: 4px;' . $widht . $img_css . '">' : '';
         }
 
         if ($hide_pic == 'hide') {
@@ -78,11 +80,11 @@ function mk_content($TDC)
 
         if ($show_type == 'ul' or $show_type == 'ol') {
             $content .= <<<"EOD"
-<li style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></li>
+<li style="$item_css"><a href="$url" target="{$target}">{$icon}<span style="{$txt_css}">{$text}</span></a></li>
 EOD;
         } elseif ($show_type == 'table') {
             $content .= <<<"EOD"
-<tr><td style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></td></tr>
+<tr><td style="$item_css"><a href="$url" target="{$target}">{$icon}<span style="{$txt_css}">{$text}</span></a></td></tr>
 EOD;
         } elseif ($show_type == 'image') {
             $content .= <<<"EOD"
@@ -90,11 +92,11 @@ EOD;
 EOD;
         } elseif ($show_type == 'none') {
             $content .= <<<"EOD"
-<div><a href="$url" target="{$target}">{$icon}{$text}</a></div>
+<div><a href="$url" target="{$target}">{$icon}<span style="{$txt_css}">{$text}</span></a></div>
 EOD;
         } else {
             $content .= <<<"EOD"
-<li style="$item_css"><a href="$url" target="{$target}">{$icon}{$text}</a></li>
+<li style="$item_css"><a href="$url" target="{$target}">{$icon}<span style="{$txt_css}">{$text}</span></a></li>
 EOD;
         }
     }
