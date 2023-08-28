@@ -22,13 +22,13 @@
 
 <div class="mb-5">
     <{if $theme_type}>
-        <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
+        <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
     <{else}>
-        <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>
+        <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>
     <{/if}>
 </div>
 
-<{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_logo_form.tpl"}>
+<{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_logo_form.tpl"}>
 
 <script>
 

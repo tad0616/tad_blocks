@@ -3,7 +3,7 @@
     <h4 class="block_side"><{$smarty.const._MD_TAD_BLOCKS_TOP_CENTER}></h4>
     <div class="droppable" id="side-5" data-side="5">
         <{foreach from=$all_blocks.5 item=b}>
-            <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/block_tool.tpl"}>
+            <{include file="$xoops_rootpath/modules/tad_blocks/templates/block_tool.tpl"}>
         <{/foreach}>
     </div>
 <{else}>

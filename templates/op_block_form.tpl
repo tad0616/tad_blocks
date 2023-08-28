@@ -23,12 +23,17 @@
 
             <{/if}>
         </h3>
-        <div class="form-group">
-            <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{if $title}><{$title}><{else}><{$default.title}><{/if}>">
+        <div class="form-group mb-3">
+            <div class="input-group">
+                <div class="input-group-prepend input-group-addon">
+                    <span class="input-group-text"><{$smarty.const._MD_TAD_BLOCKS_TITLE}></span>
+                </div>
+                <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{if $title}><{$title}><{else}><{$default.title}><{/if}>">
+            </div>
         </div>
         <div class="form-group">
             <{if $type}>
-                <{includeq file="$xoops_rootpath/modules/tad_blocks/type/`$type`/sub_type_form.tpl"}>
+                <{include file="$xoops_rootpath/modules/tad_blocks/type/`$type`/sub_type_form.tpl"}>
             <{else}>
                 <{$editor}>
             <{/if}>
@@ -37,9 +42,9 @@
             <div class="col-sm-4">
                 <h4><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
                 <{if $theme_type}>
-                    <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
+                    <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
                 <{else}>
-                    <{includeq file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>
+                    <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>
                 <{/if}>
             </div>
             <div class="col-sm-4">

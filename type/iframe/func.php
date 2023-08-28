@@ -37,15 +37,15 @@ function mk_content($TDC)
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
 
-    $iframe_width = empty($TDC['iframe_width']) ? (int) $default['iframe_width'] : (int) $TDC['iframe_width'];
-    $iframe_height = empty($TDC['iframe_height']) ? (int) $default['iframe_height'] : (int) $TDC['iframe_height'];
-    $rate = round($iframe_height / $iframe_width, 4) * 100;
-    $url = XOOPS_URL;
     $iframe_url = $myts->htmlSpecialChars($TDC['iframe_url']);
     $title = strip_tags($TDC['title']);
     $title = $title ? $title : 'iframe';
+
+    $iframe_ratios5 = $TDC['iframe_ratios'];
+    $iframe_ratios4 = str_replace('x', 'by', $iframe_ratios5);
+
     $content = <<<"EOD"
-<div class="embed-responsive" style="padding-bottom: $rate%;">
+<div class="embed-responsive embed-responsive-$iframe_ratios4 ratio ratio-$iframe_ratios5">
     <iframe title="$title" class="embed-responsive-item" src="{$iframe_url}" allowfullscreen></iframe>
 </div>
 EOD;
