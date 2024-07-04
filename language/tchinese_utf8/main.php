@@ -19,6 +19,7 @@
 
 // xoops_loadLanguage('admin', 'tad_themes');
 xoops_loadLanguage('main', 'tadtools');
+xoops_loadLanguage('admin', 'system');
 xoops_loadLanguage('admin/blocksadmin', 'system');
 define('_MD_TAD_BLOCKS_LEFT', '左');
 define('_MD_TAD_BLOCKS_RIGHT', '右');

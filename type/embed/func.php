@@ -35,7 +35,7 @@ function get_content($bid = 0)
 }
 
 //製作 embed 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();

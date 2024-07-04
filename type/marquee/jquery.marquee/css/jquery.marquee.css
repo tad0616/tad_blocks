@@ -1,4 +1,4 @@
-ul#tad_blocks_marquee2 {
+ul#tad_blocks_marquee2 li, ul.tad_blocks_marquee {
 	/* required styles */
 	display: block;
 	padding: 0;
@@ -10,7 +10,7 @@ ul#tad_blocks_marquee2 {
 
 }
 
-ul#tad_blocks_marquee2 li {
+ul#tad_blocks_marquee2 li, ul.tad_blocks_marquee li {
 	/* required styles */
 	position: absolute;
 	top: -999em;

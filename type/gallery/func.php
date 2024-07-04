@@ -45,7 +45,7 @@ function get_content($bid = 0)
 }
 
 //製作 gallery 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
 
     require __DIR__ . "/config.php";
@@ -86,7 +86,7 @@ function mk_content($TDC)
         $content .= "
         <script src='" . XOOPS_URL . "/modules/tad_blocks/type/gallery/grouploop-1.0.3.min.js'></script>
         <link rel='stylesheet' type='text/css' media='all' title='Style sheet' href='" . XOOPS_URL . "/modules/tad_blocks/type/gallery/marquee.css'>
-        <div class='promo-carousel' id='grouploop-example'>
+        <div class='promo-carousel' id='grouploop-example{$bid}'>
         <div class='item-wrap'>
         ";
         foreach ($file_arr as $files_sn => $pic) {
@@ -101,7 +101,7 @@ function mk_content($TDC)
       </div>
       <script>
       $(document).ready(function(){
-            $('#grouploop-example').grouploop({
+            $('#grouploop-example{$bid}').grouploop({
                 velocity: 1,
                 forward: false,
                 pauseOnHover: true,

@@ -34,7 +34,7 @@ function get_content($bid = 0)
 }
 
 //製作 toolbar 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
 
     require __DIR__ . "/config.php";
@@ -50,7 +50,7 @@ function mk_content($TDC)
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/toolbar/hover-min.css" rel="stylesheet">
 <link href="$url/modules/tad_blocks/type/toolbar/freq_toolbar.css" rel="stylesheet">
-<div id="freq-link">
+<div id="freq-link_{$bid}" class="freq-link">
     <ul class="text-{$text_align}">
 EOD;
 

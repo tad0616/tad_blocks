@@ -9,6 +9,61 @@ require_once __DIR__ . '/header.php';
 if (!$_SESSION['tad_blocks_adm']) {
     redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
 }
+
+/*-----------執行動作判斷區----------*/
+$op = Request::getString('op');
+$bid = !empty($_REQUEST['pk']) ? Request::getInt('pk') : Request::getInt('bid');
+$module_id = Request::getString('module_id');
+$col = Request::getString('col');
+$val = Request::getString('val');
+$weight = Request::getInt('weight');
+$side = Request::getInt('side');
+$title = !empty($_REQUEST['value']) ? Request::getString('value') : Request::getString('title');
+$tag = Request::getString('tag');
+$link_url = Request::getString('link_url');
+
+switch ($op) {
+
+    case "update_newblock":
+        update_newblock($bid, $side, $weight);
+        exit;
+
+    case "change_block_module_link":
+        change_block_module_link($bid, $module_id);
+        exit;
+
+    case "change_newblock":
+        change_newblock($bid, $col, $val);
+        header("location: {$_SERVER['HTTP_REFERER']}");
+        exit;
+
+    case "visible":
+        change_newblock($bid, 'visible', 1);
+        exit;
+
+    case "invisible":
+        change_newblock($bid, 'visible', 0);
+        exit;
+
+    case "update_title":
+        update_title($bid, $title, $tag, $link_url);
+        exit;
+
+    case "setting_form":
+        $form = setting_form($bid);
+        die($form);
+
+    case "echo":
+        die("<img src='$val'>");
+
+    case "save_sort":
+        save_sort();
+        exit;
+
+}
+
+/*-----------秀出結果區--------------*/
+
 /*-----------功能函數區--------------*/
 
 //列出所有區塊
@@ -199,57 +254,3 @@ function save_sort()
     }
     die(_TAD_SORTED . "(" . date("Y-m-d H:i:s") . ")");
 }
-
-/*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$bid = !empty($_REQUEST['pk']) ? Request::getInt('pk') : Request::getInt('bid');
-$module_id = Request::getString('module_id');
-$col = Request::getString('col');
-$val = Request::getString('val');
-$weight = Request::getInt('weight');
-$side = Request::getInt('side');
-$title = !empty($_REQUEST['value']) ? Request::getString('value') : Request::getString('title');
-$tag = Request::getString('tag');
-$link_url = Request::getString('link_url');
-
-switch ($op) {
-
-    case "update_newblock":
-        update_newblock($bid, $side, $weight);
-        exit;
-
-    case "change_block_module_link":
-        change_block_module_link($bid, $module_id);
-        exit;
-
-    case "change_newblock":
-        change_newblock($bid, $col, $val);
-        header("location: {$_SERVER['HTTP_REFERER']}");
-        exit;
-
-    case "visible":
-        change_newblock($bid, 'visible', 1);
-        exit;
-
-    case "invisible":
-        change_newblock($bid, 'visible', 0);
-        exit;
-
-    case "update_title":
-        update_title($bid, $title, $tag, $link_url);
-        exit;
-
-    case "setting_form":
-        $form = setting_form($bid);
-        die($form);
-
-    case "echo":
-        die("<img src='$val'>");
-
-    case "save_sort":
-        save_sort();
-        exit;
-
-}
-
-/*-----------秀出結果區--------------*/

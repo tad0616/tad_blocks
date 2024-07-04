@@ -6,6 +6,7 @@ use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 use XoopsModules\Tadtools\Wcag;
+
 /**
  *  module
  *
@@ -28,6 +29,49 @@ use XoopsModules\Tadtools\Wcag;
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'tad_blocks_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
+
+/*-----------執行動作判斷區----------*/
+$op = Request::getString('op');
+$TDC = Request::getVar('TDC', [], null, 'array', 2);
+$type = Request::getString('type');
+$bid = Request::getInt('bid');
+$bbid = Request::getInt('bbid');
+$files_sn = Request::getInt('files_sn');
+
+switch ($op) {
+
+    case "tufdl":
+        $TadUpFiles = new TadUpFiles("tad_blocks");
+        $TadUpFiles->add_file_counter($files_sn);
+        exit;
+
+    case "block_form":
+        block_form($type, $bid, $bbid);
+        break;
+
+    case "block_save":
+        block_save($type, $TDC, $bid, $bbid);
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    case "block_del":
+        block_del($bid);
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    default:
+        my_blocks();
+        $op = 'my_blocks';
+        break;
+
+}
+
+/*-----------秀出結果區--------------*/
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('now_op', $op);
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/my-input.css');
+include_once XOOPS_ROOT_PATH . '/footer.php';
 
 /*-----------功能函數區--------------*/
 
@@ -193,11 +237,12 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 
     if (!empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
-        $content = mk_content($TDC);
+        $content = mk_content($bid, $TDC);
 
     } else {
         $content = $myts->addSlashes($TDC['content']);
     }
+
     $content = Wcag::amend($content);
     $last_modified = time();
 
@@ -342,49 +387,3 @@ function block_del($bid = '')
     }
 
 }
-
-/*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$TDC = Request::getVar('TDC', [], null, 'array', 2);
-$type = Request::getString('type');
-$bid = Request::getInt('bid');
-$bbid = Request::getInt('bbid');
-$files_sn = Request::getInt('files_sn');
-
-switch ($op) {
-    /*---判斷動作請貼在下方---*/
-
-//下載檔案
-    case "tufdl":
-        $TadUpFiles = new TadUpFiles("tad_blocks");
-        $TadUpFiles->add_file_counter($files_sn);
-        exit;
-
-    case "block_form":
-        block_form($type, $bid, $bbid);
-        break;
-
-    case "block_save":
-        block_save($type, $TDC, $bid, $bbid);
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    case "block_del":
-        block_del($bid);
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    default:
-        my_blocks();
-        $op = 'my_blocks';
-        break;
-
-        /*---判斷動作請貼在上方---*/
-}
-
-/*-----------秀出結果區--------------*/
-$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign('now_op', $op);
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tadtools/css/my-input.css');
-include_once XOOPS_ROOT_PATH . '/footer.php';

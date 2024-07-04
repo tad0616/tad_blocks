@@ -31,7 +31,7 @@ function get_content($bid = 0)
 }
 
 //製作 youtube 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
 
     require __DIR__ . "/config.php";
@@ -45,7 +45,7 @@ function mk_content($TDC)
     $youtube_ratios5 = $TDC['youtube_ratios'];
     $youtube_ratios4 = str_replace('x', 'by', $youtube_ratios5);
     $content = <<<"EOD"
-<div class="embed-responsive embed-responsive-{$youtube_ratios4} ratio ratio-{$youtube_ratios5}">
+<div id="tad_block_youtube_{$bid}" class="embed-responsive embed-responsive-{$youtube_ratios4} ratio ratio-{$youtube_ratios5}">
     <iframe title="$title" class="embed-responsive-item" src="https://www.youtube.com/embed/{$youtube_id}" allowfullscreen></iframe>
 </div>
 EOD;

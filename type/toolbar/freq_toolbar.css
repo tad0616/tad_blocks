@@ -1,35 +1,38 @@
-#freq-link ul {
-    margin-left: 0;
-    padding: 0;
-    border-radius: 0px;
-    overflow: hidden;
-    margin-bottom: 10px;
+#freq-link ul,
+.freq-link ul {
+  margin-left: 0;
+  padding: 0;
+  border-radius: 0px;
+  overflow: hidden;
+  margin-bottom: 10px;
 }
 
-#freq-link ul li {
-    margin-left: 0px;
-    padding: 0;
-    display: inline-block;
-    list-style: none;
+#freq-link ul li,
+.freq-link ul li {
+  margin-left: 0px;
+  padding: 0;
+  display: inline-block;
+  list-style: none;
 }
 
-#freq-link ul li img {
-    margin: 0;
-    /* padding: 10px; */
-    text-align: center;
+#freq-link ul li img,
+.freq-link ul li img {
+  margin: 0;
+  /* padding: 10px; */
+  text-align: center;
 }
 
-#freq-link a {
-    margin: 0;
-    padding: 0;
-    display: block;
-    text-align: center;
-    transition: 0.5s;
+#freq-link a,
+.freq-link a {
+  margin: 0;
+  padding: 0;
+  display: block;
+  text-align: center;
+  transition: 0.5s;
 }
 
-#freq-link a:hover {}
-
-#freq-link a p {
-    margin-top: 10;
-    padding: 0;
+#freq-link a p,
+.freq-link a p {
+  margin-top: 10;
+  padding: 0;
 }

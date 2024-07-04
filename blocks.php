@@ -34,6 +34,47 @@ if (!$_SESSION['tad_blocks_adm']) {
     redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
 }
 
+/*-----------執行動作判斷區----------*/
+$op = Request::getString('op');
+$TDC = Request::getVar('TDC', [], null, 'array', 2);
+$type = Request::getString('type');
+$bid = Request::getInt('bid');
+
+switch ($op) {
+
+    case 'save_and_re_build_logo':
+        save_and_re_build_logo();
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    case "block_form":
+        block_form($type, $bid);
+        break;
+
+    case "block_save":
+        block_save($type, $TDC, $bid);
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    case "block_del":
+        block_del($bid);
+        header("location: {$_SERVER['PHP_SELF']}");
+        exit;
+
+    default:
+        all_blocks();
+        $op = 'all_blocks';
+        break;
+
+        /*---判斷動作請貼在上方---*/
+}
+
+/*-----------秀出結果區--------------*/
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('now_op', $op);
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
+include_once XOOPS_ROOT_PATH . '/footer.php';
+
 /*-----------功能函數區--------------*/
 
 //列出所有區塊
@@ -160,44 +201,3 @@ function save_and_re_build_logo()
         mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size, false);
     }
 }
-
-/*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$TDC = Request::getVar('TDC', [], null, 'array', 2);
-$type = Request::getString('type');
-$bid = Request::getInt('bid');
-
-switch ($op) {
-
-    case 'save_and_re_build_logo':
-        save_and_re_build_logo();
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    case "block_form":
-        block_form($type, $bid);
-        break;
-
-    case "block_save":
-        block_save($type, $TDC, $bid);
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    case "block_del":
-        block_del($bid);
-        header("location: {$_SERVER['PHP_SELF']}");
-        exit;
-
-    default:
-        all_blocks();
-        $op = 'all_blocks';
-        break;
-
-        /*---判斷動作請貼在上方---*/
-}
-
-/*-----------秀出結果區--------------*/
-$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
-$xoopsTpl->assign('now_op', $op);
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
-include_once XOOPS_ROOT_PATH . '/footer.php';

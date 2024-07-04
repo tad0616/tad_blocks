@@ -37,7 +37,7 @@ function get_content($bid = 0)
 }
 
 //製作 menu 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
@@ -77,7 +77,7 @@ EOD;
 
         $target = !empty($TDC['target'][$key]) ? $TDC['target'][$key] : '_blank';
         $content .= <<<"EOD"
-<div class="img-responsive">
+<div id="tad_block_menu_"$bid" class="img-responsive">
     <a href="$url" class="a_link"  target="{$target}">
         <div class="R_menu_bg">
             <div class="R_menu_bot" style="background-color: {$m_color}">

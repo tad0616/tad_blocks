@@ -34,7 +34,7 @@ function get_content($bid = 0)
 }
 
 //製作 menu 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
@@ -49,16 +49,16 @@ function mk_content($TDC)
     $url = XOOPS_URL;
 
     if ($show_type == 'ul') {
-        $content = '<ul style="list-style-position:inside;">';
+        $content = '<ul id="tad_block_link_' . $bid . '" style="list-style-position:inside;">';
     } elseif ($show_type == 'ol') {
-        $content = '<ol style="list-style-position:inside;">';
+        $content = '<ol id="tad_block_link_' . $bid . '" style="list-style-position:inside;">';
     } elseif ($show_type == 'table') {
-        $content = '<table class="table table-bordered table-condensed table-hover">';
+        $content = '<table id="tad_block_link_' . $bid . '" class="table table-bordered table-condensed table-hover">';
     } elseif ($show_type == 'none' || $show_type == 'image') {
         $content = '';
     } else {
         $content = '<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="' . XOOPS_URL . '/modules/tadtools/css/vertical_menu.css">
-        <ul class="vertical_menu">';
+        <ul id="tad_block_link_' . $bid . '" class="vertical_menu">';
     }
 
     foreach ($TDC['url'] as $key => $url) {

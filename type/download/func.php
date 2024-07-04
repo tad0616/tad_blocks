@@ -45,7 +45,7 @@ function get_content($bid = 0)
 }
 
 //製作 download 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
 
     require __DIR__ . "/config.php";
@@ -61,7 +61,7 @@ function mk_content($TDC)
     } elseif ($mode === 'filename') {
         $content = '<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="' . XOOPS_URL . '/modules/tadtools/css/rounded-list.css">';
     } else {
-        $fancybox = new FancyBox(".fancybox_download", '1920', '1080');
+        $fancybox = new FancyBox(".fancybox_download{$bid}", '1920', '1080');
         $content = ($mode === 'file_text_url' or $show_mode === 'file_url') ? '' : $fancybox->render(false, null, null, null, true);
     }
 

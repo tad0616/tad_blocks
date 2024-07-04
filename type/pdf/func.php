@@ -33,7 +33,7 @@ function get_content($bid = 0)
 }
 
 //製作 pdf 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
 
     require __DIR__ . "/config.php";
@@ -50,7 +50,7 @@ function mk_content($TDC)
     $content = <<<"EOD"
 <link href="$url/modules/tad_blocks/type/pdf/embed-responsive.css" rel="stylesheet">
 <div class="embed-responsive embed-responsive-{$rate} ratio ratio-{$rate}">
-    <iframe title="$title" class="embed-responsive-item" src="{$pdf_url}" allowfullscreen scrolling="{$scrolling}"></iframe>
+    <iframe id="tad_block_menu_"$bid" title="$title" class="embed-responsive-item" src="{$pdf_url}" allowfullscreen scrolling="{$scrolling}"></iframe>
 </div>
 EOD;
 

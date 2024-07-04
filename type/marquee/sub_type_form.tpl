@@ -70,6 +70,7 @@
 </div>
 
 <script type="text/javascript">
+
     $(document).ready(function(){
         <{if $bid}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {

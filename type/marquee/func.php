@@ -31,7 +31,7 @@ function get_content($bid = 0)
     return $block;
 }
 //製作 marquee 區塊內容
-function mk_content($TDC)
+function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
@@ -58,24 +58,27 @@ function mk_content($TDC)
     $content = '<link href="' . XOOPS_URL . '/modules/tad_blocks/type/marquee/jquery.marquee/css/jquery.marquee.css" rel="stylesheet" type="text/css">';
     $content .= '<script type="text/javascript" src="' . XOOPS_URL . '/modules/tad_blocks/type/marquee/jquery.marquee/lib/jquery.marquee.js"></script>';
     $content .= '<style type="text/css" media="screen">';
-    $content .= 'ul#tad_blocks_marquee2 {';
+    $content .= 'ul#tad_blocks_marquee_' . $bid . ' {';
     $content .= '    width: 100%;';
     $content .= '    height: ' . $height . 'px;';
     $content .= '    background-color: ' . $bg_color . ';';
     $content .= '    border: ' . $border_size . 'px ' . $border_type . ' ' . $border_color . ';';
     $content .= '}';
-    $content .= 'ul#tad_blocks_marquee2 li {';
+    $content .= 'ul#tad_blocks_marquee_' . $bid . ' li {';
     $content .= '    font-size: ' . $font_size_em . 'em;';
     $content .= '    color: ' . $text_color . ';';
     $content .= '    padding: ' . $padding_y . 'px 5px;';
     $content .= '}';
+    $content .= 'ul#tad_blocks_marquee_' . $bid . ' li>a {';
+    $content .= '    color: ' . $text_color . ';';
+    $content .= '}';
     $content .= '</style>';
     $content .= '<script type="text/javascript">';
     $content .= '$(document).ready(function (){';
-    $content .= '    $("#tad_blocks_marquee2").marquee2({yScroll: "bottom"});';
+    $content .= '    $("#tad_blocks_marquee_' . $bid . '").marquee2({yScroll: "bottom"});';
     $content .= '});';
     $content .= '</script>';
-    $content .= '<ul id="tad_blocks_marquee2">';
+    $content .= '<ul id="tad_blocks_marquee_' . $bid . '" class="tad_blocks_marquee">';
     $content .= $marquee;
     $content .= '</ul>';
 
