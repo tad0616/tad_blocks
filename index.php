@@ -231,8 +231,8 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 
     $myts = \MyTextSanitizer::getInstance();
 
-    $title = $myts->addSlashes($TDC['title']);
-    $side = $myts->addSlashes($TDC['side']);
+    $title = $xoopsDB->escape($TDC['title']);
+    $side = $xoopsDB->escape($TDC['side']);
     $weight = (int) $TDC['weight'];
 
     if (!empty($type)) {
@@ -240,7 +240,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
         $content = mk_content($bid, $TDC);
 
     } else {
-        $content = $myts->addSlashes($TDC['content']);
+        $content = $xoopsDB->escape($TDC['content']);
     }
 
     $content = Wcag::amend($content);

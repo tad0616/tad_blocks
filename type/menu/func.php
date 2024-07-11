@@ -91,6 +91,6 @@ EOD;
 EOD;
     }
 
-    $content = $myts->addSlashes($content);
+    $content = $xoopsDB->escape($content);
     return $content;
 }

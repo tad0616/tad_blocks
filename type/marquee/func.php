@@ -45,12 +45,12 @@ function mk_content($bid, $TDC)
     }
 
     $font_size = empty($TDC['font_size']) ? $default['font_size'] : (int) $TDC['font_size'];
-    $text_color = empty($TDC['text_color']) ? $default['text_color'] : $myts->addSlashes($TDC['text_color']);
-    $bg_color = empty($TDC['bg_color']) ? $default['bg_color'] : $myts->addSlashes($TDC['bg_color']);
+    $text_color = empty($TDC['text_color']) ? $default['text_color'] : $xoopsDB->escape($TDC['text_color']);
+    $bg_color = empty($TDC['bg_color']) ? $default['bg_color'] : $xoopsDB->escape($TDC['bg_color']);
     $padding_y = empty($TDC['padding_y']) ? $default['padding_y'] : (int) $TDC['padding_y'];
     $border_size = empty($TDC['border_size']) ? $default['border_size'] : (int) $TDC['border_size'];
-    $border_type = empty($TDC['border_type']) ? $default['border_type'] : $myts->addSlashes($TDC['border_type']);
-    $border_color = empty($TDC['border_color']) ? $default['border_color'] : $myts->addSlashes($TDC['border_color']);
+    $border_type = empty($TDC['border_type']) ? $default['border_type'] : $xoopsDB->escape($TDC['border_type']);
+    $border_color = empty($TDC['border_color']) ? $default['border_color'] : $xoopsDB->escape($TDC['border_color']);
     $height = $font_size + ($padding_y * 2) + ($border_size * 2);
 
     $font_size_em = round($font_size / 16, 2);
@@ -82,6 +82,6 @@ function mk_content($bid, $TDC)
     $content .= $marquee;
     $content .= '</ul>';
 
-    $content = $myts->addSlashes($content);
+    $content = $xoopsDB->escape($content);
     return $content;
 }

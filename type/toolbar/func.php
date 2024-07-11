@@ -70,6 +70,6 @@ EOD;
     }
     $content .= "   </ul>";
     $content .= "</div>";
-    $content = $myts->addSlashes($content);
+    $content = $xoopsDB->escape($content);
     return $content;
 }

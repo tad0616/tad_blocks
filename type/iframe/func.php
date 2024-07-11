@@ -50,6 +50,6 @@ function mk_content($bid, $TDC)
 </div>
 EOD;
 
-    $content = $myts->addSlashes($content);
+    $content = $xoopsDB->escape($content);
     return $content;
 }
