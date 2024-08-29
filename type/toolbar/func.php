@@ -70,6 +70,5 @@ EOD;
     }
     $content .= "   </ul>";
     $content .= "</div>";
-    $content = $xoopsDB->escape($content);
     return $content;
 }

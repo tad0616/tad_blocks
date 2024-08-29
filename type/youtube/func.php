@@ -35,7 +35,6 @@ function mk_content($bid, $TDC)
 {
 
     require __DIR__ . "/config.php";
-    $myts = \MyTextSanitizer::getInstance();
 
     $youtube_id = getYouTubeId($TDC['video_url']);
 
@@ -50,7 +49,6 @@ function mk_content($bid, $TDC)
 </div>
 EOD;
 
-    $content = $xoopsDB->escape($content);
     return $content;
 }
 

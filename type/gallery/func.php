@@ -161,6 +161,5 @@ function mk_content($bid, $TDC)
       ";
     }
 
-    $content = $xoopsDB->escape($content);
     return $content;
 }

@@ -39,6 +39,6 @@ function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
-    $content = $xoopsDB->escape($TDC['content']);
+    $content = $myts->addSlashes($TDC['content']);
     return $content;
 }

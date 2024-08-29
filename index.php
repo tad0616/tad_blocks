@@ -229,8 +229,6 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $myts = \MyTextSanitizer::getInstance();
-
     $title = $xoopsDB->escape($TDC['title']);
     $side = $xoopsDB->escape($TDC['side']);
     $weight = (int) $TDC['weight'];
@@ -238,6 +236,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
     if (!empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($bid, $TDC);
+        $content = $xoopsDB->escape($content);
 
     } else {
         $content = $xoopsDB->escape($TDC['content']);

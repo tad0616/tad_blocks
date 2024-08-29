@@ -91,6 +91,5 @@ EOD;
 EOD;
     }
 
-    $content = $xoopsDB->escape($content);
     return $content;
 }

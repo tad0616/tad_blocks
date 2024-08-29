@@ -54,6 +54,5 @@ function mk_content($bid, $TDC)
 </div>
 EOD;
 
-    $content = $xoopsDB->escape($content);
     return $content;
 }

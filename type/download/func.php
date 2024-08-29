@@ -47,7 +47,6 @@ function get_content($bid = 0)
 //製作 download 區塊內容
 function mk_content($bid, $TDC)
 {
-
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
 
@@ -74,6 +73,6 @@ function mk_content($bid, $TDC)
 
     //show_files($upname="",$thumb=true,$show_mode="",$show_description=false,$show_dl=false,$limit=NULL,$path=NULL,$hash=false,$playSpeed=5000)
 
-    $content = $xoopsDB->escape($content);
+    $content = $myts->addSlashes($content);
     return $content;
 }
