@@ -4,6 +4,7 @@
 $xoopsOption['template_main'] = "tad_blocks_adm_main.tpl";
 include_once "header.php";
 include_once "../function.php";
+
 include_once XOOPS_ROOT_PATH . "/Frameworks/art/functions.php";
 include_once XOOPS_ROOT_PATH . "/Frameworks/art/functions.admin.php";
 include_once XOOPS_ROOT_PATH . '/class/xoopsform/grouppermform.php';
