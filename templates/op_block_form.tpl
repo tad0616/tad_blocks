@@ -1,9 +1,9 @@
 <!-- 判斷目前使用者是否有：建立自訂區塊 -->
-<{if $add_block}>
+<{if $add_block|default:false}>
     <!-- 有權限時要做的事 -->
     <form method="post" action="index.php" id="block_setup" enctype="multipart/form-data">
         <h3 class="my">
-            <{if $bid}>
+            <{if $bid|default:false}>
                 <{if $visible=='1'}>
                     <a href="ajax.php?op=change_newblock&bid=<{$bid}>&col=visible&val=0"><img src="images/yes.gif" alt="enable"></a>
                 <{else}>
@@ -28,11 +28,11 @@
                 <div class="input-group-prepend input-group-addon">
                     <span class="input-group-text"><{$smarty.const._MD_TAD_BLOCKS_TITLE}></span>
                 </div>
-                <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{if $title}><{$title}><{else}><{$default.title}><{/if}>">
+                <input type="text" class="form-control" name="TDC[title]" placeholder="<{$smarty.const._MD_TAD_BLOCKS_ADD_TITLE}>" value="<{if $title|default:false}><{$title}><{else}><{$default.title}><{/if}>">
             </div>
         </div>
         <div class="form-group">
-            <{if $type}>
+            <{if $type|default:false}>
                 <{include file="$xoops_rootpath/modules/tad_blocks/type/`$type`/sub_type_form.tpl"}>
             <{else}>
                 <{$editor}>
@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-sm-4">
                 <h4><{$smarty.const._MD_TAD_BLOCKS_POSITION}></h4>
-                <{if $theme_type}>
+                <{if $theme_type|default:false}>
                     <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
                 <{else}>
                     <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>

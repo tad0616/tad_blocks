@@ -21,7 +21,7 @@
 </form>
 
 <div class="mb-5">
-    <{if $theme_type}>
+    <{if $theme_type|default:false}>
         <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_`$theme_type`.tpl"}>
     <{else}>
         <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>

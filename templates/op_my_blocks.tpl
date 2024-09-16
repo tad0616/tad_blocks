@@ -17,7 +17,7 @@
         <{foreach from=$my_blocks key=i item=b}>
             <tr>
                 <td>
-                    <{if $b.bid}>
+                    <{if $b.bid|default:false}>
                         <{if $b.visible=='1'}>
                             <a href="ajax.php?op=change_newblock&bid=<{$b.bid}>&col=visible&val=0"><img src="images/yes.gif" alt="enable"></a>
                         <{else}>
@@ -43,7 +43,7 @@
                     <{/if}>
                 </td>
                 <td>
-                    <{if $b.bid}>
+                    <{if $b.bid|default:false}>
                         <a href="javascript:block_del(<{$b.bid}>)" class="btn btn-sm btn-danger"><{$smarty.const._TAD_DEL}></a>
                         <a href="index.php?op=block_form&bid=<{$b.bid}>" class="btn btn-sm btn-warning"><{$smarty.const._TAD_EDIT}></a>
                     <{else}>

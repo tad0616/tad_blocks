@@ -1,4 +1,4 @@
-<div id="bid-<{$b.bid}>" data-bid="<{$b.bid}>" class="b-item <{if $b.visible==1}>visible_block<{else}>invisible_block<{/if}> <{if $b.dirname}><{$b.dirname}><{else}>custom<{/if}> text-left text-start ">
+<div id="bid-<{$b.bid}>" data-bid="<{$b.bid}>" class="b-item <{if $b.visible==1}>visible_block<{else}>invisible_block<{/if}> <{if $b.dirname|default:false}><{$b.dirname}><{else}>custom<{/if}> text-left text-start ">
     <{if $b.visible==1}>
         <img src="images/yes.png" alt="<{$smarty.const._MD_TAD_BLOCKS_TO_UNABLE}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_TO_UNABLE}>" data-bid="<{$b.bid}>" class="change_visible">
     <{else}>
@@ -11,8 +11,8 @@
         <img src="images/coding.png" alt="<{$smarty.const._MD_TAD_BLOCKS_ALL_PAGES}>" data-toggle="tooltip" title="<{$smarty.const._MD_TAD_BLOCKS_TO_ONLY_HOME}>" id="display-<{$b.bid}>" data-bid="<{$b.bid}>" data-val="<{$b.module_id}>" class="module_id">
     <{/if}>
 
-    <span class="editable mx-2" id="b-title-<{$b.bid}>" data-name="title" data-type="text" data-pk="<{$b.bid}>" data-title="Enter title" data-params="{op: 'update_title'}" title="(<{$b.weight}>) <{if $b.mod_name}><{$b.mod_name}>/<{/if}><{$b.name}>"><{$b.title}></span>
-    <{if $b.hide}>
+    <span class="editable mx-2" id="b-title-<{$b.bid}>" data-name="title" data-type="text" data-pk="<{$b.bid}>" data-title="Enter title" data-params="{op: 'update_title'}" title="(<{$b.weight}>) <{if $b.mod_name|default:false}><{$b.mod_name}>/<{/if}><{$b.name}>"><{$b.title}></span>
+    <{if $b.hide|default:false}>
         <span class="bt-tag">[hide]</span>
     <{elseif $b.pic}>
         <span class="bt-tag">[pic]</span>

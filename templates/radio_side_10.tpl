@@ -1,5 +1,5 @@
 <!-- 頁尾左 -->
-<{if $all_blocks}>
+<{if $all_blocks|default:false}>
     <h4 class="block_side"><{$smarty.const._MD_TAD_BLOCKS_FOOTER_LEFT}></h4>
     <div class="droppable" id="side-10" data-side="10">
         <{foreach from=$all_blocks.10 item=b}>

@@ -1,7 +1,7 @@
 <h3>
     <{$smarty.const._MD_TAD_BLOCKS_LOGO_DESIGN}>
 </h3>
-<{if $fonts}>
+<{if $fonts|default:false}>
     <form action="blocks.php" id="myForm" method="post" role="form" class="form-horizontal">
         <div class="alert alert-success">
             <div class="form-group row mb-3">

@@ -1,7 +1,7 @@
 <div id="save_msg"></div>
 <table class="table" id="new_form">
     <tbody id="sort">
-        <{if $content}>
+        <{if $content|default:false}>
             <{foreach from=$content key=i item=marquee}>
                 <tr id="form_data<{$i}>">
                     <td style="width:40px;">
@@ -72,7 +72,7 @@
 <script type="text/javascript">
 
     $(document).ready(function(){
-        <{if $bid}>
+        <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
                 var order = $(this).sortable('serialize');
                 order = order + '&col[]=content&col[]=url&col[]=target&op=save_sort&bid=<{$bid}>';
@@ -84,7 +84,7 @@
             });
         <{/if}>
 
-        <{if $content}>
+        <{if $content|default:false}>
             var form_index=<{$i}>;
         <{else}>
             var form_index=0;
