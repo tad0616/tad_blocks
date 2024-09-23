@@ -3,25 +3,25 @@
     <tbody id="sort">
         <{if $text|default:false}>
             <{foreach from=$text key=i item=text}>
-                <tr id="form_data<{$i}>">
+                <tr id="form_data<{$i|default:''}>">
                     <td>
-                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
                     </td>
                     <td>
-                        <div id="demo_pic<{$i}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
+                        <div id="demo_pic<{$i|default:''}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
                     </td>
                     <td style="width: 120px;">
-                        <input type="file" name="img[<{$i}>]" id="img<{$i}>" data-id="<{$i}>" class="upload_img" style="width: 120px;">
-                        <input type="hidden" name="TDC[img_url][<{$i}>]" id="img_url<{$i}>" value="<{$img_url.$i}>">
+                        <input type="file" name="img[<{$i|default:''}>]" id="img<{$i|default:''}>" data-id="<{$i|default:''}>" class="upload_img" style="width: 120px;">
+                        <input type="hidden" name="TDC[img_url][<{$i|default:''}>]" id="img_url<{$i|default:''}>" value="<{$img_url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>" value="<{$url.$i}>">
+                        <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>" value="<{$url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$text}>">
+                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$text|default:''}>">
                     </td>
                     <td>
-                        <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                        <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                             <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                             <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
                         </select>
@@ -80,13 +80,13 @@
     </select>
 
     <br>
-    <{$smarty.const._LINK_ITEM_CSS}><input type="text" name="TDC[item_css]" id="item_css" value="<{$item_css}>" style="width:80%;" class="my-input">
+    <{$smarty.const._LINK_ITEM_CSS}><input type="text" name="TDC[item_css]" id="item_css" value="<{$item_css|default:''}>" style="width:80%;" class="my-input">
     <br>
-    <{$smarty.const._LINK_IMG_CSS}><input type="text" name="TDC[img_css]" id="img_css" value="<{$img_css}>" style="width:80%;" class="my-input">
+    <{$smarty.const._LINK_IMG_CSS}><input type="text" name="TDC[img_css]" id="img_css" value="<{$img_css|default:''}>" style="width:80%;" class="my-input">
     <br>
-    <{$smarty.const._LINK_TXT_CSS}><input type="text" name="TDC[txt_css]" id="txt_css" value="<{$txt_css}>" style="width:80%;" class="my-input">
+    <{$smarty.const._LINK_TXT_CSS}><input type="text" name="TDC[txt_css]" id="txt_css" value="<{$txt_css|default:''}>" style="width:80%;" class="my-input">
     <br>
-    <{$smarty.const._LINK_PIC_WIDTH}><input type="number" name="TDC[pic_width]" id="pic_width" value="<{$pic_width}>"  class="my-input">px
+    <{$smarty.const._LINK_PIC_WIDTH}><input type="number" name="TDC[pic_width]" id="pic_width" value="<{$pic_width|default:''}>"  class="my-input">px
     <{$smarty.const._LINK_PIC_DESC}>
     <br>
 </div>
@@ -100,7 +100,7 @@
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
                 var order = $(this).sortable('serialize');
-                order = order + '&col[]=text&col[]=url&col[]=target&col[]=img_url&op=save_sort&bid=<{$bid}>';
+                order = order + '&col[]=text&col[]=url&col[]=target&col[]=img_url&op=save_sort&bid=<{$bid|default:''}>';
                 console.log(order);
                 $.post('ajax.php', order, function(theResponse){
                     $('#save_msg').html(theResponse);
@@ -110,7 +110,7 @@
         <{/if}>
 
         <{if $text|default:false}>
-            var form_index=<{$i}>;
+            var form_index=<{$i|default:''}>;
         <{else}>
             var form_index=0;
             form_index = clone_form(form_index);

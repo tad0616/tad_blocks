@@ -1,4 +1,4 @@
-<input name="TDC[video_url]" id="video_url" class="form-control" value="<{$video_url}>" placeholder="<{$smarty.const._YOUTUBE_URL}>">
+<input name="TDC[video_url]" id="video_url" class="form-control" value="<{$video_url|default:''}>" placeholder="<{$smarty.const._YOUTUBE_URL}>">
 
 <div class="alert alert-info my-4">
     <{$smarty.const._YOUTUBE_RATIO}>

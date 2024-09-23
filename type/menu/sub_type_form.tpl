@@ -1,4 +1,4 @@
-<{$migrate}>
+<{$migrate|default:''}>
 <link href="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome-iconpicker/css/fontawesome-iconpicker.css" rel="stylesheet">
 <script src="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js"></script>
 <div id="save_msg"></div>
@@ -6,27 +6,27 @@
     <tbody id="sort">
         <{if $text|default:false}>
             <{foreach from=$text key=i item=text}>
-                <tr id="form_data<{$i}>">
+                <tr id="form_data<{$i|default:''}>">
                     <td style="width:40px;">
-                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
                     </td>
                     <td style="width:100px;">
-                        <input type="text" name="TDC[icon][<{$i}>]" id="icon<{$i}>" class="icp demo form-control" value="<{$icon.$i}>">
+                        <input type="text" name="TDC[icon][<{$i|default:''}>]" id="icon<{$i|default:''}>" class="icp demo form-control" value="<{$icon.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
+                        <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text}>">
+                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text|default:''}>">
                     </td>
                     <td>
-                        <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                        <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                             <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                             <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
                         </select>
                     </td>
                     <td style="width: 130px">
-                        <input type="text" name="TDC[m_color][<{$i}>]" id="m_color<{$i}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
+                        <input type="text" name="TDC[m_color][<{$i|default:''}>]" id="m_color<{$i|default:''}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
                     </td>
                 </tr>
             <{/foreach}>
@@ -50,7 +50,7 @@
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>">
         </td>
         <td>
-            <select data-name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+            <select data-name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                 <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                 <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
             </select>
@@ -66,7 +66,7 @@
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._MENU_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size}>" class="my-input"> px<br>
+    <{$smarty.const._MENU_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input"> px<br>
     <{$smarty.const._MENU_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align" class="my-input">
         <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._MENU_LEFT}></option>
         <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._MENU_CENTER}></option>
@@ -80,7 +80,7 @@
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
                 var order = $(this).sortable('serialize');
-                order = order + '&col[]=icon&col[]=url&col[]=text&col[]=target&col[]=m_color&op=save_sort&bid=<{$bid}>';
+                order = order + '&col[]=icon&col[]=url&col[]=text&col[]=target&col[]=m_color&op=save_sort&bid=<{$bid|default:''}>';
                 console.log(order);
                 $.post('ajax.php', order, function(theResponse){
                     $('#save_msg').html(theResponse);
@@ -89,7 +89,7 @@
             });
         <{/if}>
         <{if $text|default:false}>
-            var form_index=<{$i}>;
+            var form_index=<{$i|default:''}>;
         <{else}>
             var form_index=0;
             form_index = clone_form(form_index);

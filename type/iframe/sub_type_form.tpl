@@ -1,4 +1,4 @@
-<input name="TDC[iframe_url]" id="iframe_url" class="form-control" value="<{$iframe_url}>" placeholder="<{$smarty.const._IFRAME_URL}>">
+<input name="TDC[iframe_url]" id="iframe_url" class="form-control" value="<{$iframe_url|default:''}>" placeholder="<{$smarty.const._IFRAME_URL}>">
 
 <div class="alert alert-info my-4">
     <{$smarty.const._IFRAME_WIDTH_HEIGHT}>

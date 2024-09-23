@@ -1,3 +1,3 @@
 <div class="container-fluid">
-  <{$permission_content}>
+  <{$permission_content|default:''}>
 </div>

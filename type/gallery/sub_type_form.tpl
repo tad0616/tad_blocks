@@ -1,6 +1,6 @@
 <div class="alert alert-warning my-3">
-    <{$upform}>
-    <input type="hidden" name="TDC[pic_col_sn]" value="<{$pic_col_sn}>">
+    <{$upform|default:''}>
+    <input type="hidden" name="TDC[pic_col_sn]" value="<{$pic_col_sn|default:''}>">
 </div>
 
 <div class="alert alert-info my-4">
@@ -19,12 +19,12 @@
     </div>
 
     <br>
-    <{$smarty.const._GALLERY_SHOW_WIDTH}><{$smarty.const._TAD_FOR}><input type="number" name="TDC[show_width]" id="show_width" value="<{$show_width}>" placeholder="<{$smarty.const._GALLERY_SHOW_WIDTH}>" style="width: 80px;"> x
-    <{$smarty.const._GALLERY_SHOW_HEIGHT}><{$smarty.const._TAD_FOR}><input type="number" name="TDC[show_height]" id="show_height" value="<{$show_height}>" placeholder="<{$smarty.const._GALLERY_SHOW_HEIGHT}>" style="width: 80px;">
+    <{$smarty.const._GALLERY_SHOW_WIDTH}><{$smarty.const._TAD_FOR}><input type="number" name="TDC[show_width]" id="show_width" value="<{$show_width|default:''}>" placeholder="<{$smarty.const._GALLERY_SHOW_WIDTH}>" style="width: 80px;"> x
+    <{$smarty.const._GALLERY_SHOW_HEIGHT}><{$smarty.const._TAD_FOR}><input type="number" name="TDC[show_height]" id="show_height" value="<{$show_height|default:''}>" placeholder="<{$smarty.const._GALLERY_SHOW_HEIGHT}>" style="width: 80px;">
     <br>
-    <{$smarty.const._GALLERY_DESC_HEIGHT}><{$smarty.const._TAD_FOR}><input type="number" name="TDC[desc_height]" id="desc_height" value="<{$desc_height}>" placeholder="<{$smarty.const._GALLERY_DESC_HEIGHT}>" style="width: 80px;">
+    <{$smarty.const._GALLERY_DESC_HEIGHT}><{$smarty.const._TAD_FOR}><input type="number" name="TDC[desc_height]" id="desc_height" value="<{$desc_height|default:''}>" placeholder="<{$smarty.const._GALLERY_DESC_HEIGHT}>" style="width: 80px;">
     <br>
-    <{$smarty.const._GALLERY_THUMB_CSS}><{$smarty.const._TAD_FOR}><input type="text" name="TDC[thumb_css]" id="thumb_css" value="<{$thumb_css}>" placeholder="<{$smarty.const._GALLERY_THUMB_CSS}>" style="width: 80%;">
+    <{$smarty.const._GALLERY_THUMB_CSS}><{$smarty.const._TAD_FOR}><input type="text" name="TDC[thumb_css]" id="thumb_css" value="<{$thumb_css|default:''}>" placeholder="<{$smarty.const._GALLERY_THUMB_CSS}>" style="width: 80%;">
 
 
     <br>

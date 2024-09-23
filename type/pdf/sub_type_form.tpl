@@ -1,6 +1,6 @@
 <input type="file" name="pdf" id="pdf">
-<input type="hidden" name="TDC[pdf_url]" id="pdf_url" value="<{$pdf_url}>">
-<div id="demo_pdf"><{$pdf_url}></div>
+<input type="hidden" name="TDC[pdf_url]" id="pdf_url" value="<{$pdf_url|default:''}>">
+<div id="demo_pdf"><{$pdf_url|default:''}></div>
 <div class="alert alert-info my-4">
     <{$smarty.const._PDF_RATIO}><select name="TDC[rate]" id="rate">
     <option value="210by297" <{if $text_align=='210by297'}>selected<{/if}>><{$smarty.const._PDF_210BY297}></option>
