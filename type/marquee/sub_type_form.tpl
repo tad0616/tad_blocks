@@ -51,22 +51,43 @@
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._MARQUEE_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input"> px<br>
-    <{$smarty.const._MARQUEE_FONT_COLOR}><input type="text" name="TDC[text_color]" id="text_color" value="<{$text_color|default:''}>" class="color my-input" data-hex="true"><br>
-    <{$smarty.const._MARQUEE_BG_COLOR}><input type="text" name="TDC[bg_color]" id="bg_color" value="<{$bg_color|default:''}>" class="color my-input" data-hex="true"><br>
-    <{$smarty.const._MARQUEE_PADDING}><input type="number" name="TDC[padding_y]" id="padding_y" value="<{$padding_y|default:''}>" class="my-input"> px<br>
-    <{$smarty.const._MARQUEE_BORDER_SIZE}><input type="number" name="TDC[border_size]]" id="border_size" value="<{$border_size|default:''}>" class="my-input"> px<br>
-    <{$smarty.const._MARQUEE_BORDER_TYPE}><select name="TDC[border_type]" id="border_type" class="my-input">
-    <option value="solid" <{if $border_type=='solid'}>selected<{/if}>><{$smarty.const._MARQUEE_SOLID}></option>
-    <option value="dotted" <{if $border_type=='dotted'}>selected<{/if}>><{$smarty.const._MARQUEE_DOTTED}></option>
-    <option value="dashed" <{if $border_type=='dashed'}>selected<{/if}>><{$smarty.const._MARQUEE_DASHED}></option>
-    <option value="double" <{if $border_type=='double'}>selected<{/if}>><{$smarty.const._MARQUEE_DOUBLE}></option>
-    <option value="groove" <{if $border_type=='groove'}>selected<{/if}>><{$smarty.const._MARQUEE_GROOVE}></option>
-    <option value="ridge" <{if $border_type=='ridge'}>selected<{/if}>><{$smarty.const._MARQUEE_RIDGE}></option>
-    <option value="inset" <{if $border_type=='inset'}>selected<{/if}>><{$smarty.const._MARQUEE_INSET}></option>
-    <option value="outset" <{if $border_type=='outset'}>selected<{/if}>><{$smarty.const._MARQUEE_OUTSET}></option>
-    </select><br>
-    <{$smarty.const._MARQUEE_BORDER_COLOR}><input type="text" name="TDC[border_color]" id="border_color" value="<{$border_color|default:''}>" class="color my-input" data-hex="true">
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_FONT_SIZE}>
+        <input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_FONT_COLOR}>
+        <div class="d-inline-block"><div class="input-group"><input type="text" name="TDC[text_color]" id="text_color" value="<{$text_color|default:''}>" class="my-input color-picker" data-hex="true"></div></div>
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_BG_COLOR}>
+        <div class="d-inline-block"><div class="input-group"><input type="text" name="TDC[bg_color]" id="bg_color" value="<{$bg_color|default:''}>" class="my-input color-picker" data-hex="true"></div></div>
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_PADDING}>
+        <input type="number" name="TDC[padding_y]" id="padding_y" value="<{$padding_y|default:''}>" class="my-input"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_BORDER_SIZE}>
+        <input type="number" name="TDC[border_size]]" id="border_size" value="<{$border_size|default:''}>" class="my-input"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_BORDER_TYPE}>
+        <select name="TDC[border_type]" id="border_type" class="my-input">
+        <option value="solid" <{if $border_type=='solid'}>selected<{/if}>><{$smarty.const._MARQUEE_SOLID}></option>
+        <option value="dotted" <{if $border_type=='dotted'}>selected<{/if}>><{$smarty.const._MARQUEE_DOTTED}></option>
+        <option value="dashed" <{if $border_type=='dashed'}>selected<{/if}>><{$smarty.const._MARQUEE_DASHED}></option>
+        <option value="double" <{if $border_type=='double'}>selected<{/if}>><{$smarty.const._MARQUEE_DOUBLE}></option>
+        <option value="groove" <{if $border_type=='groove'}>selected<{/if}>><{$smarty.const._MARQUEE_GROOVE}></option>
+        <option value="ridge" <{if $border_type=='ridge'}>selected<{/if}>><{$smarty.const._MARQUEE_RIDGE}></option>
+        <option value="inset" <{if $border_type=='inset'}>selected<{/if}>><{$smarty.const._MARQUEE_INSET}></option>
+        <option value="outset" <{if $border_type=='outset'}>selected<{/if}>><{$smarty.const._MARQUEE_OUTSET}></option>
+        </select>
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MARQUEE_BORDER_COLOR}>
+        <div class="d-inline-block"><div class="input-group"><input type="text" name="TDC[border_color]" id="border_color" value="<{$border_color|default:''}>" class="my-input color-picker" data-hex="true"></div></div>
+    </div>
 </div>
 
 <script type="text/javascript">

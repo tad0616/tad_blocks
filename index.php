@@ -88,10 +88,9 @@ function my_blocks()
     $TadDataCenter = new TadDataCenter($module_dirname);
     $my_blocks = [];
     $where_uid = $_SESSION['tad_blocks_adm'] ? '' : "where a.`uid`='{$uid}'";
-    $sql = "select a.type, a.bid as bbid , b.* from " . $xoopsDB->prefix("tad_blocks") . " as a
-    left join " . $xoopsDB->prefix("newblocks") . " as b on a.bid=b.bid
-    $where_uid order by a.bid desc";
-    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    $sql = 'SELECT a.`type`, a.`bid` as `bbid`, b.* FROM `' . $xoopsDB->prefix('tad_blocks') . '` as a LEFT JOIN `' . $xoopsDB->prefix('newblocks') . '` as b ON a.`bid`=b.`bid` ' . $where_uid . ' ORDER BY a.`bid` DESC';
+    $result = Utility::query($sql) or Utility::web_error($sql);
+
     while ($all = $xoopsDB->fetchArray($result)) {
         $TadDataCenter->set_col('bid', $all['bid']);
         $block = $TadDataCenter->getData();
@@ -129,25 +128,24 @@ function my_blocks()
 //區塊編輯表單
 function block_form($type = '', $bid = 0, $bbid = 0)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr, $tags;
+    global $xoopsDB, $xoopsTpl, $xoopsUser, $type_arr, $tags;
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
+    $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "AND `uid`={$uid}";
 
     //判斷目前使用者是否有：建立自訂區塊
     $add_block = Utility::power_chk($module_dirname, 1);
     $xoopsTpl->assign('add_block', $add_block);
-    $block = $all = [];
-
-    $myts = \MyTextSanitizer::getInstance();
+    $block = [];
 
     if ($add_block) {
         $TadDataCenter = new TadDataCenter('tad_blocks');
         if ($bid or $bbid) {
             if ($bid) {
-                $sql = "select `title`,`weight`,`side`,`content`,`visible` from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
-                $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+                $sql = 'SELECT `title`, `weight`, `side`, `content`, `visible` FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid` = ?';
+                $result = Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
+
                 list($title, $weight, $side, $content, $visible) = $xoopsDB->fetchRow($result);
 
                 foreach ($tags as $tag) {
@@ -163,12 +161,13 @@ function block_form($type = '', $bid = 0, $bbid = 0)
                 $bid = $bbid;
             }
 
-            $sql = "select type from " . $xoopsDB->prefix("tad_blocks") . " where `bid`='{$bid}' $and_uid ";
-            $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            $sql = 'SELECT `type` FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
+            $result = Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
+
             list($type) = $xoopsDB->fetchRow($result);
             if (empty($type)) {
-                $sql = "replace into " . $xoopsDB->prefix("tad_blocks") . " (bid, type, uid, create_date) values('{$bid}','{$type}', '{$uid}', now())";
-                $xoopsDB->queryF($sql) or Utility::web_error($sql);
+                $sql = 'REPLACE INTO `' . $xoopsDB->prefix('tad_blocks') . '` (`bid`, `type`, `uid`, `create_date`) VALUES (?, ?, ?, NOW())';
+                Utility::query($sql, 'isi', [$bid, $type, $uid]) or Utility::web_error($sql);
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
@@ -177,11 +176,8 @@ function block_form($type = '', $bid = 0, $bbid = 0)
                 $TadDataCenter->saveCustomData($data_arr);
             }
         } else {
-            $sql = "select max(weight) from " . $xoopsDB->prefix("newblocks") . " where  side='{$side}' and visible=1 and isactive=1";
-            $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
-            list($weight) = $xoopsDB->fetchRow($result);
-
-            $weight++;
+            $side = 0;
+            $weight = 0;
         }
 
         if ($type) {
@@ -189,7 +185,6 @@ function block_form($type = '', $bid = 0, $bbid = 0)
             $block = get_content($bid);
         } else {
             // 傳回陣列的項目
-            $arr = ['groups', 'content'];
             if ($bid) {
                 $TadDataCenter->set_col('bid', $bid);
                 $block = $TadDataCenter->getData();
@@ -229,17 +224,16 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $title = $xoopsDB->escape($TDC['title']);
-    $side = $xoopsDB->escape($TDC['side']);
+    $title = $TDC['title'];
+    $side = $TDC['side'];
     $weight = (int) $TDC['weight'];
 
     if (!empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($bid, $TDC);
-        $content = $xoopsDB->escape($content);
 
     } else {
-        $content = $xoopsDB->escape($TDC['content']);
+        $content = $TDC['content'];
     }
 
     $content = Wcag::amend($content);
@@ -248,19 +242,20 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
     if (empty($bid)) {
 
         // 新增區塊
-        $sql = "replace into " . $xoopsDB->prefix("newblocks") . " (mid, func_num, options, name, title, content, side, weight, visible, block_type, c_type, isactive, bcachetime, last_modified) values('0', '0', '', '自訂區塊（HTML）', '{$title}', '{$content}', '{$side}', '{$weight}', '1', 'C', 'H', '1', '0', '{$last_modified}')";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql);
+        $sql = 'REPLACE INTO `' . $xoopsDB->prefix('newblocks') . '` (`mid`, `func_num`, `options`, `name`, `title`, `content`, `side`, `weight`, `visible`, `block_type`, `c_type`, `isactive`, `bcachetime`, `last_modified`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        Utility::query($sql, 'iissssiiissiii', [0, 0, '', _MD_TAD_BLOCKS_CUSTOMIZED, $title, $content, $side, $weight, 1, 'C', 'H', 1, 0, $last_modified]) or Utility::web_error($sql);
         $bid = $xoopsDB->getInsertId();
 
         if ($bid) {
             // 新增區塊顯示方式
-            $sql = "replace into " . $xoopsDB->prefix("block_module_link") . " (block_id, module_id) values('{$bid}', '{$TDC['display']}')";
-            $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            $sql = 'REPLACE INTO `' . $xoopsDB->prefix('block_module_link') . '` (`block_id`, `module_id`) VALUES (?, ?)';
+            Utility::query($sql, 'ii', [$bid, $TDC['display']]) or Utility::web_error($sql);
 
             // 新增區塊讀取權限
             foreach ($_POST['TDC']['groups'] as $group_id) {
-                $sql = "replace into " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) values('$group_id', '{$bid}', '1', 'block_read')";
-                $xoopsDB->queryF($sql) or Utility::web_error($sql);
+                $sql = 'REPLACE INTO `' . $xoopsDB->prefix('group_permission') . '` (`gperm_groupid`, `gperm_itemid`, `gperm_modid`, `gperm_name`) VALUES (?, ?, 1, ?)';
+                Utility::query($sql, 'iis', [$group_id, $bid, 'block_read']) or Utility::web_error($sql);
+
             }
 
             $TadDataCenter = new TadDataCenter($module_dirname);
@@ -268,8 +263,8 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
             // 從舊設定來新增模組
             if (!empty($bbid)) {
                 // 新增區塊設定
-                $sql = "update " . $xoopsDB->prefix("tad_blocks") . " set bid='{$bid}', type='{$type}', uid='{$uid}', create_date=now() where bid='{$bbid}'";
-                $xoopsDB->queryF($sql) or Utility::web_error($sql);
+                $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `bid`=?, `type`=?, `uid`=?, `create_date`=now() WHERE `bid`=?';
+                Utility::query($sql, 'isii', [$bid, $type, $uid, $bbid]) or Utility::web_error($sql);
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
@@ -280,8 +275,8 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 
             } else {
                 // 新增區塊設定
-                $sql = "replace into " . $xoopsDB->prefix("tad_blocks") . " (bid, type, uid, create_date) values('{$bid}','{$type}', '{$uid}', now())";
-                $xoopsDB->queryF($sql) or Utility::web_error($sql);
+                $sql = 'REPLACE INTO `' . $xoopsDB->prefix('tad_blocks') . '` (`bid`, `type`, `uid`, `create_date`) VALUES (?, ?, ?, NOW())';
+                Utility::query($sql, 'isi', [$bid, $type, $uid]) or Utility::web_error($sql);
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
@@ -291,10 +286,11 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 
     } else {
 
-        $sql = "select * from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
-        $result = $xoopsDB->query($sql) or die($sql);
+        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid`=?';
+        $result = Utility::query($sql, 'i', [$bid]) or die($sql);
+
         $block = $xoopsDB->fetchArray($result);
-        $old_tag = '';
+
         foreach ($tags as $tag) {
             $start = strpos($block['title'], "[$tag]");
             if ($start !== false) {
@@ -316,27 +312,29 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
             }
         }
 
-        $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
+        $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "AND `uid`={$uid}";
 
         // 更新區塊設定
-        $sql = "update " . $xoopsDB->prefix("tad_blocks") . " set create_date=now() where bid='{$bid}' $and_uid";
-        if ($xoopsDB->queryF($sql)) {
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `create_date`=NOW() WHERE `bid`=? ' . $and_uid;
+
+        if (Utility::query($sql, 'i', [$bid])) {
             // 更新區塊
-            $sql = "update " . $xoopsDB->prefix("newblocks") . " set title='{$title}{$tag2}', content='{$content}', side='{$side}', weight='{$weight}', last_modified='{$last_modified}' where bid='$bid'";
-            $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `title`=?, `content`=?, `side`=?, `weight`=?, `last_modified`=? WHERE `bid`=?';
+            Utility::query($sql, 'ssiiii', [$title . $tag2, $content, $side, $weight, $last_modified, $bid]) or Utility::web_error($sql);
 
             // 更新區塊顯示方式
-            $sql = "update " . $xoopsDB->prefix("block_module_link") . " set module_id='{$TDC['display']}' where block_id='$bid'";
-            $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            $sql = 'UPDATE `' . $xoopsDB->prefix('block_module_link') . '` SET `module_id`=? WHERE `block_id`=?';
+            Utility::query($sql, 'ii', [$TDC['display'], $bid]) or Utility::web_error($sql);
 
             // 刪除區塊權限
-            $sql = "delete from " . $xoopsDB->prefix("group_permission") . "  where gperm_itemid='{$bid}' and gperm_modid=1 and gperm_name='block_read'";
-            $xoopsDB->queryF($sql) or Utility::web_error($sql);
+            $sql = 'DELETE FROM `' . $xoopsDB->prefix('group_permission') . '` WHERE `gperm_itemid`=? AND `gperm_modid`=1 AND `gperm_name`=?';
+            Utility::query($sql, 'is', [$bid, 'block_read']) or Utility::web_error($sql);
 
             // 更新區塊讀取權限
             foreach ($_POST['TDC']['groups'] as $group_id) {
-                $sql = "replace into " . $xoopsDB->prefix("group_permission") . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) values('$group_id', '{$bid}', '1', 'block_read')";
-                $xoopsDB->queryF($sql) or Utility::web_error($sql);
+                $sql = 'REPLACE INTO `' . $xoopsDB->prefix('group_permission') . '` (`gperm_groupid`, `gperm_itemid`, `gperm_modid`, `gperm_name`) VALUES (?, ?, 1, ?)';
+                Utility::query($sql, 'iis', [$group_id, $bid, 'block_read']) or Utility::web_error($sql);
+
             }
 
             $TadDataCenter = new TadDataCenter($module_dirname);
@@ -354,32 +352,33 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 //刪除區塊
 function block_del($bid = '')
 {
-    global $xoopsDB, $xoopsTpl, $xoopsUser;
+    global $xoopsDB, $xoopsUser;
 
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "and uid='{$uid}'";
+    $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "AND `uid`={$uid}";
 
     // 刪除區塊設定
-    $sql = "delete from " . $xoopsDB->prefix("tad_blocks") . "  where bid='{$bid}' $and_uid";
-    if ($xoopsDB->queryF($sql)) {
+    $sql = 'DELETE FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
+
+    if (Utility::query($sql, 'i', [$bid])) {
 
         $TadDataCenter = new TadDataCenter($module_dirname);
         $TadDataCenter->set_col('bid', $bid);
         $TadDataCenter->delData();
 
         // 刪除區塊
-        $sql = "delete from  " . $xoopsDB->prefix("newblocks") . " where bid='{$bid}'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql);
+        $sql = 'DELETE FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid` = ?';
+        Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
 
         // 刪除區塊顯示方式
-        $sql = "delete from " . $xoopsDB->prefix("block_module_link") . " where block_id='{$bid}'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql);
+        $sql = 'DELETE FROM `' . $xoopsDB->prefix('block_module_link') . '` WHERE `block_id` = ?';
+        Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
 
         // 刪除區塊權限
-        $sql = "delete from " . $xoopsDB->prefix("group_permission") . "  where gperm_itemid='{$bid}' and gperm_modid=1 and gperm_name='block_read'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql);
+        $sql = 'DELETE FROM `' . $xoopsDB->prefix('group_permission') . '` WHERE `gperm_itemid` = ? AND `gperm_modid` = 1 AND `gperm_name` = ?';
+        Utility::query($sql, 'is', [$bid, 'block_read']) or Utility::web_error($sql);
 
     } else {
         Utility::web_error($sql);

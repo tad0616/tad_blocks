@@ -57,16 +57,19 @@ if (is_dir($dir)) {
 function tad_themes_setup()
 {
     global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr;
-    $sql = "select theme_id,theme_type,theme_width,lb_width,cb_width,rb_width,base_color,lb_color,cb_color,rb_color,font_color from " . $xoopsDB->prefix("tad_themes") . " where theme_name='{$xoopsConfig['theme_set']}'";
-    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    $sql = 'SELECT `theme_id`, `theme_type`, `theme_width`, `lb_width`, `cb_width`, `rb_width`, `base_color`, `lb_color`, `cb_color`, `rb_color`, `font_color` FROM `' . $xoopsDB->prefix('tad_themes') . '` WHERE `theme_name`=?';
+    $result = Utility::query($sql, 's', [$xoopsConfig['theme_set']]) or Utility::web_error($sql);
+
     list($theme_id, $theme_type, $theme_width, $lb_width, $cb_width, $rb_width, $base_color, $lb_color, $cb_color, $rb_color, $font_color) = $xoopsDB->fetchRow($result);
 
-    $sql = "select `value` from " . $xoopsDB->prefix("tad_themes_config2") . " where `theme_id`='{$theme_id}' and `name`='footer_color'";
-    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    $sql = 'SELECT `value` FROM `' . $xoopsDB->prefix('tad_themes_config2') . '` WHERE `theme_id`=? AND `name`=?';
+    $result = Utility::query($sql, 'is', [$theme_id, 'footer_color']) or Utility::web_error($sql);
+
     list($footer_color) = $xoopsDB->fetchRow($result);
 
-    $sql = "select `value` from " . $xoopsDB->prefix("tad_themes_config2") . " where `theme_id`='{$theme_id}' and `name`='footer_bgcolor'";
-    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    $sql = 'SELECT `value` FROM `' . $xoopsDB->prefix('tad_themes_config2') . '` WHERE `theme_id` =? AND `name`=?';
+    $result = Utility::query($sql, 'is', [$theme_id, 'footer_bgcolor']) or Utility::web_error($sql);
+
     list($footer_bgcolor) = $xoopsDB->fetchRow($result);
 
     if ($lb_width == 'auto') {

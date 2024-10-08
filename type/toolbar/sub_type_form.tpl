@@ -2,7 +2,7 @@
 <table class="table" id="new_form">
     <tbody id="sort">
         <{if $text|default:false}>
-            <{foreach from=$text key=i item=text}>
+            <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i|default:''}>">
                     <td style="width:40px;">
                         <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
@@ -18,7 +18,7 @@
                         <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_URL}>" value="<{$url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>" value="<{$text|default:''}>">
+                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._TOOLBAR_ADD_TEXT}>" value="<{$data|default:''}>">
                     </td>
                     <td>
                         <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
@@ -65,20 +65,29 @@
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._TOOLBAR_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input"> px<br>
-    <{$smarty.const._TOOLBAR_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align" class="my-input">
-        <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._TOOLBAR_LEFT}></option>
-        <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._TOOLBAR_CENTER}></option>
-        <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._TOOLBAR_RIGHT}></option>
-    </select><br>
-    <{$smarty.const._TOOLBAR_HVR}><select name="TDC[hvr]" id="hvr" class="my-input">
-        <option value="hvr-wobble-vertical" <{if $hvr=='hvr-wobble-vertical'}>selected<{/if}>>Wobble Vertical</option>
-        <option value="hvr-wobble-top" <{if $hvr=='hvr-wobble-top'}>selected<{/if}>>Wobble Top</option>
-        <option value="hvr-wobble-bottom" <{if $hvr=='hvr-wobble-bottom'}>selected<{/if}>>Wobble Bottom</option>
-        <option value="hvr-buzz-out" <{if $hvr=='hvr-buzz-out'}>selected<{/if}>>Buzz Out</option>
-        <option value="hvr-grow-shadow" <{if $hvr=='hvr-grow-shadow'}>selected<{/if}>>Grow Shadow</option>
-        <option value="hvr-float-shadow" <{if $hvr=='hvr-float-shadow'}>selected<{/if}>>Float Shadow</option>
-    </select>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_FONT_SIZE}>
+        <input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input" style="width: 6rem"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_TEXT_ALIGN}>
+        <select name="TDC[text_align]" id="text_align" class="my-input">
+            <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._TOOLBAR_LEFT}></option>
+            <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._TOOLBAR_CENTER}></option>
+            <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._TOOLBAR_RIGHT}></option>
+        </select>
+    </div>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_HVR}>
+        <select name="TDC[hvr]" id="hvr" class="my-input">
+            <option value="hvr-wobble-vertical" <{if $hvr=='hvr-wobble-vertical'}>selected<{/if}>>Wobble Vertical</option>
+            <option value="hvr-wobble-top" <{if $hvr=='hvr-wobble-top'}>selected<{/if}>>Wobble Top</option>
+            <option value="hvr-wobble-bottom" <{if $hvr=='hvr-wobble-bottom'}>selected<{/if}>>Wobble Bottom</option>
+            <option value="hvr-buzz-out" <{if $hvr=='hvr-buzz-out'}>selected<{/if}>>Buzz Out</option>
+            <option value="hvr-grow-shadow" <{if $hvr=='hvr-grow-shadow'}>selected<{/if}>>Grow Shadow</option>
+            <option value="hvr-float-shadow" <{if $hvr=='hvr-float-shadow'}>selected<{/if}>>Float Shadow</option>
+        </select>
+    </div>
 </div>
 
 <script type="text/javascript" src="<{$xoops_url}>/modules/tad_blocks/type/toolbar/jquery.upload-1.0.2.min.js"></script>

@@ -30,7 +30,7 @@ function get_content($bid = 0)
         }
     }
     $MColorPicker = new MColorPicker('.color-picker');
-    $MColorPicker->render();
+    $MColorPicker->render('bootstrap');
     $migrate = Utility::add_migrate('return');
     $xoopsTpl->assign('migrate', $migrate);
     return $block;

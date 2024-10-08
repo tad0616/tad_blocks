@@ -26,8 +26,8 @@ function get_content($bid = 0)
             }
         }
     }
-    $MColorPicker = new MColorPicker('.color');
-    $MColorPicker->render();
+    $MColorPicker = new MColorPicker('.color-picker');
+    $MColorPicker->render('bootstrap-sm');
     return $block;
 }
 //製作 marquee 區塊內容

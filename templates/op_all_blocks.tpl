@@ -28,7 +28,9 @@
     <{/if}>
 </div>
 
-<{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_logo_form.tpl"}>
+<{if $xoopsModuleConfig.show_save_and_re_build_logo|default:false}>
+    <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_logo_form.tpl"}>
+<{/if}>
 
 <script>
 

@@ -72,6 +72,8 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 $xoopsTpl->assign('now_op', $op);
+$xoopsTpl->assign('xoopsModuleConfig', $xoopsModuleConfig);
+
 $xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
 include_once XOOPS_ROOT_PATH . '/footer.php';
 
@@ -89,12 +91,13 @@ function all_blocks()
     tad_themes_setup();
     $all_blocks = $alldir = [];
 
-    $sql = "select a.*, b.module_id, c.name as mod_name, c.dirname, c.name from " . $xoopsDB->prefix("newblocks") . " as a
-    left join " . $xoopsDB->prefix("block_module_link") . " as b on a.bid=b.block_id
-    left join " . $xoopsDB->prefix("modules") . " as c on a.mid=c.mid
-    where c.`isactive`=1  or a.mid=0
-    order by a.side, a.weight";
-    $result = $xoopsDB->queryF($sql) or Utility::web_error($sql);
+    $sql = 'SELECT a.*, b.module_id, c.name AS mod_name, c.dirname, c.name FROM `' . $xoopsDB->prefix('newblocks') . '` AS a
+    LEFT JOIN `' . $xoopsDB->prefix('block_module_link') . '` AS b ON a.bid=b.block_id
+    LEFT JOIN `' . $xoopsDB->prefix('modules') . '` AS c ON a.mid=c.mid
+    WHERE c.`isactive`=1 OR a.mid=0
+    ORDER BY a.side, a.weight';
+    $result = Utility::query($sql) or Utility::web_error($sql);
+
     while ($all = $xoopsDB->fetchArray($result)) {
         $side = $all['side'];
         $dirname = $all['dirname'];
@@ -128,8 +131,8 @@ function all_blocks()
     $FormValidator = new FormValidator('#myForm', true);
     $FormValidator->render();
 
-    $MColorPicker = new MColorPicker('.color');
-    $MColorPicker->render();
+    $MColorPicker = new MColorPicker('.color-picker');
+    $MColorPicker->render('bootstrap');
 
     $TadUpFontFiles = new TadUpFiles('tad_themes', '/fonts');
     $TadUpFontFiles->set_col('logo_fonts', 0);
@@ -180,8 +183,9 @@ function save_and_re_build_logo()
     $TadDataCenter->set_col('block_logo', 0);
     $TadDataCenter->saveData();
 
-    $sql = "select bid,title from " . $xoopsDB->prefix("newblocks") . " where visible='1'";
-    $result = $xoopsDB->query($sql) or die($sql);
+    $sql = 'SELECT `bid`, `title` FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `visible`=?';
+    $result = Utility::query($sql, 'i', [1]) or die($sql);
+
     while (list($bid, $title) = $xoopsDB->fetchRow($result)) {
         foreach ($tags as $tag) {
             $start = strpos($title, "[$tag]");

@@ -21,15 +21,21 @@
             <div class="form-group row mb-3">
                 <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TAD_BLOCKS_LOGO_TEXT_COLOR}></label>
                 <div class="col-sm-2">
-                    <input type="text" name="TDC[color]" class="form-control color-picker" value="<{$color|default:''}>" id="font_color" data-hex="true">
+                    <div class="input-group">
+                        <input type="text" name="TDC[color]" class="form-control color-picker" value="<{$color|default:''}>" id="font_color" data-hex="true">
+                    </div>
                 </div>
                 <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TAD_BLOCKS_LOGO_BORDER_COLOR}></label>
                 <div class="col-sm-2">
-                    <input type="text" name="TDC[border_color]" class="form-control color-picker" value="<{$border_color|default:''}>" id="border_color" data-hex="true">
+                    <div class="input-group">
+                        <input type="text" name="TDC[border_color]" class="form-control color-picker" value="<{$border_color|default:''}>" id="border_color" data-hex="true">
+                    </div>
                 </div>
                 <label class="col-sm-2 control-label col-form-label text-sm-right"><{$smarty.const._MD_TAD_BLOCKS_LOGO_SHADOW_COLOR}></label>
                 <div class="col-sm-2">
-                    <input type="text" name="TDC[shadow_color]" class="col-sm-10 form-control color-picker" value="<{$shadow_color|default:''}>" id="shadow_color" data-hex="true">
+                    <div class="input-group">
+                        <input type="text" name="TDC[shadow_color]" class="col-sm-10 form-control color-picker" value="<{$shadow_color|default:''}>" id="shadow_color" data-hex="true">
+                    </div>
                 </div>
             </div>
 

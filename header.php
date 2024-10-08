@@ -31,7 +31,4 @@ $interface_icon[_MD_TAD_BLOCKS_MY_BLOCKS] = "fa-chevron-right";
 if ($_SESSION['tad_blocks_adm']) {
     $interface_menu[_MD_TADBLOCKS_BLOCKS] = "blocks.php";
     $interface_icon[_MD_TADBLOCKS_BLOCKS] = "fa-cube";
-
-    $interface_menu[_TAD_TO_ADMIN] = "admin/main.php";
-    $interface_icon[_TAD_TO_ADMIN] = "fa-sign-in";
 }

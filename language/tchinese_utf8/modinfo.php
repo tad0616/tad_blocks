@@ -28,3 +28,6 @@ define('_MI_TADBLOCKS_ADMENU1', '區塊管理');
 define('_MI_TADBLOCKS_ADMENU1_DESC', '區塊管理');
 define('_MI_TADBLOCKS_ADMENU2', '權限設定');
 define('_MI_TADBLOCKS_ADMENU2_DESC', '權限設定');
+
+define('_MI_TADBLOCKS_SHOW_BUILD_LOGO', '是否顯示「區塊標題圖設定」標題圖');
+define('_MI_TADBLOCKS_SHOW_BUILD_LOGO_DESC', '若有需要自動產生區塊標題圖片才需要開啟此選項');

@@ -2,7 +2,7 @@
 <table class="table" id="new_form">
     <tbody id="sort">
         <{if $text|default:false}>
-            <{foreach from=$text key=i item=text}>
+            <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i|default:''}>">
                     <td>
                         <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
@@ -18,7 +18,7 @@
                         <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>" value="<{$url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$text|default:''}>">
+                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$data|default:''}>">
                     </td>
                     <td>
                         <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
@@ -65,30 +65,36 @@
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._LINK_SHOW_TYPE}><select name="TDC[show_type]]" id="show_type" class="my-input">
-    <option value="default" <{if $show_type=='default'}>selected<{/if}>><{$smarty.const._LINK_DEFAULT}></option>
-    <option value="none" <{if $show_type=='none'}>selected<{/if}>><{$smarty.const._LINK_NONE}></option>
-    <option value="ul" <{if $show_type=='ul'}>selected<{/if}>><{$smarty.const._LINK_UL}></option>
-    <option value="ol" <{if $show_type=='ol'}>selected<{/if}>><{$smarty.const._LINK_OL}></option>
-    <option value="table" <{if $show_type=='table'}>selected<{/if}>><{$smarty.const._LINK_TABLE}></option>
-    <option value="image" <{if $show_type=='image'}>selected<{/if}>><{$smarty.const._LINK_IMAGE}></option>
-    </select><br>
-
-    <{$smarty.const._LINK_HIDE_PIC}><select name="TDC[hide_pic]]" id="hide_pic" class="my-input">
-    <option value="show" <{if $hide_pic=='show'}>selected<{/if}>><{$smarty.const._NO}></option>
-    <option value="hide" <{if $hide_pic=='hide'}>selected<{/if}>><{$smarty.const._YES}></option>
-    </select>
-
-    <br>
-    <{$smarty.const._LINK_ITEM_CSS}><input type="text" name="TDC[item_css]" id="item_css" value="<{$item_css|default:''}>" style="width:80%;" class="my-input">
-    <br>
-    <{$smarty.const._LINK_IMG_CSS}><input type="text" name="TDC[img_css]" id="img_css" value="<{$img_css|default:''}>" style="width:80%;" class="my-input">
-    <br>
-    <{$smarty.const._LINK_TXT_CSS}><input type="text" name="TDC[txt_css]" id="txt_css" value="<{$txt_css|default:''}>" style="width:80%;" class="my-input">
-    <br>
-    <{$smarty.const._LINK_PIC_WIDTH}><input type="number" name="TDC[pic_width]" id="pic_width" value="<{$pic_width|default:''}>"  class="my-input">px
-    <{$smarty.const._LINK_PIC_DESC}>
-    <br>
+    <div class="my-1">
+        <{$smarty.const._LINK_SHOW_TYPE}>
+        <select name="TDC[show_type]]" id="show_type" class="my-input">
+        <option value="default" <{if $show_type=='default'}>selected<{/if}>><{$smarty.const._LINK_DEFAULT}></option>
+        <option value="none" <{if $show_type=='none'}>selected<{/if}>><{$smarty.const._LINK_NONE}></option>
+        <option value="ul" <{if $show_type=='ul'}>selected<{/if}>><{$smarty.const._LINK_UL}></option>
+        <option value="ol" <{if $show_type=='ol'}>selected<{/if}>><{$smarty.const._LINK_OL}></option>
+        <option value="table" <{if $show_type=='table'}>selected<{/if}>><{$smarty.const._LINK_TABLE}></option>
+        <option value="image" <{if $show_type=='image'}>selected<{/if}>><{$smarty.const._LINK_IMAGE}></option>
+        </select>
+    </div>
+    <div class="my-1">
+        <{$smarty.const._LINK_HIDE_PIC}><select name="TDC[hide_pic]]" id="hide_pic" class="my-input">
+        <option value="show" <{if $hide_pic=='show'}>selected<{/if}>><{$smarty.const._NO}></option>
+        <option value="hide" <{if $hide_pic=='hide'}>selected<{/if}>><{$smarty.const._YES}></option>
+        </select>
+    </div>
+    <div class="my-1">
+        <{$smarty.const._LINK_ITEM_CSS}><input type="text" name="TDC[item_css]" id="item_css" value="<{$item_css|default:''}>" style="width:80%;" class="my-input">
+    </div>
+    <div class="my-1">
+        <{$smarty.const._LINK_IMG_CSS}><input type="text" name="TDC[img_css]" id="img_css" value="<{$img_css|default:''}>" style="width:80%;" class="my-input">
+    </div>
+    <div class="my-1">
+        <{$smarty.const._LINK_TXT_CSS}><input type="text" name="TDC[txt_css]" id="txt_css" value="<{$txt_css|default:''}>" style="width:80%;" class="my-input">
+    </div>
+    <div class="my-1">
+        <{$smarty.const._LINK_PIC_WIDTH}><input type="number" name="TDC[pic_width]" id="pic_width" value="<{$pic_width|default:''}>"  class="my-input">px
+        <{$smarty.const._LINK_PIC_DESC}>
+    </div>
 </div>
 
 

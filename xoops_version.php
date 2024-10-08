@@ -76,3 +76,12 @@ $modversion['templates'][] = array('file' => 'tad_blocks_index.tpl', 'descriptio
 
 //---區塊設定---//
 $i = 0;
+
+//---偏好設定---//
+$i = 1;
+$modversion['config'][$i]['name'] = 'show_save_and_re_build_logo';
+$modversion['config'][$i]['title'] = '_MI_TADBLOCKS_SHOW_BUILD_LOGO';
+$modversion['config'][$i]['description'] = '_MI_TADBLOCKS_SHOW_BUILD_LOGO_DESC';
+$modversion['config'][$i]['formtype'] = 'yesno';
+$modversion['config'][$i]['valuetype'] = 'int';
+$modversion['config'][$i]['default'] = 0;

@@ -100,3 +100,8 @@ table#footer-position td>label {
     color:rgb(40, 39, 46);
     display: block;
 }
+
+.color-picker {
+    width: 80%;
+    display: inline-block;
+}

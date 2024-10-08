@@ -69,10 +69,10 @@ switch ($op) {
 //列出所有區塊
 function change_newblock($bid, $col, $val)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
+    global $xoopsDB;
 
-    $sql = "update " . $xoopsDB->prefix("newblocks") . " set `$col`='{$val}' where bid='{$bid}'";
-    if ($xoopsDB->queryF($sql)) {
+    $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `' . $col . '`=? WHERE `bid`=?';
+    if (Utility::query($sql, 'si', [$val, $bid])) {
         return;
     } else {
         die($sql);
@@ -81,10 +81,10 @@ function change_newblock($bid, $col, $val)
 
 function update_newblock($bid, $side, $weight)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
+    global $xoopsDB;
 
-    $sql = "update " . $xoopsDB->prefix("newblocks") . " set `side`='{$side}',`weight`='{$weight}'  where bid='{$bid}'";
-    if (!$xoopsDB->queryF($sql)) {
+    $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `side`=?, `weight`=? WHERE `bid`=?';
+    if (!Utility::query($sql, 'iii', [$side, $weight, $bid])) {
         die($sql);
     } else {
         die("update $bid OK");
@@ -94,10 +94,10 @@ function update_newblock($bid, $side, $weight)
 //列出所有區塊
 function change_block_module_link($bid, $module_id)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr;
+    global $xoopsDB;
 
-    $sql = "update " . $xoopsDB->prefix("block_module_link") . " set `module_id`='{$module_id}' where block_id='{$bid}'";
-    if ($xoopsDB->queryF($sql)) {
+    $sql = 'UPDATE `' . $xoopsDB->prefix('block_module_link') . '` SET `module_id`=? WHERE `block_id`=?';
+    if (Utility::query($sql, 'ii', [$module_id, $bid])) {
         exit;
     } else {
         die($sql);
@@ -106,18 +106,18 @@ function change_block_module_link($bid, $module_id)
 
 function setting_form($bid)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $xoTheme, $tags;
+    global $xoopsDB, $tags;
 
     $show_file = ['pic', 'img', 'icon'];
     $show_link = ['link'];
     $show_help = ['pic', 'img'];
 
-    $sql = "select * from " . $xoopsDB->prefix("newblocks") . " where  bid='{$bid}'";
-    $result = $xoopsDB->query($sql) or die($sql);
+    $sql = 'SELECT * FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid` = ?';
+    $result = Utility::query($sql, 'i', [$bid]) or die($sql);
+
     $block = $xoopsDB->fetchArray($result);
     $save = _TAD_SAVE;
 
-    $old_tag = '';
     $title = $block['title'];
     $display_link = $display_file = $display_help = 'style="display:none;"';
     $jquery = Utility::get_jquery(false, 'return');
@@ -198,11 +198,9 @@ EOD;
 
 function update_title($bid, $title = '', $need_tag = '', $link_url = '')
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
 
     $file_up = ['pic', 'img', 'icon'];
     $have_link = ['link'];
-    $mk_pic = ['pic', 'img'];
     $new_tag_url = '';
     // 圖片類的
     if (in_array($need_tag, $file_up)) {
@@ -239,16 +237,18 @@ function save_sort()
     global $xoopsDB;
     $bid = (int) $_POST['bid'];
     foreach ($_POST['col'] as $col) {
-        $sql = "update " . $xoopsDB->prefix("tad_blocks_data_center") . " set `data_sort`= `data_sort` + 10000 where `col_name`='bid' and `col_sn`='{$bid}' and `data_name`='{$col}'";
-        $xoopsDB->queryF($sql) or die(_TAD_SORT_FAIL . " (" . date("Y-m-d H:i:s") . ")" . $sql);
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`= `data_sort` + 10000 WHERE `col_name`=? AND `col_sn`=? AND `data_name`=?';
+        Utility::query($sql, 'sis', ['bid', $bid, $col]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
+
     }
 
     $sort = 1;
     foreach ($_POST['form'] as $item) {
         $old_sort = (int) str_replace('data', '', $item) + 10000;
         foreach ($_POST['col'] as $col) {
-            $sql = "update " . $xoopsDB->prefix("tad_blocks_data_center") . " set `data_sort`='{$sort}' where`col_name`='bid' and `col_sn`='{$bid}' and `data_name`='{$col}' and `data_sort`='{$old_sort}'";
-            $xoopsDB->queryF($sql) or die(_TAD_SORT_FAIL . " (" . date("Y-m-d H:i:s") . ")" . $sql);
+            $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`=? WHERE `col_name`=? AND `col_sn`=? AND `data_name`=? AND `data_sort`=?';
+            Utility::query($sql, 'siisi', ['bid', $sort, $bid, $col, $old_sort]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
+
         }
         $sort++;
     }

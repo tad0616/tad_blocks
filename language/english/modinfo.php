@@ -28,3 +28,6 @@ Define('_MI_TADBLOCKS_ADMENU1', 'Block Management');
 Define('_MI_TADBLOCKS_ADMENU1_DESC', 'Block Management');
 Define('_MI_TADBLOCKS_ADMENU2', 'Permission Settings');
 Define('_MI_TADBLOCKS_ADMENU2_DESC', 'Permission Settings');
+
+define('_MI_TADBLOCKS_SHOW_BUILD_LOGO', 'Whether or not to display the Block Title Map Settings title image');
+define('_MI_TADBLOCKS_SHOW_BUILD_LOGO_DESC', 'You need to turn on this option if you want to automatically generate block title images.');

@@ -83,6 +83,7 @@ define('_MD_TAD_BLOCKS_WYSIWYG', '一般圖文');
 define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', '用本模組開啟編輯');
 define('_MD_TAD_BLOCKS_ONLY', '僅顯示：');
 
+define('_MD_TAD_BLOCKS_CUSTOMIZED', '自訂區塊（HTML）');
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
 if (is_dir($dir)) {
     if ($dh = opendir($dir)) {

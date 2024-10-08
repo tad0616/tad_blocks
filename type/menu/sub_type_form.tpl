@@ -5,7 +5,7 @@
 <table class="table" id="new_form">
     <tbody id="sort">
         <{if $text|default:false}>
-            <{foreach from=$text key=i item=text}>
+            <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i|default:''}>">
                     <td style="width:40px;">
                         <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
@@ -17,7 +17,7 @@
                         <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$text|default:''}>">
+                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$data|default:''}>">
                     </td>
                     <td>
                         <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
@@ -26,7 +26,11 @@
                         </select>
                     </td>
                     <td style="width: 130px">
-                        <input type="text" name="TDC[m_color][<{$i|default:''}>]" id="m_color<{$i|default:''}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
+                        <div class="d-inline-block">
+                            <div class="input-group">
+                                <input type="text" name="TDC[m_color][<{$i|default:''}>]" id="m_color<{$i|default:''}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
+                            </div>
+                        </div>
                     </td>
                 </tr>
             <{/foreach}>
@@ -56,7 +60,11 @@
             </select>
         </td>
         <td style="width: 130px">
-            <input type="text" data-name="TDC[m_color]" id="m_color" class="form-control color-picker" value="<{$default.m_color}>">
+            <div class="d-inline-block">
+                <div class="input-group">
+                    <input type="text" data-name="TDC[m_color]" id="m_color" class="form-control color-picker" value="<{$default.m_color}>">
+                </div>
+            </div>
         </td>
     </tr>
 </table>
@@ -66,12 +74,18 @@
 </div>
 
 <div class="alert alert-info my-4">
-    <{$smarty.const._MENU_FONT_SIZE}><input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input"> px<br>
-    <{$smarty.const._MENU_TEXT_ALIGN}><select name="TDC[text_align]" id="text_align" class="my-input">
-        <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._MENU_LEFT}></option>
-        <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._MENU_CENTER}></option>
-        <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._MENU_RIGHT}></option>
-    </select>
+    <div class="my-1">
+        <{$smarty.const._MENU_FONT_SIZE}>
+        <input type="number" name="TDC[font_size]" id="font_size" value="<{$font_size|default:''}>" class="my-input"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._MENU_TEXT_ALIGN}>
+        <select name="TDC[text_align]" id="text_align" class="my-input">
+            <option value="left" <{if $text_align=='left'}>selected<{/if}>><{$smarty.const._MENU_LEFT}></option>
+            <option value="center" <{if $text_align=='center'}>selected<{/if}>><{$smarty.const._MENU_CENTER}></option>
+            <option value="right" <{if $text_align=='right'}>selected<{/if}>><{$smarty.const._MENU_RIGHT}></option>
+        </select>
+    </div>
 </div>
 
 <script type="text/javascript">
