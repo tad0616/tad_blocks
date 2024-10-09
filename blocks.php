@@ -70,11 +70,11 @@ switch ($op) {
 }
 
 /*-----------秀出結果區--------------*/
-$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
+$xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu, false, $interface_icon));
 $xoopsTpl->assign('now_op', $op);
 $xoopsTpl->assign('xoopsModuleConfig', $xoopsModuleConfig);
 
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/tad_blocks/css/module.css');
+$xoTheme->addStylesheet('modules/tad_blocks/css/module.css');
 include_once XOOPS_ROOT_PATH . '/footer.php';
 
 /*-----------功能函數區--------------*/

@@ -42,11 +42,12 @@ $modversion['min_php'] = '5.4';
 $modversion['min_xoops'] = '2.5';
 
 //---paypal資訊---//
-$modversion['paypal'] = array();
-$modversion['paypal']['business'] = 'tad0616@gmail.com';
-$modversion['paypal']['item_name'] = 'Donation :' . _MI_TADBLOCKS_AUTHOR;
-$modversion['paypal']['amount'] = 0;
-$modversion['paypal']['currency_code'] = 'USD';
+$modversion['paypal'] = [
+    'business' => 'tad0616@gmail.com',
+    'item_name' => 'Donation : ' . _MI_TAD_WEB,
+    'amount' => 0,
+    'currency_code' => 'USD',
+];
 
 //---安裝設定---//
 $modversion['onInstall'] = "include/onInstall.php";
@@ -55,9 +56,11 @@ $modversion['onUninstall'] = "include/onUninstall.php";
 
 //---資料表架構---//
 $modversion['sqlfile']['mysql'] = "sql/mysql.sql";
-$modversion['tables'][] = "tad_blocks_files_center";
-$modversion['tables'][] = "tad_blocks_data_center";
-$modversion['tables'][] = "tad_blocks";
+$modversion['tables'] = [
+    "tad_blocks_files_center",
+    "tad_blocks_data_center",
+    "tad_blocks",
+];
 
 //---後台使用系統選單---//
 $modversion['system_menu'] = 1;
@@ -71,17 +74,19 @@ $modversion['adminmenu'] = 'admin/menu.php';
 $modversion['hasMain'] = 1;
 
 //---樣板設定---//
-$modversion['templates'][] = array('file' => 'tad_blocks_adm_main.tpl', 'description' => 'tad_blocks_adm_main.tpl');
-$modversion['templates'][] = array('file' => 'tad_blocks_index.tpl', 'description' => 'tad_blocks_index.tpl');
-
-//---區塊設定---//
-$i = 0;
+$modversion['templates'] = [
+    ['file' => 'tad_blocks_adm_main.tpl', 'description' => 'tad_blocks_adm_main.tpl'],
+    ['file' => 'tad_blocks_index.tpl', 'description' => 'tad_blocks_index.tpl'],
+];
 
 //---偏好設定---//
-$i = 1;
-$modversion['config'][$i]['name'] = 'show_save_and_re_build_logo';
-$modversion['config'][$i]['title'] = '_MI_TADBLOCKS_SHOW_BUILD_LOGO';
-$modversion['config'][$i]['description'] = '_MI_TADBLOCKS_SHOW_BUILD_LOGO_DESC';
-$modversion['config'][$i]['formtype'] = 'yesno';
-$modversion['config'][$i]['valuetype'] = 'int';
-$modversion['config'][$i]['default'] = 0;
+$modversion['config'] = [
+    [
+        'name' => 'show_save_and_re_build_logo',
+        'title' => '_MI_TADBLOCKS_SHOW_BUILD_LOGO',
+        'description' => '_MI_TADBLOCKS_SHOW_BUILD_LOGO_DESC',
+        'formtype' => 'yesno',
+        'valuetype' => 'int',
+        'default' => 0,
+    ],
+];
