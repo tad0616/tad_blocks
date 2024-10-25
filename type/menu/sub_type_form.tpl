@@ -8,7 +8,7 @@
             <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i|default:''}>">
                     <td style="width:40px;">
-                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
                     </td>
                     <td style="width:100px;">
                         <input type="text" name="TDC[icon][<{$i|default:''}>]" id="icon<{$i|default:''}>" class="icp demo form-control" value="<{$icon.$i}>">
@@ -42,7 +42,7 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width:40px;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width:100px;">
             <input type="text" data-name="TDC[icon]" id="icon" class="icp demo form-control" value="<{$default.icon}>">

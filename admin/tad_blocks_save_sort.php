@@ -2,6 +2,8 @@
 use XoopsModules\Tadtools\Utility;
 include "../../../include/cp_header.php";
 
+// 關閉除錯訊息
+$xoopsLogger->activated = false;
 $sort = 1;
 foreach ($_POST['tr'] as $bid) {
     $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `` = ? WHERE `bid` = ?';
@@ -9,4 +11,4 @@ foreach ($_POST['tr'] as $bid) {
 
     $sort++;
 }
-echo "Sort saved! (" . date("Y-m-d H:i:s") . ")";
+echo _TAD_SORTED . " (" . date("Y-m-d H:i:s") . ")";

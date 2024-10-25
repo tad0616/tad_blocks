@@ -2,7 +2,6 @@
 use XoopsModules\Tadtools\FancyBox;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
-use XoopsModules\Tadtools\Utility;
 
 //取得 gallery 區塊 DataCenter 內容
 function get_content($bid = 0)

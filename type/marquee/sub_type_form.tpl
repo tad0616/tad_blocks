@@ -5,7 +5,7 @@
             <{foreach from=$content key=i item=marquee}>
                 <tr id="form_data<{$i|default:''}>">
                     <td style="width:40px;">
-                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
                     </td>
                     <td>
                         <input type="text" name="TDC[content][<{$i|default:''}>]" id="TDC[content]<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MARQUEE_ADD_CONTENT}>" value="<{$marquee|default:''}>">
@@ -29,7 +29,7 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width:40px;">
-            <button type="button" id="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
+            <button type="button" id="remove_me" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
         </td>
         <td>
             <input type="text" id="TDC[content]" class="form-control" placeholder="<{$smarty.const._MARQUEE_ADD_CONTENT}>">

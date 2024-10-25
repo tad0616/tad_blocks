@@ -5,7 +5,7 @@
             <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i|default:''}>">
                     <td style="width:40px;">
-                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
                     </td>
                     <td style="width: 32px;">
                         <div id="demo_pic<{$i|default:''}>" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
@@ -36,7 +36,7 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width: 40px;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><{$smarty.const._TAD_DEL}></button>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width: 32px;">
             <div id="demo_pic" style="width:32px;height:32px;border:1px solid #cfcfcf;background-image:url('<{$default.img_url}>');background-size:cover;"></div>

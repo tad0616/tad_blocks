@@ -1,9 +1,6 @@
 <?php
 use XoopsModules\Tad_blocks\Update;
 
-if (!class_exists('XoopsModules\Tadtools\Utility')) {
-    require XOOPS_ROOT_PATH . '/modules/tadtools/preloads/autoloader.php';
-}
 if (!class_exists('XoopsModules\Tad_blocks\Update')) {
     require dirname(__DIR__) . '/preloads/autoloader.php';
 }
