@@ -220,7 +220,7 @@ function update_title($bid, $title = '', $need_tag = '', $link_url = '')
                     $$key = $value[0];
                 }
             }
-            $new_tag_url = mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+            $new_tag_url = Utility::mkTitlePic('/uploads/bid', $bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
         }
     } elseif (in_array($need_tag, $have_link)) {
         // 連結類

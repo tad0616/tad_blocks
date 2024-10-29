@@ -201,6 +201,6 @@ function save_and_re_build_logo()
             }
         }
 
-        mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size, false);
+        Utility::mkTitlePic('/uploads/bid', $bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size, 0, 0, false);
     }
 }

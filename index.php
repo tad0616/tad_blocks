@@ -303,7 +303,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
                             $$key = $value[0];
                         }
                     }
-                    $tag2 = "[$tag]" . mkTitlePic($bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
+                    $tag2 = "[$tag]" . Utility::mkTitlePic('/uploads/bid', $bid, $title, $size, $border_size, $color, $border_color, $font_file_sn, $shadow_color, $shadow_x, $shadow_y, $shadow_size);
                 } elseif ($tag == 'hide') {
                     $tag2 = '[hide]';
                 } else {

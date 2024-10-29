@@ -52,7 +52,7 @@
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>">
         </td>
         <td>
-            <select data-name="TDC[target]" id="target" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+            <select data-name="TDC[target]" id="target" class="form-select" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                 <option value="_self"><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                 <option value="_blank"><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
             </select>
