@@ -55,7 +55,7 @@ if (is_dir($dir)) {
 // tad_themes 的設定
 function tad_themes_setup()
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $type_arr;
+    global $xoopsDB, $xoopsTpl, $xoopsConfig;
     $sql = 'SELECT `theme_id`, `theme_type`, `theme_width`, `lb_width`, `cb_width`, `rb_width`, `base_color`, `lb_color`, `cb_color`, `rb_color`, `font_color` FROM `' . $xoopsDB->prefix('tad_themes') . '` WHERE `theme_name`=?';
     $result = Utility::query($sql, 's', [$xoopsConfig['theme_set']]) or Utility::web_error($sql);
 

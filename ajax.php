@@ -9,7 +9,7 @@ require_once __DIR__ . '/header.php';
 if (!$_SESSION['tad_blocks_adm']) {
     redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
 }
-
+$xoopsLogger->activated = false;
 /*-----------執行動作判斷區----------*/
 $op = Request::getString('op');
 $bid = !empty($_REQUEST['pk']) ? Request::getInt('pk') : Request::getInt('bid');
