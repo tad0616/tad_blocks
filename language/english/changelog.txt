@@ -29,7 +29,6 @@ tad_blocks 2.2 (released on 2022-08-07)
 =================================================
 1.Add module name to module list
 
-
 tad_blocks 2.1 (Released 2021-12-13)
 =================================================
 1.Support BootStrap5
@@ -39,7 +38,6 @@ tad_blocks 2.0 (Released 2021-08-22)
 1. Fix for 2021/07 new version of AA accessibility standard
 2. Fix the problem of old content running out when adding new blocks
 3. Add accessibility 2.1 AA auto-correction function.
-
 
 tad_blocks 1.9 (released on 2021-08-04)
  =================================================
@@ -64,7 +62,6 @@ If you manually delete a custom block, you can delete advanced block settings or
 5.List, edit form will show whether the current block is enabled or not, and you can switch directly.
 6.The list can directly present the pictures or icons applied to the domain.
 
-
 tad_blocks 1.5 (2020-03-29 released)
 =====================================================
 1. Add "Open Target" setting to "Menu" and "Toolbar".
@@ -81,7 +78,6 @@ tad_blocks 1.4 (2020-03-19 released)
 tad_blocks 1.3 (2020-03-14 released)
 ======================================
 1. Correction for accessibility 2.0 AA standard
-
 
 tad_blocks 1.2 (2020-01-17 released)
 =====================================================
