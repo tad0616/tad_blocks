@@ -1,4 +1,12 @@
-tad_blocks 2.6 (released 2023-08-24)
+tad_blocks 3.0 (released on 2024-11-11)
+=================================================
+1. Support XOOPS 2.5.11
+2. Support PHP8.1.x
+3. Fix the problem of not being able to use more than two running lights
+4. Replace $myts->addSlashes() with $xoopsDB->escape()
+5. Database syntax parameterization.
+
+tad_blocks 2.6 (released on 2023-08-24)
 =================================================
 1. New "Image" and "Text" style settings for "Link".
 2. "Embed in Web" and "Embed in Youtube" scales are changed to options.
