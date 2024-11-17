@@ -30,7 +30,7 @@ use XoopsModules\Tadtools\Utility;
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'tad_blocks_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
-if (!$_SESSION['tad_blocks_adm']) {
+if (!$tad_blocks_adm) {
     redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
 }
 

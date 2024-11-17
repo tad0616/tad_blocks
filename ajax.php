@@ -6,7 +6,7 @@ use XoopsModules\Tadtools\Utility;
 
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
-if (!$_SESSION['tad_blocks_adm']) {
+if (!$tad_blocks_adm) {
     redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
 }
 $xoopsLogger->activated = false;

@@ -36,4 +36,4 @@ $xoTheme->addStylesheet('modules/' . $xoopsModule->getVar('dirname') . '/css/mod
 $xoTheme->addStylesheet('modules/' . $xoopsModule->getVar('dirname') . '/css/admin.css');
 //$xoTheme->addScript("browse.php?Frameworks/jquery/jquery.js");
 //$xoTheme->addScript("browse.php?modules/" . $xoopsModule->getVar("dirname") . "/js/admin.js");
-$_SESSION['tad_blocks_adm'] = true;
+$tad_blocks_adm = true;

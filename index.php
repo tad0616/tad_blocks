@@ -78,7 +78,7 @@ include_once XOOPS_ROOT_PATH . '/footer.php';
 //
 function my_blocks()
 {
-    global $xoopsDB, $xoopsTpl, $xoopsConfig, $xoopsUser, $position_arr, $type_arr, $tags;
+    global $xoopsDB, $xoopsTpl, $tad_blocks_adm, $xoopsUser, $position_arr, $type_arr, $tags;
 
     $show_file = ['pic', 'img', 'icon'];
     $show_link = ['link'];
@@ -87,7 +87,7 @@ function my_blocks()
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
     $TadDataCenter = new TadDataCenter($module_dirname);
     $my_blocks = [];
-    $where_uid = $_SESSION['tad_blocks_adm'] ? '' : "where a.`uid`='{$uid}'";
+    $where_uid = $tad_blocks_adm ? '' : "where a.`uid`='{$uid}'";
     $sql = 'SELECT a.`type`, a.`bid` as `bbid`, b.* FROM `' . $xoopsDB->prefix('tad_blocks') . '` as a LEFT JOIN `' . $xoopsDB->prefix('newblocks') . '` as b ON a.`bid`=b.`bid` ' . $where_uid . ' ORDER BY a.`bid` DESC';
     $result = Utility::query($sql) or Utility::web_error($sql);
 
@@ -128,11 +128,11 @@ function my_blocks()
 //區塊編輯表單
 function block_form($type = '', $bid = 0, $bbid = 0)
 {
-    global $xoopsDB, $xoopsTpl, $xoopsUser, $type_arr, $tags;
+    global $xoopsDB, $xoopsTpl, $xoopsUser, $type_arr, $tags, $tad_blocks_adm;
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "AND `uid`={$uid}";
+    $and_uid = $tad_blocks_adm ? '' : "AND `uid`={$uid}";
 
     //判斷目前使用者是否有：建立自訂區塊
     $add_block = Utility::power_chk($module_dirname, 1);
@@ -167,7 +167,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
             list($type) = $xoopsDB->fetchRow($result);
             if (empty($type)) {
                 $sql = 'REPLACE INTO `' . $xoopsDB->prefix('tad_blocks') . '` (`bid`, `type`, `uid`, `create_date`) VALUES (?, ?, ?, NOW())';
-                Utility::query($sql, 'isi', [$bid, $type, $uid]) or Utility::web_error($sql);
+                Utility::query($sql, 'isi', [$bid, (string) $type, $uid]) or Utility::web_error($sql);
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
@@ -218,7 +218,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 //儲存並建立區塊
 function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 {
-    global $xoopsDB, $xoopsUser, $tags;
+    global $xoopsDB, $xoopsUser, $tags, $tad_blocks_adm;
 
     $mk_pic = ['pic', 'img'];
     $module_dirname = 'tad_blocks';
@@ -312,7 +312,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
             }
         }
 
-        $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "AND `uid`={$uid}";
+        $and_uid = $tad_blocks_adm ? '' : "AND `uid`={$uid}";
 
         // 更新區塊設定
         $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `create_date`=NOW() WHERE `bid`=? ' . $and_uid;
@@ -352,12 +352,12 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 //刪除區塊
 function block_del($bid = '')
 {
-    global $xoopsDB, $xoopsUser;
+    global $xoopsDB, $xoopsUser, $tad_blocks_adm;
 
     $module_dirname = 'tad_blocks';
     $uid = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $and_uid = $_SESSION['tad_blocks_adm'] ? '' : "AND `uid`={$uid}";
+    $and_uid = $tad_blocks_adm ? '' : "AND `uid`={$uid}";
 
     // 刪除區塊設定
     $sql = 'DELETE FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
