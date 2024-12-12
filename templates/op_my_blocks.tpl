@@ -45,10 +45,10 @@
                 <td>
                     <{if $b.bid|default:false}>
                         <a href="javascript:block_del(<{$b.bid}>)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></a>
-                        <a href="index.php?op=block_form&bid=<{$b.bid}>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
+                        <a href="index.php?op=block_form&bid=<{$b.bid}>" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
                     <{else}>
                         <a href="javascript:block_del(<{$b.bbid}>)" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></a>
-                        <a href="index.php?op=block_form&bbid=<{$b.bbid}>" class="btn btn-sm btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
+                        <a href="index.php?op=block_form&bbid=<{$b.bbid}>" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i>  <{$smarty.const._TAD_EDIT}></a>
                     <{/if}>
                 </td>
             </tr>

@@ -38,7 +38,7 @@
             <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._MARQUEE_ADD_URL}>">
         </td>
         <td>
-            <select data-name="TDC[target]" id="target" class="form-select" placeholder="<{$smarty.const._MARQUEE_ADD_TARGET}>">
+            <select data-name="TDC[target]" id="target" class="form-control form-select" placeholder="<{$smarty.const._MARQUEE_ADD_TARGET}>">
                 <option value="_self"><{$smarty.const._MARQUEE_ADD_TARGET_SELF}></option>
                 <option value="_blank"><{$smarty.const._MARQUEE_ADD_TARGET_BLANK}></option>
             </select>

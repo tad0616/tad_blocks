@@ -72,6 +72,6 @@ function mk_content($bid, $TDC)
 
     //show_files($upname="",$thumb=true,$show_mode="",$show_description=false,$show_dl=false,$limit=NULL,$path=NULL,$hash=false,$playSpeed=5000)
 
-    $content = $myts->addSlashes($content);
+    // $content = $myts->addSlashes($content);
     return $content;
 }

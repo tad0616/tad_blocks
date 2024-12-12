@@ -3,6 +3,7 @@ use XoopsModules\Tadtools\Utility;
 include "../../../include/cp_header.php";
 
 // 關閉除錯訊息
+header('HTTP/1.1 200 OK');
 $xoopsLogger->activated = false;
 $sort = 1;
 foreach ($_POST['tr'] as $bid) {

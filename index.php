@@ -136,6 +136,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 
     //判斷目前使用者是否有：建立自訂區塊
     $add_block = Utility::power_chk($module_dirname, 1);
+
     $xoopsTpl->assign('add_block', $add_block);
     $block = [];
 

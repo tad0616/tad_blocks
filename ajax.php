@@ -9,6 +9,7 @@ require_once __DIR__ . '/header.php';
 if (!$tad_blocks_adm) {
     redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
 }
+header('HTTP/1.1 200 OK');
 $xoopsLogger->activated = false;
 /*-----------執行動作判斷區----------*/
 $op = Request::getString('op');
@@ -169,7 +170,7 @@ $jquery
 </form>
 <script>
 $(document).ready(function(){
-    $('#tag').change(function(){
+    $('#tag').on('change', function(){
         var tag=$('#tag').val();
         if(tag=='hide' || tag==''){
             $('#link').hide();

@@ -5,7 +5,7 @@
 
 <form class="form-inline">
     <label for="only_mod"><{$smarty.const._MD_TAD_BLOCKS_ONLY}></label>
-    <select id="only_mod" class="form-select" style="max-width: 20rem;">
+    <select id="only_mod" class="form-control form-select" style="max-width: 20rem;">
         <option value=""></option>
         <{foreach from=$alldir key=dirname item=name}>
             <option value="<{$dirname|default:''}>"><{$name|default:''}> (<{$dirname|default:''}>)</option>
@@ -62,12 +62,12 @@
 
         invisible_block();
 
-        $('#only_visible').change(function(){
+        $('#only_visible').on('change', function(){
             invisible_block();
         });
 
 
-        $('#only_mod').change(function(){
+        $('#only_mod').on('change', function(){
             invisible_block();
         });
 

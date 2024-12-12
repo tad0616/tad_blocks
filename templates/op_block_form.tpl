@@ -15,7 +15,7 @@
                 <input type="hidden" name="type" value="<{$type|default:''}>">
             <{else}>
                 <{$smarty.const._MD_TAD_BLOCKS_NEW}>
-                <select name="type" class="form-select" style="width: auto; display: inline-block; color:#000;" onchange="location.href='index.php?op=block_form&type='+this.value+''">
+                <select name="type" class="form-control form-select" style="width: auto; display: inline-block; color:#000;" onchange="location.href='index.php?op=block_form&type='+this.value+''">
                     <{foreach from=$type_arr key=val item=txt}>
                         <option value="<{$val|default:''}>" <{if $type==$val}>selected="selected"<{/if}>><{$txt|default:''}></option>
                     <{/foreach}>

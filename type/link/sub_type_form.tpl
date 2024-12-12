@@ -52,7 +52,7 @@
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>">
         </td>
         <td>
-            <select data-name="TDC[target]" id="target" class="form-select" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+            <select data-name="TDC[target]" id="target" class="form-control form-select" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                 <option value="_self"><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                 <option value="_blank"><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
             </select>
@@ -130,7 +130,7 @@
             $(this).closest("#form_data" + $(this).prop("id")).remove();
         });
 
-        $('.upload_img').change(function() {
+        $('.upload_img').on('change', function() {
             console.log($(this).data("id"));
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/link/upload.php',{op:'upload', sort: $(this).data("id")}, function(img_url) {
                 console.log(img_url);
@@ -167,7 +167,7 @@
             $(this).closest("#form_data" + form_index).remove();
         });
 
-        $("#img" + form_index).change(function() {
+        $("#img" + form_index).on('change', function() {
             console.log(form_index);
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/link/upload.php',{op:'upload' , sort: form_index}, function(img_url) {
                 console.log(img_url);

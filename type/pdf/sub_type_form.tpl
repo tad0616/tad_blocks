@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#pdf').change(function() {
+        $('#pdf').on('change', function() {
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/pdf/upload.php',{op:'upload'}, function(pdf_url) {
                 console.log(pdf_url);
                 $('#demo_pdf').html(pdf_url);

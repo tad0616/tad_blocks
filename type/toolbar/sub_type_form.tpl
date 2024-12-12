@@ -121,7 +121,7 @@
             $(this).closest("#form_data" + $(this).prop("id")).remove();
         });
 
-        $('.upload_img').change(function() {
+        $('.upload_img').on('change', function() {
             console.log($(this).data("id"));
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload', sort: $(this).data("id")}, function(img_url) {
                 console.log(img_url);
@@ -158,7 +158,7 @@
             $(this).closest("#form_data" + form_index).remove();
         });
 
-        $("#img" + form_index).change(function() {
+        $("#img" + form_index).on('change', function() {
             console.log(form_index);
             $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload' , sort: form_index}, function(img_url) {
                 console.log(img_url);

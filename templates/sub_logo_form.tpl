@@ -43,7 +43,7 @@
             <div class="form-group row mb-3">
                 <label class="col-sm-2 control-label col-form-label text-sm-right text-sm-end"><{$smarty.const._MD_TAD_BLOCKS_LOGO_SELECT_FONT}></label>
                 <div class="col-sm-2">
-                    <select name="TDC[font_file_sn]" id="font_file_sn" class="form-select">
+                    <select name="TDC[font_file_sn]" id="font_file_sn" class="form-control form-select">
                         <{foreach from=$fonts key=file_sn item=font name=f}>
                             <option value="<{$file_sn|default:''}>" <{if $font_file_sn==$file_sn or ($font_file_sn == 0 and $smarty.foreach.f.index == 0) }>selected<{/if}>>
                                 <{$font.description}>

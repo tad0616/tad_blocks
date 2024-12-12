@@ -38,7 +38,8 @@ function get_content($bid = 0)
 function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
-    $myts = \MyTextSanitizer::getInstance();
-    $content = $myts->addSlashes($TDC['content']);
-    return $content;
+    // $myts = \MyTextSanitizer::getInstance();
+    // $content = $myts->addSlashes($TDC['content']);
+    // return $content;
+    return $TDC['content'];
 }
