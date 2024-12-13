@@ -1,5 +1,5 @@
 <!-- 上中左 -->
-<{if $all_blocks.3|default:false}>
+<{if $all_blocks.3|default:false || $smarty.get.op|default:''!='block_form'}>
     <h4 class="block_side"><{$smarty.const._MD_TAD_BLOCKS_TOP_LEFT}></h4>
     <div class="droppable" id="side-3" data-side="3">
         <{foreach from=$all_blocks.3 item=b}>
