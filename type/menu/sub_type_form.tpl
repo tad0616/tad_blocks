@@ -1,26 +1,26 @@
 <{$migrate|default:''}>
-<link href="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome-iconpicker/css/fontawesome-iconpicker.css" rel="stylesheet">
-<script src="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome-iconpicker/js/fontawesome-iconpicker.min.js"></script>
+<script src="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome6-picker/fontawesome6-picker.js"></script>
+
 <div id="save_msg"></div>
 <table class="table" id="new_form">
     <tbody id="sort">
         <{if $text|default:false}>
             <{foreach from=$text key=i item=data}>
-                <tr id="form_data<{$i|default:''}>">
+                <tr id="form_data<{$i}>">
                     <td style="width:40px;">
-                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
                     </td>
                     <td style="width:100px;">
-                        <input type="text" name="TDC[icon][<{$i|default:''}>]" id="icon<{$i|default:''}>" class="icp demo form-control" value="<{$icon.$i}>">
+                        <input type="text" name="TDC[icon][<{$i}>]" id="icon<{$i}>" class="selectpicker form-control" value="<{$icon.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
+                        <input type="text" name="TDC[url][<{$i}>]" id="url<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>" value="<{$url.$i}>">
                     </td>
                     <td>
-                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$data|default:''}>">
+                        <input type="text" name="TDC[text][<{$i}>]" id="text<{$i}>" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>" value="<{$data|default:''}>">
                     </td>
                     <td>
-                        <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                        <select name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                             <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                             <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
                         </select>
@@ -28,7 +28,7 @@
                     <td style="width: 130px">
                         <div class="d-inline-block">
                             <div class="input-group">
-                                <input type="text" name="TDC[m_color][<{$i|default:''}>]" id="m_color<{$i|default:''}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
+                                <input type="text" name="TDC[m_color][<{$i}>]" id="m_color<{$i}>" class="form-control color-picker" data-hex="true" value="<{$m_color.$i}>">
                             </div>
                         </div>
                     </td>
@@ -45,7 +45,7 @@
             <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
         </td>
         <td style="width:100px;">
-            <input type="text" data-name="TDC[icon]" id="icon" class="icp demo form-control" value="<{$default.icon}>">
+            <input type="text" data-name="TDC[icon]" id="icon" class="selectpicker form-control" value="<{$default.icon}>">
         </td>
         <td>
             <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>">
@@ -54,7 +54,7 @@
             <input type="text" data-name="TDC[text]" id="text" class="form-control" placeholder="<{$smarty.const._MENU_ADD_TEXT}>">
         </td>
         <td>
-            <select data-name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+            <select data-name="TDC[target][<{$i}>]" id="target<{$i}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
                 <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
                 <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
             </select>
@@ -88,9 +88,12 @@
     </div>
 </div>
 
+
+
 <script type="text/javascript">
 
     $(document).ready(function(){
+
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
                 var order = $(this).sortable('serialize');
@@ -103,7 +106,7 @@
             });
         <{/if}>
         <{if $text|default:false}>
-            var form_index=<{$i|default:''}>;
+            var form_index=<{$i}>;
         <{else}>
             var form_index=0;
             form_index = clone_form(form_index);
@@ -117,7 +120,9 @@
             $(this).closest("#form_data" + $(this).prop("id")).remove();
         });
 
-        $('.demo').iconpicker({animation: false});
+        $('.selectpicker').iconPicker('./type/menu/fontawesome6-picker/', {
+            showIconName: false  // 不顯示圖示名稱
+        });
     });
 
 
@@ -145,8 +150,9 @@
             imageFolder: '<{$xoops_url}>/modules/tadtools/mColorPicker/images/'
         });
 
-        $("#icon" + form_index).iconpicker({animation: false});
-
+        $('.selectpicker').iconPicker('./type/menu/fontawesome6-picker/', {
+            showIconName: false  // 不顯示圖示名稱
+        });
         return form_index;
     }
 

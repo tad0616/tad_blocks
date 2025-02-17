@@ -31,11 +31,11 @@ $GLOBALS['xoopsOption']['template_main'] = 'tad_blocks_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$TDC = Request::getVar('TDC', [], null, 'array', 2);
-$type = Request::getString('type');
-$bid = Request::getInt('bid');
-$bbid = Request::getInt('bbid');
+$op       = Request::getString('op');
+$TDC      = Request::getVar('TDC', [], null, 'array', 2);
+$type     = Request::getString('type');
+$bid      = Request::getInt('bid');
+$bbid     = Request::getInt('bbid');
 $files_sn = Request::getInt('files_sn');
 
 switch ($op) {
@@ -84,29 +84,29 @@ function my_blocks()
     $show_link = ['link'];
 
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
-    $TadDataCenter = new TadDataCenter($module_dirname);
-    $my_blocks = [];
-    $where_uid = $tad_blocks_adm ? '' : "where a.`uid`='{$uid}'";
-    $sql = 'SELECT a.`type`, a.`bid` as `bbid`, b.* FROM `' . $xoopsDB->prefix('tad_blocks') . '` as a LEFT JOIN `' . $xoopsDB->prefix('newblocks') . '` as b ON a.`bid`=b.`bid` ' . $where_uid . ' ORDER BY a.`bid` DESC';
-    $result = Utility::query($sql) or Utility::web_error($sql);
+    $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
+    $TadDataCenter  = new TadDataCenter($module_dirname);
+    $my_blocks      = [];
+    $where_uid      = $tad_blocks_adm ? '' : "where a.`uid`='{$uid}'";
+    $sql            = 'SELECT a.`type`, a.`bid` as `bbid`, b.* FROM `' . $xoopsDB->prefix('tad_blocks') . '` as a LEFT JOIN `' . $xoopsDB->prefix('newblocks') . '` as b ON a.`bid`=b.`bid` ' . $where_uid . ' ORDER BY a.`bid` DESC';
+    $result         = Utility::query($sql) or Utility::web_error($sql);
 
     while ($all = $xoopsDB->fetchArray($result)) {
         $TadDataCenter->set_col('bid', $all['bid']);
-        $block = $TadDataCenter->getData();
-        $all['position'] = $position_arr[$all['side']];
-        $all['type'] = $type_arr[$all['type']];
-        $all['block'] = $block;
+        $block              = $TadDataCenter->getData();
+        $all['position']    = $position_arr[$all['side']];
+        $all['type']        = $type_arr[$all['type']];
+        $all['block']       = $block;
         $all['clean_title'] = $all['title'];
-        $all['pic'] = '';
+        $all['pic']         = '';
         foreach ($tags as $tag) {
             $start = strpos($all['title'], "[$tag]");
             if ($start !== false) {
-                $all['tag'] = "<span class='badge badge-success bg-success'>$tag</span>";
+                $all['tag']         = "<span class='badge badge-success bg-success'>$tag</span>";
                 $all['clean_title'] = substr($all['title'], 0, $start);
                 if (in_array($tag, $show_file)) {
-                    $start = $start + strlen("[$tag]");
-                    $pic = substr($all['title'], $start);
+                    $start      = $start + strlen("[$tag]");
+                    $pic        = substr($all['title'], $start);
                     $all['pic'] = "<img src='{$pic}' alt='[$tag]'>";
                 }
             }
@@ -130,7 +130,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 {
     global $xoopsDB, $xoopsTpl, $xoopsUser, $type_arr, $tags, $tad_blocks_adm;
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
+    $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $and_uid = $tad_blocks_adm ? '' : "AND `uid`={$uid}";
 
@@ -144,7 +144,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
         $TadDataCenter = new TadDataCenter('tad_blocks');
         if ($bid or $bbid) {
             if ($bid) {
-                $sql = 'SELECT `title`, `weight`, `side`, `content`, `visible` FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid` = ?';
+                $sql    = 'SELECT `title`, `weight`, `side`, `content`, `visible` FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid` = ?';
                 $result = Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
 
                 list($title, $weight, $side, $content, $visible) = $xoopsDB->fetchRow($result);
@@ -162,7 +162,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
                 $bid = $bbid;
             }
 
-            $sql = 'SELECT `type` FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
+            $sql    = 'SELECT `type` FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
             $result = Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
 
             list($type) = $xoopsDB->fetchRow($result);
@@ -172,12 +172,12 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
-                $data_arr['title'][0] = $title;
+                $data_arr['title'][0]   = $title;
                 $data_arr['content'][0] = $content;
                 $TadDataCenter->saveCustomData($data_arr);
             }
         } else {
-            $side = 0;
+            $side   = 0;
             $weight = 0;
         }
 
@@ -217,19 +217,19 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 }
 
 //儲存並建立區塊
-function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
+function block_save($type = '', $TDC = [], $bid = '', $bbid = '')
 {
     global $xoopsDB, $xoopsUser, $tags, $tad_blocks_adm;
 
-    $mk_pic = ['pic', 'img'];
+    $mk_pic         = ['pic', 'img'];
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
+    $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
 
-    $title = $TDC['title'];
-    $side = $TDC['side'];
+    $title  = $TDC['title'];
+    $side   = $TDC['side'];
     $weight = (int) $TDC['weight'];
 
-    if (!empty($type)) {
+    if (! empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($bid, $TDC);
 
@@ -237,7 +237,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
         $content = $TDC['content'];
     }
 
-    $content = Wcag::amend($content);
+    $content       = Wcag::amend($content);
     $last_modified = time();
 
     if (empty($bid)) {
@@ -262,7 +262,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
             $TadDataCenter = new TadDataCenter($module_dirname);
 
             // 從舊設定來新增模組
-            if (!empty($bbid)) {
+            if (! empty($bbid)) {
                 // 新增區塊設定
                 $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `bid`=?, `type`=?, `uid`=?, `create_date`=now() WHERE `bid`=?';
                 Utility::query($sql, 'isii', [$bid, $type, $uid, $bbid]) or Utility::web_error($sql);
@@ -287,7 +287,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
 
     } else {
 
-        $sql = 'SELECT * FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid`=?';
+        $sql    = 'SELECT * FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `bid`=?';
         $result = Utility::query($sql, 'i', [$bid]) or die($sql);
 
         $block = $xoopsDB->fetchArray($result);
@@ -295,7 +295,7 @@ function block_save($type = '', $TDC = array(), $bid = '', $bbid = '')
         foreach ($tags as $tag) {
             $start = strpos($block['title'], "[$tag]");
             if ($start !== false) {
-                if (!empty($title) and in_array($tag, $mk_pic)) {
+                if (! empty($title) and in_array($tag, $mk_pic)) {
                     $TadDataCenter = new TadDataCenter('tad_blocks');
                     $TadDataCenter->set_col('block_logo', 0);
                     $logo_setting = $TadDataCenter->getData();
@@ -356,7 +356,7 @@ function block_del($bid = '')
     global $xoopsDB, $xoopsUser, $tad_blocks_adm;
 
     $module_dirname = 'tad_blocks';
-    $uid = $xoopsUser ? $xoopsUser->uid() : 0;
+    $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
 
     $and_uid = $tad_blocks_adm ? '' : "AND `uid`={$uid}";
 
