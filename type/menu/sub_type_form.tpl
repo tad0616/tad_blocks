@@ -1,5 +1,4 @@
 <{$migrate|default:''}>
-<script src="<{$xoops_url}>/modules/tad_blocks/type/menu/fontawesome6-picker/fontawesome6-picker.js"></script>
 
 <div id="save_msg"></div>
 <table class="table" id="new_form">
@@ -8,9 +7,9 @@
             <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i}>">
                     <td style="width:40px;">
-                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i}>" class="btn btn-sm btn-danger remove_me"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </td>
-                    <td style="width:100px;">
+                    <td style="width:120px;" >
                         <input type="text" name="TDC[icon][<{$i}>]" id="icon<{$i}>" class="selectpicker form-control" value="<{$icon.$i}>">
                     </td>
                     <td>
@@ -42,10 +41,10 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width:40px;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" ><i class="fa fa-trash" aria-hidden="true"></i></button>
         </td>
         <td style="width:100px;">
-            <input type="text" data-name="TDC[icon]" id="icon" class="selectpicker form-control" value="<{$default.icon}>">
+            <input type="text" data-name="TDC[icon]" id="icon" class="selectpicker icon-picker-input form-control" value="<{$default.icon}>">
         </td>
         <td>
             <input type="text" data-name="TDC[url]" id="url" class="form-control" placeholder="<{$smarty.const._MENU_ADD_URL}>">
@@ -120,40 +119,34 @@
             $(this).closest("#form_data" + $(this).prop("id")).remove();
         });
 
-        $('.selectpicker').iconPicker('./type/menu/fontawesome6-picker/', {
+        $('.selectpicker').iconPicker('<{$xoops_url}>/modules/tadtools/fontawesome6-picker/', {
             showIconName: false  // 不顯示圖示名稱
         });
     });
 
 
 
-    function clone_form(form_index){
-
+    function clone_form(form_index) {
         form_index++;
         //複製一份IP設定表單
         $("#new_form").append($("#form_data").clone().prop("id","form_data" + form_index));
-
         $("#form_data" + form_index + "  input").each(function(){
             $(this).prop("name",$(this).data("name") + "[" + form_index+"]");
             $(this).prop("id",$(this).prop("id") + form_index);
         });
-
         $("#form_data" + form_index + "  button").each(function(){
             $(this).prop("id",$(this).data("name") + form_index);
         });
-
         $("#remove_me" + form_index).click(function(){
             $(this).closest("#form_data" + form_index).remove();
         });
-
         $("#m_color" + form_index).mColorPicker({
             imageFolder: '<{$xoops_url}>/modules/tadtools/mColorPicker/images/'
         });
 
-        $('.selectpicker').iconPicker('./type/menu/fontawesome6-picker/', {
-            showIconName: false  // 不顯示圖示名稱
-        });
+        $.fn.iconPicker.reinitialize();
         return form_index;
     }
+
 
 </script>

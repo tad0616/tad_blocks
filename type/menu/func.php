@@ -1,8 +1,9 @@
 <?php
+
 use XoopsModules\Tadtools\MColorPicker;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
-
+use XoopsModules\Tadtools\Fontawesome6Picker;
 //取得 menu 區塊DataCenter內容
 function get_content($bid = 0)
 {
@@ -29,6 +30,7 @@ function get_content($bid = 0)
             }
         }
     }
+    Fontawesome6Picker::render();
     $MColorPicker = new MColorPicker('.color-picker');
     $MColorPicker->render('bootstrap');
     $migrate = Utility::add_migrate('return');
