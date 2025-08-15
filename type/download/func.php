@@ -15,7 +15,7 @@ function get_content($bid = 0)
     $xoopsTpl->assign('default', $default);
     // 傳回陣列的項目
     if ($bid) {
-        $arr = ['groups'];
+        $arr           = ['groups'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
@@ -32,7 +32,7 @@ function get_content($bid = 0)
     $file_col_sn = $block['file_col_sn'][0] ? $block['file_col_sn'][0] : $default['file_col_sn'];
 
     $TadUpFiles = new TadUpFiles("tad_blocks");
-    $TadUpFiles->set_col('download', $file_col_sn);
+    $TadUpFiles->set_col("download", $file_col_sn);
     $xoopsTpl->assign('file_col_sn', $file_col_sn);
 
     // $TadUpFiles->set_var('require', true); //必填
@@ -49,24 +49,25 @@ function mk_content($bid, $TDC)
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
 
-    $mode = empty($TDC['mode']) ? $default['mode'] : $myts->htmlSpecialChars($TDC['mode']);
+    $mode        = empty($TDC['mode']) ? $default['mode'] : $myts->htmlSpecialChars($TDC['mode']);
     $file_col_sn = empty($TDC['file_col_sn']) ? $default['file_col_sn'] : $TDC['file_col_sn'];
     $desc_height = empty($TDC['desc_height']) ? $default['desc_height'] : $TDC['desc_height'];
-    $mode = empty($TDC['mode']) ? $default['mode'] : $TDC['mode'];
+    $font_size   = empty($TDC['font_size']) ? $default['font_size'] : $TDC['font_size'];
+    $mode        = empty($TDC['mode']) ? $default['mode'] : $TDC['mode'];
 
     if ($mode === 'small') {
         $content = '<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="' . XOOPS_URL . '/modules/tadtools/css/iconize.css">';
     } elseif ($mode === 'filename') {
         $content = '<link rel="stylesheet" type="text/css" media="all" title="Style sheet" href="' . XOOPS_URL . '/modules/tadtools/css/rounded-list.css">';
     } else {
-        $fancybox = new FancyBox(".fancybox_download{$bid}", '1920', '1080');
-        $content = ($mode === 'file_text_url' or $show_mode === 'file_url') ? '' : $fancybox->render(false, null, null, null, true);
+        $fancybox = new FancyBox(".fancybox_download{$file_col_sn}", '1920', '1080');
+        $content  = ($mode === 'file_text_url' or $show_mode === 'file_url') ? '' : $fancybox->render(false, null, null, null, true);
     }
 
     $TadUpFiles = new TadUpFiles("tad_blocks");
-    $TadUpFiles->set_col('download', $file_col_sn);
+    $TadUpFiles->set_col("download", $file_col_sn);
     $TadUpFiles->upload_file('download_files', null, null, null, null, true);
-
+    $TadUpFiles->set_var('filename_size', $font_size);
     $TadUpFiles->set_var('desc_height', $desc_height);
     $content .= $TadUpFiles->show_files('download_files', true, $mode, true, false, null, null, false);
 

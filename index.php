@@ -172,7 +172,9 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
-                $data_arr['title'][0]   = $title;
+                $data_arr['title'][0] = $title;
+                // 加了addslashes()在匯入既有區塊會有問題
+                // $data_arr['content'][0] = addslashes($content);
                 $data_arr['content'][0] = $content;
                 $TadDataCenter->saveCustomData($data_arr);
             }
@@ -229,7 +231,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '')
     $side   = $TDC['side'];
     $weight = (int) $TDC['weight'];
 
-    if (! empty($type)) {
+    if (!empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($bid, $TDC);
 
@@ -262,7 +264,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '')
             $TadDataCenter = new TadDataCenter($module_dirname);
 
             // 從舊設定來新增模組
-            if (! empty($bbid)) {
+            if (!empty($bbid)) {
                 // 新增區塊設定
                 $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `bid`=?, `type`=?, `uid`=?, `create_date`=now() WHERE `bid`=?';
                 Utility::query($sql, 'isii', [$bid, $type, $uid, $bbid]) or Utility::web_error($sql);
@@ -295,7 +297,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '')
         foreach ($tags as $tag) {
             $start = strpos($block['title'], "[$tag]");
             if ($start !== false) {
-                if (! empty($title) and in_array($tag, $mk_pic)) {
+                if (!empty($title) and in_array($tag, $mk_pic)) {
                     $TadDataCenter = new TadDataCenter('tad_blocks');
                     $TadDataCenter->set_col('block_logo', 0);
                     $logo_setting = $TadDataCenter->getData();

@@ -1,6 +1,7 @@
 <?php
 use XoopsModules\Tadtools\CodeMirror;
 use XoopsModules\Tadtools\TadDataCenter;
+use XoopsModules\Tadtools\Utility;
 
 //取得 embed 區塊DataCenter內容
 function get_content($bid = 0)
@@ -15,7 +16,7 @@ function get_content($bid = 0)
 
     // 傳回陣列的項目
     if ($bid) {
-        $arr = ['groups', 'content'];
+        $arr           = ['groups', 'content'];
         $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $block = $TadDataCenter->getData();
@@ -31,6 +32,8 @@ function get_content($bid = 0)
 
     $CodeMirror = new CodeMirror('content_code');
     $CodeMirror->render();
+    $block['content'][0] = stripslashes($block['content'][0]);
+    // Utility::dd($block);
     return $block;
 }
 
@@ -41,5 +44,6 @@ function mk_content($bid, $TDC)
     // $myts = \MyTextSanitizer::getInstance();
     // $content = addslashes($TDC['content']);
     // return $content;
+    Utility::test($TDC['content'], 'content', 'dd');
     return $TDC['content'];
 }

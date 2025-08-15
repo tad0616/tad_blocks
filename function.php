@@ -36,7 +36,7 @@ $position_arr = [
     11 => _MD_TAD_BLOCKS_FOOTER_RIGHT,
 ];
 
-$tags = ['hide', 'pic', 'img', 'link', 'icon'];
+$tags       = ['hide', 'pic', 'img', 'link', 'icon'];
 $type_arr[] = _MD_TAD_BLOCKS_WYSIWYG;
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";
@@ -56,28 +56,28 @@ if (is_dir($dir)) {
 function tad_themes_setup()
 {
     global $xoopsDB, $xoopsTpl, $xoopsConfig;
-    $sql = 'SELECT `theme_id`, `theme_type`, `theme_width`, `lb_width`, `cb_width`, `rb_width`, `base_color`, `lb_color`, `cb_color`, `rb_color`, `font_color` FROM `' . $xoopsDB->prefix('tad_themes') . '` WHERE `theme_name`=?';
+    $sql    = 'SELECT `theme_id`, `theme_type`, `theme_width`, `lb_width`, `cb_width`, `rb_width`, `base_color`, `lb_color`, `cb_color`, `rb_color`, `font_color` FROM `' . $xoopsDB->prefix('tad_themes') . '` WHERE `theme_name`=?';
     $result = Utility::query($sql, 's', [$xoopsConfig['theme_set']]) or Utility::web_error($sql);
 
     list($theme_id, $theme_type, $theme_width, $lb_width, $cb_width, $rb_width, $base_color, $lb_color, $cb_color, $rb_color, $font_color) = $xoopsDB->fetchRow($result);
 
-    $sql = 'SELECT `value` FROM `' . $xoopsDB->prefix('tad_themes_config2') . '` WHERE `theme_id`=? AND `name`=?';
+    $sql    = 'SELECT `value` FROM `' . $xoopsDB->prefix('tad_themes_config2') . '` WHERE `theme_id`=? AND `name`=?';
     $result = Utility::query($sql, 'is', [$theme_id, 'footer_color']) or Utility::web_error($sql);
 
     list($footer_color) = $xoopsDB->fetchRow($result);
 
-    $sql = 'SELECT `value` FROM `' . $xoopsDB->prefix('tad_themes_config2') . '` WHERE `theme_id` =? AND `name`=?';
+    $sql    = 'SELECT `value` FROM `' . $xoopsDB->prefix('tad_themes_config2') . '` WHERE `theme_id` =? AND `name`=?';
     $result = Utility::query($sql, 'is', [$theme_id, 'footer_bgcolor']) or Utility::web_error($sql);
 
     list($footer_bgcolor) = $xoopsDB->fetchRow($result);
 
     if ($lb_width == 'auto') {
-        $cw = round(($cb_width / $theme_width) * 100, 1);
+        $cw = round(((int) $cb_width / (int) $theme_width) * 100, 1);
         $lw = $rw = (100 - $cw) / 2;
     } else {
-        $lw = round(($lb_width / $theme_width) * 100, 1);
-        $cw = round(($cb_width / $theme_width) * 100, 1);
-        $rw = round(($rb_width / $theme_width) * 100, 1);
+        $lw = round(((int) $lb_width / (int) $theme_width) * 100, 1);
+        $cw = round(((int) $cb_width / (int) $theme_width) * 100, 1);
+        $rw = round(((int) $rb_width / (int) $theme_width) * 100, 1);
     }
     $xoopsTpl->assign('lw', $lw);
     $xoopsTpl->assign('cw', $cw);

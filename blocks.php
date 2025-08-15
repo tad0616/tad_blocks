@@ -35,10 +35,10 @@ if (!$tad_blocks_adm) {
 }
 
 /*-----------執行動作判斷區----------*/
-$op = Request::getString('op');
-$TDC = Request::getVar('TDC', [], null, 'array', 2);
+$op   = Request::getString('op');
+$TDC  = Request::getVar('TDC', [], null, 'array', 2);
 $type = Request::getString('type');
-$bid = Request::getInt('bid');
+$bid  = Request::getInt('bid');
 
 switch ($op) {
 
@@ -71,7 +71,7 @@ switch ($op) {
 /*-----------秀出結果區--------------*/
 $xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu, false, $interface_icon));
 $xoopsTpl->assign('now_op', $op);
-$xoopsTpl->assign('xoopsModuleConfig', $xoopsModuleConfig);
+$xoopsTpl->assign('show_build_logo', $xoopsModuleConfig['show_build_logo']);
 
 $xoTheme->addStylesheet('modules/tad_blocks/css/module.css');
 include_once XOOPS_ROOT_PATH . '/footer.php';
@@ -83,7 +83,7 @@ function all_blocks()
 {
     global $xoopsDB, $xoopsTpl, $tags;
 
-    $Bootstrap3Editable = new Bootstrap3Editable();
+    $Bootstrap3Editable     = new Bootstrap3Editable();
     $Bootstrap3EditableCode = $Bootstrap3Editable->render('.editable', 'ajax.php');
     $xoopsTpl->assign('Bootstrap3EditableCode', $Bootstrap3EditableCode);
 
@@ -98,9 +98,9 @@ function all_blocks()
     $result = Utility::query($sql) or Utility::web_error($sql);
 
     while ($all = $xoopsDB->fetchArray($result)) {
-        $side = $all['side'];
+        $side    = $all['side'];
         $dirname = $all['dirname'];
-        $name = $all['name'];
+        $name    = $all['name'];
 
         if (empty($dirname)) {
             $alldir['custom'] = _MD_TAD_BLOCKS_CUSTOM_BLOCK;
@@ -112,7 +112,7 @@ function all_blocks()
             $start = strpos($all['title'], "[$tag]");
             if ($start !== false) {
                 $all['title'] = substr($all['title'], 0, $start);
-                $all[$tag] = true;
+                $all[$tag]    = true;
             } else {
                 $all[$tag] = false;
             }
@@ -148,7 +148,7 @@ function all_blocks()
             $xoopsTpl->assign($key, $value[0]);
         }
     } else {
-        $f = array_keys($fonts);
+        $f        = array_keys($fonts);
         $data_arr = [
             'size' => [24],
             'border_size' => [1],
@@ -182,7 +182,7 @@ function save_and_re_build_logo()
     $TadDataCenter->set_col('block_logo', 0);
     $TadDataCenter->saveData();
 
-    $sql = 'SELECT `bid`, `title` FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `visible`=?';
+    $sql    = 'SELECT `bid`, `title` FROM `' . $xoopsDB->prefix('newblocks') . '` WHERE `visible`=?';
     $result = Utility::query($sql, 'i', [1]) or die($sql);
 
     while (list($bid, $title) = $xoopsDB->fetchRow($result)) {
