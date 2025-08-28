@@ -20,9 +20,8 @@
 $modversion = array();
 
 //---模組基本資訊---//
-$modversion['name']    = _MI_TADBLOCKS_NAME;
-$modversion['version'] = $_SESSION['xoops_version'] >= 20511 ? '3.1.0-Stable' : '3.1';
-// $modversion['version'] = '2.6';
+$modversion['name']        = _MI_TADBLOCKS_NAME;
+$modversion['version']     = $_SESSION['xoops_version'] >= 20511 ? '3.1.0-Stable' : '3.1';
 $modversion['description'] = _MI_TADBLOCKS_DESC;
 $modversion['author']      = _MI_TADBLOCKS_AUTHOR;
 $modversion['credits']     = _MI_TADBLOCKS_CREDITS;

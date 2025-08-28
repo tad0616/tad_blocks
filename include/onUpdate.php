@@ -32,5 +32,7 @@ function xoops_module_update_tad_blocks($module, $old_version)
         Update::go_dc_sort();
     }
 
+    Update::add_files_center_index();
+
     return true;
 }
