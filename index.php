@@ -29,7 +29,9 @@ use XoopsModules\Tadtools\Utility;
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'tad_blocks_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
-
+if (!$xoopsUser) {
+    redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+}
 /*-----------執行動作判斷區----------*/
 $op          = Request::getString('op');
 $TDC         = Request::getVar('TDC', [], null, 'array', 2);
@@ -130,6 +132,7 @@ function my_blocks()
 function block_form($type = '', $bid = 0, $bbid = 0)
 {
     global $xoopsDB, $xoopsTpl, $xoopsUser, $type_arr, $tags, $tad_blocks_adm;
+    $type           = Utility::check_string($type);
     $module_dirname = 'tad_blocks';
     $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
 
@@ -223,6 +226,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display = '')
 {
     global $xoopsDB, $xoopsUser, $tags, $tad_blocks_adm;
+    $type = Utility::check_string($type);
 
     $mk_pic         = ['pic', 'img'];
     $module_dirname = 'tad_blocks';

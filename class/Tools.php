@@ -38,7 +38,7 @@ class Tools
         }
     }
 
-    //列出所有區塊
+    //修改block_module_link
     public static function change_block_module_link($bid, $module_id)
     {
         global $xoopsDB;
@@ -51,16 +51,19 @@ class Tools
         }
     }
 
-    //列出所有區塊
+    //修改區塊
     public static function change_newblock($bid, $col, $val)
     {
         global $xoopsDB;
+
+        $col = Utility::check_string($col);
+        $val = $xoopsDB->escape($val);
 
         $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `' . $col . '`=? WHERE `bid`=?';
         if (Utility::query($sql, 'si', [$val, $bid])) {
             return;
         } else {
-            die($sql);
+            die('UPDATE error');
         }
     }
 
