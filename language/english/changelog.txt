@@ -1,4 +1,4 @@
-tad_blocks 3.4 (Released 2026-07-24)
+tad_blocks 3.4 (Released 2026-07-27)
 =================================================
 1. Various security fixes
 2. Added a feature to add links in batches
