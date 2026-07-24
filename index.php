@@ -342,7 +342,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
         // 更新區塊設定
         $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `create_date`=NOW() WHERE `bid`=? ' . $and_uid;
 
-        if (Utility::query($sql, 'i', [$bid])) {
+        if (Utility::query($sql, 'i', [$bid], true, false, null, true)) {
             // 更新區塊
             $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `title`=?, `content`=?, `side`=?, `weight`=?, `last_modified`=? WHERE `bid`=?';
             Utility::query($sql, 'ssiiii', [$title . $tag2, $content, $side, $weight, $last_modified, $bid]) or Utility::web_error($sql);
@@ -389,7 +389,7 @@ function block_del($bid = '')
     // 刪除區塊設定
     $sql = 'DELETE FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
 
-    if (Utility::query($sql, 'i', [$bid])) {
+    if (Utility::query($sql, 'i', [$bid], true, false, null, true)) {
 
         $TadDataCenter = new TadDataCenter($module_dirname);
         $TadDataCenter->set_col('bid', $bid);

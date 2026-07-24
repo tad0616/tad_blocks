@@ -44,7 +44,7 @@ class Tools
         global $xoopsDB;
 
         $sql = 'UPDATE `' . $xoopsDB->prefix('block_module_link') . '` SET `module_id`=? WHERE `block_id`=?';
-        if (Utility::query($sql, 'ii', [$module_id, $bid])) {
+        if (Utility::query($sql, 'ii', [$module_id, $bid], true, false, null, true)) {
             exit;
         } else {
             die($sql);
@@ -60,7 +60,7 @@ class Tools
         $val = $xoopsDB->escape($val);
 
         $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `' . $col . '`=? WHERE `bid`=?';
-        if (Utility::query($sql, 'si', [$val, $bid])) {
+        if (Utility::query($sql, 'si', [$val, $bid], true, false, null, true)) {
             return;
         } else {
             die('UPDATE error');
