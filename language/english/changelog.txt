@@ -1,3 +1,8 @@
+tad_blocks 3.4 (Released 2026-07-24)
+=================================================
+1. Various security fixes
+2. Added a feature to add links in batches
+
 tad_blocks 3.3 (Released 2026-06-05)
 =================================================
 1. Fixed various blocks to support AAA accessibility

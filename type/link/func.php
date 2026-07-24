@@ -1,4 +1,5 @@
 <?php
+use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
 
@@ -30,6 +31,13 @@ function get_content($bid = 0)
     }
     Utility::add_migrate();
 
+    $CkEditor = new CkEditor('tad_blocks', "content", $content);
+    $CkEditor->setHeight(350);
+    $CkEditor->setVar('wcag', false);
+    $CkEditor->setToolbarSet('tadSimple');
+    $editor = $CkEditor->render();
+    $xoopsTpl->assign('editor', $editor);
+
     return $block;
 }
 
@@ -37,6 +45,19 @@ function get_content($bid = 0)
 function mk_content($bid, $TDC)
 {
     require __DIR__ . "/config.php";
+    // if (!empty($TDC['url_json_code'])) {
+    //     $link_arr = json_decode($TDC['url_json_code'], true);
+    //     $maxKey   = max(array_keys($TDC['url'])) + 1;
+    //     if (!empty($link_arr)) {
+    //         foreach ($link_arr as $item) {
+    //             $TDC['img_url'][$maxKey] = '';
+    //             $TDC['url'][$maxKey]     = $item['url'];
+    //             $TDC['text'][$maxKey]    = $item['title'];
+    //             $TDC['target'][$maxKey]  = '_blank';
+    //             $maxKey++;
+    //         }
+    //     }
+    // }
 
     $show_type = empty($TDC['show_type']) ? $default['show_type'] : $TDC['show_type'];
     $item_css  = empty($TDC['item_css']) ? $default['item_css'] : $TDC['item_css'];

@@ -1,0 +1,163 @@
+#editor {
+    width: 100%;
+    min-height: 12rem;
+    padding: 1rem;
+    border: 0.125rem solid #d1d5db;
+    border-radius: 0.5rem;
+    background: white;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+#editor:focus {
+    outline: none;
+    border-color: #4f46e5;
+}
+
+.help-text {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+}
+
+.results {
+    margin-top: 1.5rem;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.results-header h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #1f2937;
+}
+
+.link-list {
+    max-height: 24rem;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+.link-item {
+    border: 0.0625rem solid #e5e7eb;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    transition: box-shadow 0.2s;
+}
+
+.link-item:hover {
+    box-shadow: 0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1);
+}
+
+.link-content {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.link-logo {
+    width: 3rem;
+    height: 3rem;
+    object-fit: cover;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+}
+
+.link-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.link-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.link-title svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+.status-ok {
+    color: #16a34a;
+}
+
+.status-error {
+    color: #dc2626;
+}
+
+.link-title span {
+    font-weight: 600;
+    color: #1f2937;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.link-url {
+    font-size: 0.875rem;
+    color: #2563eb;
+    text-decoration: none;
+    word-break: break-all;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.link-url:hover {
+    text-decoration: underline;
+}
+
+.link-status {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.json-preview {
+    margin-top: 1rem;
+}
+
+.json-preview h3 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.json-code {
+    background: #1f2937;
+    color: #10b981;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    max-height: 16rem;
+    overflow-y: auto;
+    font-size: 0.875rem;
+    font-family: 'Courier New', monospace;
+    white-space: pre;
+}
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none;
+}

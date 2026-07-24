@@ -236,6 +236,20 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
     $side   = $TDC['side'];
     $weight = (int) $TDC['weight'];
 
+    if ($type == 'link' && !empty($TDC['url_json_code'])) {
+        $link_arr = json_decode($TDC['url_json_code'], true);
+        $maxKey   = max(array_keys($TDC['url'])) + 1;
+        if (!empty($link_arr)) {
+            foreach ($link_arr as $item) {
+                $TDC['img_url'][$maxKey] = '';
+                $TDC['url'][$maxKey]     = $item['url'];
+                $TDC['text'][$maxKey]    = $item['title'];
+                $TDC['target'][$maxKey]  = '_blank';
+                $maxKey++;
+            }
+        }
+    }
+
     if (!empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($bid, $TDC);
@@ -267,6 +281,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
                 Utility::query($sql, 'iis', [$group_id, $bid, 'block_read']) or Utility::web_error($sql);
 
             }
+            $TDC['groups'] = $_POST['TDC']['groups'];
 
             $TadDataCenter = new TadDataCenter($module_dirname);
 
@@ -278,7 +293,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
-                $TadDataCenter->saveData();
+                $TadDataCenter->saveData($TDC);
 
                 $TadDataCenter->set_col('bid', $bbid);
                 $TadDataCenter->delData();
@@ -290,7 +305,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
 
                 $TadDataCenter->set_col('bid', $bid);
                 $TadDataCenter->set_var('auto_col_id', true);
-                $TadDataCenter->saveData();
+                $TadDataCenter->saveData($TDC);
             }
         }
 
@@ -346,13 +361,13 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
             foreach ($_POST['TDC']['groups'] as $group_id) {
                 $sql = 'REPLACE INTO `' . $xoopsDB->prefix('group_permission') . '` (`gperm_groupid`, `gperm_itemid`, `gperm_modid`, `gperm_name`) VALUES (?, ?, 1, ?)';
                 Utility::query($sql, 'iis', [$group_id, $bid, 'block_read']) or Utility::web_error($sql);
-
             }
+            $TDC['groups'] = $_POST['TDC']['groups'];
 
             $TadDataCenter = new TadDataCenter($module_dirname);
             $TadDataCenter->set_col('bid', $bid);
             $TadDataCenter->set_var('auto_col_id', true);
-            $TadDataCenter->saveData();
+            $TadDataCenter->saveData($TDC);
 
         } else {
             Utility::web_error($sql);
