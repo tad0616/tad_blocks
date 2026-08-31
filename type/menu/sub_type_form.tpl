@@ -74,6 +74,9 @@
     <a href="#xoops_contents" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
+
+<{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_batch_import.tpl"}>
+
 <div class="alert alert-info my-4">
     <div class="my-1">
         <{$smarty.const._MENU_FONT_SIZE}>
@@ -187,7 +190,26 @@
         });
 
         $(".remove_me").click(function(){
-            $(this).closest("#form_data" + $(this).prop("id")).remove();
+            var $this = $(this);
+            var id = $this.prop("id");
+
+            $.post(
+                "<{$xoops_url}>/modules/tad_blocks/ajax.php",
+                {
+                    op: "del_data",
+                    col_name: "bid",
+                    data_sort: id,
+                    col_sn: <{$bid|default:0}>
+                }
+            ).done(function(err) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                $this.closest("#form_data" + id).remove();
+            }).fail(function(xhr, status, error) {
+                console.log("刪除失敗：", error);
+            });
         });
 
         $('.selectpicker').iconPicker('<{$xoops_url}>/modules/tadtools/fontawesome6-picker/', {

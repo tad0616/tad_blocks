@@ -2,7 +2,7 @@
 use Xmf\Request;
 use XoopsModules\Tadtools\AccessibilityFixer;
 use XoopsModules\Tadtools\CkEditor;
-use XoopsModules\Tadtools\SweetAlert;
+use XoopsModules\Tadtools\SweetAlert2;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
@@ -29,9 +29,7 @@ use XoopsModules\Tadtools\Utility;
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'tad_blocks_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
-if (!$xoopsUser) {
-    redirect_header('index.php', 3, _MD_TAD_BLOCKS_NO_PERMISSION);
-}
+
 /*-----------執行動作判斷區----------*/
 $op          = Request::getString('op');
 $TDC         = Request::getVar('TDC', [], null, 'array', 2);
@@ -49,20 +47,33 @@ switch ($op) {
         exit;
 
     case "block_form":
+        if (!$xoopsUser) {
+            redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+        }
         block_form($type, $bid, $bbid);
         break;
 
     case "block_save":
+        if (!$xoopsUser) {
+            redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+        }
         block_save($type, $TDC, $bid, $bbid, $old_display);
-        header("location: {$_SERVER['PHP_SELF']}");
+        redirect_header($_SERVER['HTTP_REFERER'], 3, "已成功執行！");
+        // header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
     case "block_del":
+        if (!$xoopsUser) {
+            redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+        }
         block_del($bid);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
     default:
+        if (!$xoopsUser) {
+            redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+        }
         my_blocks();
         $op = 'my_blocks';
         break;
@@ -88,7 +99,7 @@ function my_blocks()
 
     $module_dirname = 'tad_blocks';
     $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
-    $TadDataCenter  = new TadDataCenter($module_dirname);
+    $TadDataCenter  = new TadDataCenter('tad_blocks');
     $my_blocks      = [];
     $where_uid      = $tad_blocks_adm ? '' : "where a.`uid`='{$uid}'";
     $sql            = 'SELECT a.`type`, a.`bid` as `bbid`, b.* FROM `' . $xoopsDB->prefix('tad_blocks') . '` as a LEFT JOIN `' . $xoopsDB->prefix('newblocks') . '` as b ON a.`bid`=b.`bid` ' . $where_uid . ' ORDER BY a.`bid` DESC';
@@ -121,8 +132,10 @@ function my_blocks()
         header("location:index.php?op=block_form");
         exit;
     } else {
-        $SweetAlert = new SweetAlert();
-        $SweetAlert->render("block_del", "index.php?op=block_del&bid=", 'bid');
+        $SweetAlert2 = new SweetAlert2();
+        $SweetAlert2->setVar('method', 'post');
+        $XOOPS_TOKEN_REQUEST = $GLOBALS['xoopsSecurity']->createToken();
+        $SweetAlert2->render("block_del", "index.php?op=block_del&XOOPS_TOKEN_REQUEST={$XOOPS_TOKEN_REQUEST}&bid=", 'bid');
         $xoopsTpl->assign('position_arr', $position_arr);
         $xoopsTpl->assign('my_blocks', $my_blocks);
     }
@@ -236,11 +249,17 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
     $side   = $TDC['side'];
     $weight = (int) $TDC['weight'];
 
-    if ($type == 'link' && !empty($TDC['url_json_code'])) {
+    if (!empty($TDC['url_json_code'])) {
         $link_arr = json_decode($TDC['url_json_code'], true);
         $maxKey   = max(array_keys($TDC['url'])) + 1;
         if (!empty($link_arr)) {
             foreach ($link_arr as $item) {
+                if ($type == 'menu') {
+                    $TDC['icon'][$maxKey]    = 'fa-solid fa-star';
+                    $TDC['m_color'][$maxKey] = '#008092';
+                } elseif ($type == 'toolbar') {
+                    $TDC['img_url'][$maxKey] = XOOPS_URL . "/modules/tad_blocks/type/toolbar/tap.png";
+                }
                 $TDC['img_url'][$maxKey] = '';
                 $TDC['url'][$maxKey]     = $item['url'];
                 $TDC['text'][$maxKey]    = $item['title'];
@@ -283,7 +302,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
             }
             $TDC['groups'] = $_POST['TDC']['groups'];
 
-            $TadDataCenter = new TadDataCenter($module_dirname);
+            $TadDataCenter = new TadDataCenter('tad_blocks');
 
             // 從舊設定來新增模組
             if (!empty($bbid)) {
@@ -364,7 +383,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
             }
             $TDC['groups'] = $_POST['TDC']['groups'];
 
-            $TadDataCenter = new TadDataCenter($module_dirname);
+            $TadDataCenter = new TadDataCenter('tad_blocks');
             $TadDataCenter->set_col('bid', $bid);
             $TadDataCenter->set_var('auto_col_id', true);
             $TadDataCenter->saveData($TDC);
@@ -391,7 +410,7 @@ function block_del($bid = '')
 
     if (Utility::query($sql, 'i', [$bid], true, false, null, true)) {
 
-        $TadDataCenter = new TadDataCenter($module_dirname);
+        $TadDataCenter = new TadDataCenter('tad_blocks');
         $TadDataCenter->set_col('bid', $bid);
         $TadDataCenter->delData();
 

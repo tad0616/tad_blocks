@@ -23,8 +23,15 @@ $side      = Request::getInt('side');
 $title     = !empty($_REQUEST['value']) ? Request::getString('value') : Request::getString('title');
 $tag       = Request::getString('tag');
 $link_url  = Request::getString('link_url');
+$col_name  = Request::getString('col_name');
+$col_sn    = Request::getInt('col_sn');
+$data_sort = Request::getInt('data_sort');
 
 switch ($op) {
+
+    case "del_data":
+        del_data($col_name, $col_sn, $data_sort);
+        exit;
 
     case "update_newblock":
         Tools::update_newblock($bid, $side, $weight);
@@ -211,10 +218,16 @@ function save_sort()
         $old_sort = (int) str_replace('data', '', $item) + 10000;
         foreach ($_POST['col'] as $col) {
             $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`=? WHERE `col_name`=? AND `col_sn`=? AND `data_name`=? AND `data_sort`=?';
-            Utility::query($sql, 'siisi', ['bid', $sort, $bid, $col, $old_sort]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
+            Utility::query($sql, 'sisii', [$sort, 'bid', $bid, $col, $old_sort]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
 
         }
         $sort++;
     }
     die(_TAD_SORTED . "(" . date("Y-m-d H:i:s") . ")");
+}
+
+function del_data($col_name, $col_sn, $data_sort)
+{
+    $TadDataCenter = new TadDataCenter('tad_blocks');
+    $TadDataCenter->delData('', $data_sort, $col_name, $col_sn);
 }

@@ -82,6 +82,10 @@ define('_MD_TAD_BLOCKS_UPLOAD_PIC', '請上傳圖片');
 define('_MD_TAD_BLOCKS_WYSIWYG', '一般圖文');
 define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', '用本模組開啟編輯');
 define('_MD_TAD_BLOCKS_ONLY', '僅顯示：');
+define('_MD_TAD_BLOCKS_COPY', '複製此區塊');
+define('_MD_TAD_BLOCKS_CLONE', '複製');
+define('_MD_TAD_BLOCKS_PHP', 'PHP類型');
+define('_MD_TAD_BLOCKS_HTML', 'HTML類型');
 
 define('_MD_TAD_BLOCKS_CUSTOMIZED', '自訂區塊（HTML）');
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";

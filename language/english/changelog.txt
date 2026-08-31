@@ -1,3 +1,11 @@
+tad_blocks 3.5 (Released 2026-08-31)
+=================================================
+1. Fixed an issue where items could not be deleted in some cases
+2. Added batch import functionality to the Enhanced Toolbar and Enhanced Menu
+3. Changed the table encoding to utf8mb4_general_ci and switched the engine to InnoDB
+4. Block Management Now Includes a Copy Feature
+5. Fixed an issue where visitors were unable to download files
+
 tad_blocks 3.4 (Released 2026-07-27)
 =================================================
 1. Various security fixes

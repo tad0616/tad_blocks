@@ -7,7 +7,7 @@
     <label for="only_mod" class="mr-2"><{$smarty.const._MD_TAD_BLOCKS_ONLY}></label>
     <select id="only_mod" class="form-control form-select mr-3" style="max-width: 20rem;">
         <option value=""></option>
-        <{foreach from=$alldir key=dirname item=name}>
+        <{foreach from=$all_dir key=dirname item=name}>
             <option value="<{$dirname|default:''}>"><{$name|default:''}> (<{$dirname|default:''}>)</option>
         <{/foreach}>
     </select>
@@ -26,6 +26,12 @@
     <{else}>
         <{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_position_theme_type_5.tpl"}>
     <{/if}>
+    <div class="my-3">
+        <img src="images/blue.gif" alt="">模組區塊
+        <img src="images/green.gif" alt="">複製區塊
+        <img src="images/red.gif" alt=""><{$smarty.const._MD_TAD_BLOCKS_CUSTOM_BLOCK}>(<{$smarty.const._MD_TAD_BLOCKS_HTML}>)
+        <img src="images/orange.gif" alt=""><{$smarty.const._MD_TAD_BLOCKS_CUSTOM_BLOCK}>(<{$smarty.const._MD_TAD_BLOCKS_PHP}>)
+    </div>
 </div>
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\Fontawesome6Picker;
 use XoopsModules\Tadtools\MColorPicker;
 use XoopsModules\Tadtools\TadDataCenter;
@@ -35,6 +36,14 @@ function get_content($bid = 0)
     $MColorPicker->render('bootstrap');
     $migrate = Utility::add_migrate('return');
     $xoopsTpl->assign('migrate', $migrate);
+
+    $CkEditor = new CkEditor('tad_blocks', "content", $content);
+    $CkEditor->setHeight(350);
+    $CkEditor->setVar('wcag', false);
+    // $CkEditor->setToolbarSet('mySimple');
+    $editor = $CkEditor->render();
+    $xoopsTpl->assign('editor', $editor);
+
     return $block;
 }
 

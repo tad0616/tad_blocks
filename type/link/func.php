@@ -34,7 +34,7 @@ function get_content($bid = 0)
     $CkEditor = new CkEditor('tad_blocks', "content", $content);
     $CkEditor->setHeight(350);
     $CkEditor->setVar('wcag', false);
-    $CkEditor->setToolbarSet('tadSimple');
+    // $CkEditor->setToolbarSet('mySimple');
     $editor = $CkEditor->render();
     $xoopsTpl->assign('editor', $editor);
 

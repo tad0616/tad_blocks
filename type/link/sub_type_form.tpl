@@ -3,30 +3,32 @@
     <tbody id="sort">
         <{if $text|default:false}>
             <{foreach from=$text key=i item=data}>
-                <tr id="form_data<{$i|default:''}>">
-                    <td>
-                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me" aria-label="<{$smarty.const._TAD_DEL}>" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
-                    </td>
-                    <td>
-                        <div id="demo_pic<{$i|default:''}>" style="width:2rem;height:2rem;border:0.0625rem solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
-                    </td>
-                    <td style="width: 7.5rem;">
-                        <input type="file" name="img[<{$i|default:''}>]" id="img<{$i|default:''}>" data-id="<{$i|default:''}>" class="upload_img" style="width: 7.5rem;">
-                        <input type="hidden" name="TDC[img_url][<{$i|default:''}>]" id="img_url<{$i|default:''}>" value="<{$img_url.$i}>">
-                    </td>
-                    <td>
-                        <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>" value="<{$url.$i}>">
-                    </td>
-                    <td>
-                        <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$data|default:''}>">
-                    </td>
-                    <td>
-                        <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
-                            <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
-                            <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
-                        </select>
-                    </td>
-                </tr>
+                <{if $i<10000}>
+                    <tr id="form_data<{$i|default:''}>">
+                        <td>
+                            <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me" aria-label="<{$smarty.const._TAD_DEL}>" title="<{$smarty.const._TAD_DEL}>"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </td>
+                        <td>
+                            <div id="demo_pic<{$i|default:''}>" style="width:2rem;height:2rem;border:0.0625rem solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
+                        </td>
+                        <td style="width: 7.5rem;">
+                            <input type="file" name="img[<{$i|default:''}>]" id="img<{$i|default:''}>" data-id="<{$i|default:''}>" class="upload_img" style="width: 7.5rem;">
+                            <input type="hidden" name="TDC[img_url][<{$i|default:''}>]" id="img_url<{$i|default:''}>" value="<{$img_url.$i}>">
+                        </td>
+                        <td>
+                            <input type="text" name="TDC[url][<{$i|default:''}>]" id="url<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_URL}>" value="<{$url.$i}>">
+                        </td>
+                        <td>
+                            <input type="text" name="TDC[text][<{$i|default:''}>]" id="text<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TEXT}>" value="<{$data|default:''}>">
+                        </td>
+                        <td>
+                            <select name="TDC[target][<{$i|default:''}>]" id="target<{$i|default:''}>" class="form-control" placeholder="<{$smarty.const._LINK_ADD_TARGET}>">
+                                <option value="_self" <{if $target.$i == '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_SELF}></option>
+                                <option value="_blank" <{if $target.$i != '_self'}>selected<{/if}>><{$smarty.const._LINK_ADD_TARGET_BLANK}></option>
+                            </select>
+                        </td>
+                    </tr>
+                <{/if}>
             <{/foreach}>
         <{/if}>
     </tbody>
@@ -64,48 +66,7 @@
     <a href="#xoops_contents" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
 
-
-<!-- 批次匯入 -->
- <div class="text-right text-end my-2">
-    <button type="button" id="toggle_batch_import" class="btn btn-warning">
-        <i class="fa fa-upload" aria-hidden="true"></i> 批次匯入
-    </button>
-</div>
-
-
-<div id="batch_import" class="disabled-section" style="display: none;">
-    <link rel="stylesheet" href="css/check_url.css">
-    <div class="form-group">
-        <label class="form-label">直接從網頁複製連結並貼到這裡（支援 HTML 格式），貼上後按下方的分析連結按鈕即可</label>
-        <{$editor}>
-    </div>
-
-    <button id="analyzeBtn" class="btn btn-primary my-2">
-        <i class="fa-solid fa-list-check"></i> 開始分析連結
-    </button>
-
-    <div id="results" class="results hidden">
-        <div class="results-header">
-            <h3>分析結果 (<span id="resultCount">0</span> 個連結)</h3>
-            <{*
-            <button type="button" id="copyBtn" class="btn btn-success">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg><span id="copyBtnText">複製 JSON</span>
-            </button>
-            *}>
-        </div>
-
-        <div id="linkList" class="link-list"></div>
-
-        <div class="json-preview">
-            <h3>分析結果</h3>
-            <textarea id="jsonCode" name="TDC[url_json_code]" class="form-control json-code" rows="10" aria-label="分析結果"></textarea>
-        </div>
-    </div>
-    <script src="<{$xoops_url}>/modules/tad_blocks/type/link/check_url.js?t=<{$smarty.now}>" charset="utf-8" type="text/javascript"></script>
-</div>
-
+<{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_batch_import.tpl"}>
 
 <div class="alert alert-info my-4">
     <div class="my-1">
@@ -144,7 +105,6 @@
 <script type="text/javascript" src="<{$xoops_url}>/modules/tad_blocks/type/link/jquery.upload-1.0.2.min.js"></script>
 
 <script type="text/javascript">
-
     $(document).ready(function(){
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
@@ -169,14 +129,30 @@
             form_index = clone_form(form_index);
         });
 
-        $("#toggle_batch_import").click(function(){
-            $("#batch_import").toggle();
-            $(this).toggleClass("btn-warning btn-secondary");
-        });
 
         $(".remove_me").click(function(){
-            $(this).closest("#form_data" + $(this).prop("id")).remove();
+            var $this = $(this);
+            var id = $this.prop("id");
+
+            $.post(
+                "<{$xoops_url}>/modules/tad_blocks/ajax.php",
+                {
+                    op: "del_data",
+                    col_name: "bid",
+                    data_sort: id,
+                    col_sn: <{$bid|default:0}>
+                }
+            ).done(function(err) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                $this.closest("#form_data" + id).remove();
+            }).fail(function(xhr, status, error) {
+                console.log("刪除失敗：", error);
+            });
         });
+
 
         $('.upload_img').on('change', function() {
             console.log($(this).data("id"));

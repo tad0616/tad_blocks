@@ -33,10 +33,10 @@ table#footer-position td>label {
     color: rgb(255, 255, 255);
     padding: 0.25rem;
     text-shadow:
-    0.0625rem  0.0625rem 0.125rem black,
-    0.0625rem -0.0625rem 0.125rem black,
-   -0.0625rem  0.0625rem 0.125rem black,
-   -0.0625rem -0.0625rem 0.125rem black;
+        0.0625rem 0.0625rem 0.125rem black,
+        0.0625rem -0.0625rem 0.125rem black,
+        -0.0625rem 0.0625rem 0.125rem black,
+        -0.0625rem -0.0625rem 0.125rem black;
     font-size: 99%;
     margin: 0.1875rem;
     opacity: 1;
@@ -44,14 +44,25 @@ table#footer-position td>label {
     border-radius: 0.3125rem;
 }
 
+.clone {
+    background: #6f93c2 url('../images/green.gif');
+}
+.php {
+    background: #6f93c2 url('../images/orange.gif') !important;
+}
+
+.html {
+    background: #6f93c2 url('../images/red.gif') !important;
+}
+
 .invisible_block {
     color: rgb(71, 71, 71);
     padding: 0.25rem;
     text-shadow:
-    0.0625rem  0.0625rem 0.125rem white,
-    0.0625rem -0.0625rem 0.125rem white,
-   -0.0625rem  0.0625rem 0.125rem white,
-   -0.0625rem -0.0625rem 0.125rem white;
+        0.0625rem 0.0625rem 0.125rem white,
+        0.0625rem -0.0625rem 0.125rem white,
+        -0.0625rem 0.0625rem 0.125rem white,
+        -0.0625rem -0.0625rem 0.125rem white;
     font-size: 99%;
     margin: 0.1875rem;
     opacity: 0.6;
@@ -68,36 +79,36 @@ table#footer-position td>label {
     border-top-color: #3f0713 !important;
 }
 
-.side-highlight{
+.side-highlight {
     background: yellow;
     border: 0.0625rem dashed #3f0713;
     border-radius: 0.3125rem;
-    height:1.875rem;
+    height: 1.875rem;
 }
 
-.droppable{
+.droppable {
     min-height: 1.875rem;
 }
 
-.visible_block>.bt-tag{
+.visible_block>.bt-tag {
     font-size: 97%;
-    color:yellow;
+    color: yellow;
 }
 
-.invisible_block>.bt-tag{
+.invisible_block>.bt-tag {
     font-size: 97%;
-    color:rgb(95, 48, 204);
+    color: rgb(95, 48, 204);
 }
 
-#help{
+#help {
     color: rgb(129, 9, 49);
     font-size: 99%;
     margin: 0.625rem 0rem;
 }
 
-.position_title{
+.position_title {
     font-size: 0.75rem;
-    color:rgb(40, 39, 46);
+    color: rgb(40, 39, 46);
     display: block;
 }
 

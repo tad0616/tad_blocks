@@ -5,7 +5,7 @@
             <{foreach from=$text key=i item=data}>
                 <tr id="form_data<{$i|default:''}>">
                     <td style="width: 2.5rem;">
-                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me" aria-label="<{$smarty.const._TAD_DEL}>"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
+                        <button type="button" id="<{$i|default:''}>" class="btn btn-sm btn-danger remove_me" aria-label="<{$smarty.const._TAD_DEL}>"><i class="fa fa-trash" aria-hidden="true"></i></button>
                     </td>
                     <td style="width: 2rem;">
                         <div id="demo_pic<{$i|default:''}>" style="width:2rem;height:2rem;border:0.0625rem solid #cfcfcf;background-image:url('<{$img_url.$i}>');background-size:cover;"></div>
@@ -36,7 +36,7 @@
 <table style="display:none;">
     <tr id="form_data">
         <td style="width: 2.5rem;">
-            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" aria-label="<{$smarty.const._TAD_DEL}>"><i class="fa fa-trash" aria-hidden="true"></i> <{$smarty.const._TAD_DEL}></button>
+            <button type="button" data-name="remove_me" class="btn btn-sm btn-danger" aria-label="<{$smarty.const._TAD_DEL}>"><i class="fa fa-trash" aria-hidden="true"></i></button>
         </td>
         <td style="width: 2rem;">
             <div id="demo_pic" style="width:2rem;height:2rem;border:0.0625rem solid #cfcfcf;background-image:url('<{$default.img_url}>');background-size:cover;"></div>
@@ -63,6 +63,9 @@
 <div class="text-right text-end">
     <a href="#xoops_contents" id="add_form" class="btn btn-success"><{$smarty.const._MD_TAD_ADD_ONE}></a>
 </div>
+
+
+<{include file="$xoops_rootpath/modules/tad_blocks/templates/sub_batch_import.tpl"}>
 
 <div class="alert alert-info my-4">
     <div class="my-1">
@@ -118,7 +121,26 @@
         });
 
         $(".remove_me").click(function(){
-            $(this).closest("#form_data" + $(this).prop("id")).remove();
+            var $this = $(this);
+            var id = $this.prop("id");
+
+            $.post(
+                "<{$xoops_url}>/modules/tad_blocks/ajax.php",
+                {
+                    op: "del_data",
+                    col_name: "bid",
+                    data_sort: id,
+                    col_sn: <{$bid|default:0}>
+                }
+            ).done(function(err) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                $this.closest("#form_data" + id).remove();
+            }).fail(function(xhr, status, error) {
+                console.log("刪除失敗：", error);
+            });
         });
 
         $('.upload_img').on('change', function() {

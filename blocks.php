@@ -57,6 +57,7 @@ switch ($op) {
         exit;
 
     case "block_del":
+        Utility::xoops_security_check();
         block_del($bid);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
@@ -88,9 +89,9 @@ function all_blocks()
     $xoopsTpl->assign('Bootstrap3EditableCode', $Bootstrap3EditableCode);
 
     tad_themes_setup();
-    $all_blocks = $alldir = [];
+    $all_blocks = $all_dir = [];
 
-    $sql = 'SELECT a.*, b.module_id, c.name AS mod_name, c.dirname, c.name FROM `' . $xoopsDB->prefix('newblocks') . '` AS a
+    $sql = 'SELECT a.*, b.module_id, c.name AS mod_name, c.dirname FROM `' . $xoopsDB->prefix('newblocks') . '` AS a
     LEFT JOIN `' . $xoopsDB->prefix('block_module_link') . '` AS b ON a.bid=b.block_id
     LEFT JOIN `' . $xoopsDB->prefix('modules') . '` AS c ON a.mid=c.mid
     WHERE c.`isactive`=1 OR a.mid=0
@@ -100,12 +101,12 @@ function all_blocks()
     while ($all = $xoopsDB->fetchArray($result)) {
         $side    = $all['side'];
         $dirname = $all['dirname'];
-        $name    = $all['name'];
+        $name    = $all['mod_name'];
 
         if (empty($dirname)) {
-            $alldir['custom'] = _MD_TAD_BLOCKS_CUSTOM_BLOCK;
+            $all_dir['custom'] = _MD_TAD_BLOCKS_CUSTOM_BLOCK;
         } else {
-            $alldir[$dirname] = $name;
+            $all_dir[$dirname] = $name;
         }
 
         foreach ($tags as $tag) {
@@ -122,7 +123,8 @@ function all_blocks()
 
         $all_blocks[$side][] = $all;
     }
-    $xoopsTpl->assign('alldir', $alldir);
+
+    $xoopsTpl->assign('all_dir', $all_dir);
 
     $xoopsTpl->assign('all_blocks', $all_blocks);
     Utility::get_jquery(true);
@@ -150,14 +152,14 @@ function all_blocks()
     } else {
         $f        = array_keys($fonts);
         $data_arr = [
-            'size' => [24],
-            'border_size' => [1],
-            'shadow_size' => [1],
-            'color' => ['#ffffff'],
+            'size'         => [24],
+            'border_size'  => [1],
+            'shadow_size'  => [1],
+            'color'        => ['#ffffff'],
             'border_color' => ['#005f86'],
             'shadow_color' => ['#3b3b3b'],
-            'shadow_x' => [1],
-            'shadow_y' => [1],
+            'shadow_x'     => [1],
+            'shadow_y'     => [1],
             'font_file_sn' => [$f[0]],
         ];
         $TadDataCenter->saveCustomData($data_arr);

@@ -117,7 +117,26 @@
         });
 
         $(".remove_me").click(function(){
-            $(this).closest("#form_data" + $(this).prop("id")).remove();
+            var $this = $(this);
+            var id = $this.prop("id");
+
+            $.post(
+                "<{$xoops_url}>/modules/tad_blocks/ajax.php",
+                {
+                    op: "del_data",
+                    col_name: "bid",
+                    data_sort: id,
+                    col_sn: <{$bid|default:0}>
+                }
+            ).done(function(err) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                $this.closest("#form_data" + id).remove();
+            }).fail(function(xhr, status, error) {
+                console.log("刪除失敗：", error);
+            });
         });
     });
 

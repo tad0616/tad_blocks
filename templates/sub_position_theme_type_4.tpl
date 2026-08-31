@@ -1,5 +1,5 @@
 <table id="block-position" style="background: <{$base_color|default:''}>; color:<{$font_color|default:''}>;">
-    <caption><{$smarty.const._MD_TAD_BLOCKS_POSITION}></caption>
+
     <tr>
         <td colspan=2 style="width: <{$cw|default:''}>%; background: <{$cb_color|default:''}>;">
             <!-- 上中 -->

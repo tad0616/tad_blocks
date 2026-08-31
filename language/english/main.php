@@ -80,6 +80,11 @@ define('_MD_TAD_BLOCKS_UPLOAD_PIC', 'Please upload image');
 define('_MD_TAD_BLOCKS_WYSIWYG', 'CkEditor');
 define('_MD_TAD_BLOCKS_OPEN_WIDTH_TB', 'Open edit with this module');
 define('_MD_TAD_BLOCKS_ONLY', 'Only: ');
+define('_MD_TAD_BLOCKS_COPY', 'Copy this block');
+define('_MD_TAD_BLOCKS_CLONE', 'Copy');
+define('_MD_TAD_BLOCKS_PHP', 'PHP Type');
+define('_MD_TAD_BLOCKS_HTML', 'HTML Type');
+
 define('_MD_TAD_BLOCKS_CUSTOMIZED', 'Custom Blocks (HTML)');
 
 $dir = XOOPS_ROOT_PATH . "/modules/tad_blocks/type/";

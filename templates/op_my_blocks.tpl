@@ -29,7 +29,7 @@
                         <{$b.tag}>
                         <{$b.pic}>
                     <{else}>
-                        已刪除 <{$b.bbid}> 自訂區塊
+                        已刪除 <{$b.bbid}> <{$smarty.const._MD_TAD_BLOCKS_CUSTOM_BLOCK}>
                     <{/if}>
                 </td>
                 <td>

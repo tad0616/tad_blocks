@@ -28,11 +28,12 @@ function xoops_module_update_tad_blocks($module, $old_version)
     global $xoopsDB;
 
     // data_center 加入 sort
-    if (Update::chk_dc_sort()) {
-        Update::go_dc_sort();
-    }
+    $res1 = Update::fix_dc_sort();
 
-    Update::add_files_center_index();
+    $res2 = Update::add_files_center_index();
 
-    return true;
+    // 修改資料庫編碼為 utf8mb4_general_ci 並將引擎改為 InnoDB
+    $res3 = Update::fix_innoDB_utf8mb4_general_ci();
+
+    return $res1 && $res2 && $res3;
 }
