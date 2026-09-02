@@ -101,6 +101,9 @@ function mk_content($bid, $TDC)
         } elseif ($opensNewWindow) {
             // 只是開新視窗
             $title = "title='另開新視窗'";
+        } else {
+            // 只是開新視窗
+            $title = "";
         }
 
         if ($show_type == 'image') {

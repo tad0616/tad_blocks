@@ -100,6 +100,9 @@ EOD;
         } elseif ($opensNewWindow) {
             // 只是開新視窗
             $title = "title='另開新視窗'";
+        } else {
+            // 只是開新視窗
+            $title = "";
         }
 
         $content .= <<<"EOD"

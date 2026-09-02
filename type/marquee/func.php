@@ -63,7 +63,7 @@ function mk_content($bid, $TDC)
 
     $content = "<link href='" . XOOPS_URL . "/modules/tadtools/tad_marquee/tad_marquee.css' rel='stylesheet' type='text/css'>\n";
     $content .= "<script type='text/javascript' src='" . XOOPS_URL . "/modules/tadtools/tad_marquee/tad_marquee.js'></script>\n";
-    $content .= "<div id='tad_blocks_marquee_{$bid}' style='width:100%; height:{$height}rem;'></div>\n";
+    $content .= "<div id='tad_blocks_marquee_{$bid}' style='width:100%; height:{$height}rem;' class='dont-print'></div>\n";
     $content .= "<script>\n";
     $content .= "    const marquee = new TadMarquee('tad_blocks_marquee_{$bid}', {\n";
     $content .= "        direction: 'left',\n";

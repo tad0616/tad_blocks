@@ -47,9 +47,11 @@ function mk_content($bid, $TDC)
     require __DIR__ . "/config.php";
     $myts = \MyTextSanitizer::getInstance();
 
-    $font_size  = empty($TDC['font_size']) ? $default['font_size'] : (int) $TDC['font_size'];
-    $text_align = empty($TDC['text_align']) ? $default['text_align'] : $myts->htmlSpecialChars($TDC['text_align']);
-    $hvr        = empty($TDC['hvr']) ? $default['hvr'] : $myts->htmlSpecialChars($TDC['hvr']);
+    $font_size   = empty($TDC['font_size']) ? $default['font_size'] : (int) $TDC['font_size'];
+    $text_align  = empty($TDC['text_align']) ? $default['text_align'] : $myts->htmlSpecialChars($TDC['text_align']);
+    $hvr         = empty($TDC['hvr']) ? $default['hvr'] : $myts->htmlSpecialChars($TDC['hvr']);
+    $max_width   = empty($TDC['max_width']) ? $default['max_width'] : (int) $TDC['max_width'];
+    $text_height = empty($TDC['text_height']) ? $default['text_height'] : (int) $TDC['text_height'];
 
     $url          = XOOPS_URL;
     $font_size_em = round($font_size / 16, 2);
@@ -81,11 +83,17 @@ EOD;
         } elseif ($opensNewWindow) {
             // 只是開新視窗
             $title = "title='另開新視窗'";
+        } else {
+            // 只是開新視窗
+            $title = "";
         }
 
+        $width_style = $max_width ? "width: {$max_width}px; line-height: 1.1; " : '';
+        $text_style  = $text_height ? "height: {$text_height}rem;" : '';
+
         $content .= <<<"EOD"
-        <li>
-            <a href="$url" target="{$target}" {$title} style="font-size: {$font_size_em}em;"><img src="$img_url" alt="" class="$hvr"><p>$text</p></a>
+        <li style="vertical-align: top;">
+            <a href="$url" target="{$target}" {$title} style="display: inline-block; vertical-align: top; text-align: center; font-size: {$font_size_em}rem;"><img src="$img_url" alt="" class="$hvr" style="height: 70px; object-fit: contain;"><p style="margin: 0; {$width_style}{$text_style}">$text</p></a>
         </li>
 EOD;
     }

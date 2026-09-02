@@ -8,3 +8,5 @@ define('_TOOLBAR_LEFT', '靠左對齊');
 define('_TOOLBAR_CENTER', '置中對齊');
 define('_TOOLBAR_RIGHT', '靠右對齊');
 define('_TOOLBAR_HVR', '動畫種類：');
+define('_TOOLBAR_MAX_WIDTH', '文字最大寬度：');
+define('_TOOLBAR_TEXT_HEIGHT', '文字高度：');

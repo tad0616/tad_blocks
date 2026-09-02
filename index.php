@@ -58,7 +58,13 @@ switch ($op) {
             redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
         }
         block_save($type, $TDC, $bid, $bbid, $old_display);
-        redirect_header($_SERVER['HTTP_REFERER'], 3, "已成功執行！");
+        if ($bid) {
+            redirect_header($_SERVER['HTTP_REFERER'], 3, "已成功執行！");
+        } else {
+            redirect_header($_SERVER['PHP_SELF'], 3, "已成功新增！");
+        }
+        exit;
+        // redirect_header($_SERVER['HTTP_REFERER'], 3, "已成功執行！");
         // header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
@@ -361,7 +367,7 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
         // 更新區塊設定
         $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks') . '` SET `create_date`=NOW() WHERE `bid`=? ' . $and_uid;
 
-        if (Utility::query($sql, 'i', [$bid], true, false, null, true)) {
+        if (Utility::query($sql, 'i', [$bid])) {
             // 更新區塊
             $sql = 'UPDATE `' . $xoopsDB->prefix('newblocks') . '` SET `title`=?, `content`=?, `side`=?, `weight`=?, `last_modified`=? WHERE `bid`=?';
             Utility::query($sql, 'ssiiii', [$title . $tag2, $content, $side, $weight, $last_modified, $bid]) or Utility::web_error($sql);

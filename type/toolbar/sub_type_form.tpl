@@ -91,6 +91,14 @@
             <option value="hvr-float-shadow" <{if $hvr=='hvr-float-shadow'}>selected<{/if}>>Float Shadow</option>
         </select>
     </div>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_MAX_WIDTH}>
+        <input type="number" name="TDC[max_width]" id="max_width" value="<{$max_width|default:''}>" class="my-input" style="width: 6rem"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_TEXT_HEIGHT}>
+        <input type="number" name="TDC[text_height]" id="text_height" value="<{$text_height|default:''}>" class="my-input" style="width: 6rem"> rem
+    </div>
 </div>
 
 <script type="text/javascript" src="<{$xoops_url}>/modules/tad_blocks/type/toolbar/jquery.upload-1.0.2.min.js"></script>
