@@ -101,7 +101,7 @@
     </div>
 </div>
 
-<script type="text/javascript" src="<{$xoops_url}>/modules/tad_blocks/type/toolbar/jquery.upload-1.0.2.min.js"></script>
+<script type="text/javascript" src="<{$xoops_url}>/modules/tadtools/jquery/jquery.upload.min.js"></script>
 
 <script type="text/javascript">
 

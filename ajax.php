@@ -208,7 +208,11 @@ function save_sort()
     global $xoopsDB;
     $bid = (int) $_POST['bid'];
     foreach ($_POST['col'] as $col) {
-        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`= `data_sort` + 10000 WHERE `col_name`=? AND `col_sn`=? AND `data_name`=?';
+        // Move the rows to a temporary range first so existing sort values cannot collide.
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`= `data_sort` + 10000000 WHERE `col_name`=? AND `col_sn`=? AND `data_name`=?';
+        Utility::query($sql, 'sis', ['bid', $bid, $col]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
+
+        $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`= `data_sort` - 9990000 WHERE `col_name`=? AND `col_sn`=? AND `data_name`=?';
         Utility::query($sql, 'sis', ['bid', $bid, $col]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
 
     }
