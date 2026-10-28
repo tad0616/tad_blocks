@@ -163,11 +163,31 @@
 
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
-                var order = $(this).sortable('serialize');
+                var $sortable = $(this);
+                $sortable.sortable('disable');
+                var order = $sortable.sortable('serialize');
                 order = order + '&col[]=icon&col[]=url&col[]=text&col[]=target&col[]=m_color&op=save_sort&bid=<{$bid|default:''}>';
                 console.log(order);
                 $.post('ajax.php', order, function(theResponse){
                     $('#save_msg').html(theResponse);
+                    if (theResponse.indexOf('<{$smarty.const._TAD_SORTED}>') === 0) {
+                        $sortable.children('tr').each(function(index) {
+                            var new_sort = index + 1;
+                            var $row = $(this);
+                            $row.attr('id', 'form_data' + new_sort);
+                            $row.find('[id]').each(function() {
+                                this.id = this.id.replace(/\d+$/, new_sort);
+                            });
+                            $row.find('[name]').each(function() {
+                                this.name = this.name.replace(/\[\d+\]$/, '[' + new_sort + ']');
+                            });
+                            form_index = Math.max(form_index, new_sort);
+                        });
+                    }
+                    $sortable.sortable('enable');
+                }).fail(function(xhr, status, error) {
+                    $('#save_msg').text('排序儲存失敗：' + error);
+                    $sortable.sortable('enable');
                 });
                 }
             });
@@ -177,7 +197,7 @@
             <{foreach from=$text key=i item=data}>
                 updateContrast(<{$i}>);
                 $("#m_color<{$i}>").change(function(){
-                    updateContrast(<{$i}>);
+                    updateContrast($(this).attr('id').replace('m_color', ''));
                 });
             <{/foreach}>
         <{else}>
@@ -239,7 +259,7 @@
             }
         });
         $("#remove_me" + form_index).click(function(){
-            $(this).closest("#form_data" + form_index).remove();
+            $(this).closest("tr").remove();
         });
         $("#m_color" + form_index).mColorPicker({
             imageFolder: '<{$xoops_url}>/modules/tadtools/mColorPicker/images/',
@@ -248,7 +268,7 @@
         });
         updateContrast(form_index);
         $("#m_color" + form_index).change(function(){
-            updateContrast(form_index);
+            updateContrast($(this).attr('id').replace('m_color', ''));
         });
         $.fn.iconPicker.reinitialize();
         return form_index;

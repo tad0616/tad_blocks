@@ -222,7 +222,7 @@ function save_sort()
         $old_sort = (int) str_replace('data', '', $item) + 10000;
         foreach ($_POST['col'] as $col) {
             $sql = 'UPDATE `' . $xoopsDB->prefix('tad_blocks_data_center') . '` SET `data_sort`=? WHERE `col_name`=? AND `col_sn`=? AND `data_name`=? AND `data_sort`=?';
-            Utility::query($sql, 'sisii', [$sort, 'bid', $bid, $col, $old_sort]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
+            Utility::query($sql, 'isisi', [$sort, 'bid', $bid, $col, $old_sort]) or die(_TAD_SORT_FAIL . ' (' . date('Y-m-d H:i:s') . ')' . $sql);
 
         }
         $sort++;

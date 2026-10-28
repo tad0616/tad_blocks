@@ -108,11 +108,35 @@
     $(document).ready(function(){
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
-                var order = $(this).sortable('serialize');
+                var $sortable = $(this);
+                $sortable.sortable('disable');
+                var order = $sortable.sortable('serialize');
+                console.log(order);
                 order = order + '&col[]=text&col[]=url&col[]=target&col[]=img_url&op=save_sort&bid=<{$bid|default:''}>';
                 console.log(order);
                 $.post('ajax.php', order, function(theResponse){
                     $('#save_msg').html(theResponse);
+                    if (theResponse.indexOf('<{$smarty.const._TAD_SORTED}>') === 0) {
+                        $sortable.children('tr').each(function(index) {
+                            var new_sort = index + 1;
+                            var $row = $(this);
+                            $row.attr('id', 'form_data' + new_sort);
+                            $row.find('[id]').each(function() {
+                                this.id = this.id.replace(/\d+$/, new_sort);
+                            });
+                            $row.find('[name]').each(function() {
+                                this.name = this.name.replace(/\[\d+\]$/, '[' + new_sort + ']');
+                            });
+                            $row.find('input[type="file"]').each(function() {
+                                $(this).attr('data-id', new_sort).data('id', new_sort);
+                            });
+                            form_index = Math.max(form_index, new_sort);
+                        });
+                    }
+                    $sortable.sortable('enable');
+                }).fail(function(xhr, status, error) {
+                    $('#save_msg').text('排序儲存失敗：' + error);
+                    $sortable.sortable('enable');
                 });
                 }
             });
@@ -188,15 +212,16 @@
         });
 
         $("#remove_me" + form_index).click(function(){
-            $(this).closest("#form_data" + form_index).remove();
+            $(this).closest("tr").remove();
         });
 
         $("#img" + form_index).on('change', function() {
-            console.log(form_index);
-            $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/link/upload.php',{op:'upload' , sort: form_index}, function(img_url) {
+            var sort = $(this).data("id");
+            console.log(sort);
+            $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/link/upload.php',{op:'upload' , sort: sort}, function(img_url) {
                 console.log(img_url);
-                $('#demo_pic' + form_index).css('background-image','url('+img_url+')');
-                $('#img_url' + form_index).val(img_url);
+                $('#demo_pic' + sort).css('background-image','url('+img_url+')');
+                $('#img_url' + sort).val(img_url);
             }, 'html');
         });
 

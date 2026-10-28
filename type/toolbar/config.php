@@ -6,3 +6,5 @@ $default['hvr']         = "hvr-wobble-vertical";
 $default['max_width']   = "";
 $default['text_height'] = "";
 $default['img_url']     = XOOPS_URL . "/modules/tad_blocks/type/toolbar/tap.png";
+$default['img_width']   = "";
+$default['img_height']  = "";

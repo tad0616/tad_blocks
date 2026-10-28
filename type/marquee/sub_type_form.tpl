@@ -95,11 +95,31 @@
     $(document).ready(function(){
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
-                var order = $(this).sortable('serialize');
+                var $sortable = $(this);
+                $sortable.sortable('disable');
+                var order = $sortable.sortable('serialize');
                 order = order + '&col[]=content&col[]=url&col[]=target&op=save_sort&bid=<{$bid|default:''}>';
                 console.log(order);
                 $.post('ajax.php', order, function(theResponse){
                     $('#save_msg').html(theResponse);
+                    if (theResponse.indexOf('<{$smarty.const._TAD_SORTED}>') === 0) {
+                        $sortable.children('tr').each(function(index) {
+                            var new_sort = index + 1;
+                            var $row = $(this);
+                            $row.attr('id', 'form_data' + new_sort);
+                            $row.find('[id]').each(function() {
+                                this.id = this.id.replace(/\d+$/, new_sort);
+                            });
+                            $row.find('[name]').each(function() {
+                                this.name = this.name.replace(/\[\d+\]$/, '[' + new_sort + ']');
+                            });
+                            form_index = Math.max(form_index, new_sort);
+                        });
+                    }
+                    $sortable.sortable('enable');
+                }).fail(function(xhr, status, error) {
+                    $('#save_msg').text('排序儲存失敗：' + error);
+                    $sortable.sortable('enable');
                 });
                 }
             });
@@ -159,7 +179,7 @@
         });
 
         $("#remove_me" + form_index).click(function(){
-            $(this).closest("#form_data" + $(this).prop("name")).remove();
+            $(this).closest("tr").remove();
         });
 
 

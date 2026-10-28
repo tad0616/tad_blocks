@@ -99,6 +99,15 @@
         <{$smarty.const._TOOLBAR_TEXT_HEIGHT}>
         <input type="number" name="TDC[text_height]" id="text_height" value="<{$text_height|default:''}>" class="my-input" style="width: 6rem"> rem
     </div>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_IMG_WIDTH}>
+        <input type="number" name="TDC[img_width]" id="img_width" value="<{$img_width|default:''}>" class="my-input" style="width: 6rem"> px
+    </div>
+    <div class="my-1">
+        <{$smarty.const._TOOLBAR_IMG_HEIGHT}>
+        <input type="number" name="TDC[img_height]" id="img_height" value="<{$img_height|default:''}>" class="my-input" style="width: 6rem"> rem
+    </div>
+
 </div>
 
 <script type="text/javascript" src="<{$xoops_url}>/modules/tadtools/jquery/jquery.upload.min.js"></script>
@@ -108,11 +117,34 @@
     $(document).ready(function(){
         <{if $bid|default:false}>
             $('#sort').sortable({ opacity: 0.6, cursor: 'move', update: function() {
-                var order = $(this).sortable('serialize');
+                var $sortable = $(this);
+                $sortable.sortable('disable');
+                var order = $sortable.sortable('serialize');
                 order = order + '&col[]=img_url&col[]=url&col[]=text&col[]=target&op=save_sort&bid=<{$bid|default:''}>';
                 console.log(order);
                 $.post('ajax.php', order, function(theResponse){
                     $('#save_msg').html(theResponse);
+                    if (theResponse.indexOf('<{$smarty.const._TAD_SORTED}>') === 0) {
+                        $sortable.children('tr').each(function(index) {
+                            var new_sort = index + 1;
+                            var $row = $(this);
+                            $row.attr('id', 'form_data' + new_sort);
+                            $row.find('[id]').each(function() {
+                                this.id = this.id.replace(/\d+$/, new_sort);
+                            });
+                            $row.find('[name]').each(function() {
+                                this.name = this.name.replace(/\[\d+\]$/, '[' + new_sort + ']');
+                            });
+                            $row.find('input[type="file"]').each(function() {
+                                $(this).attr('data-id', new_sort).data('id', new_sort);
+                            });
+                            form_index = Math.max(form_index, new_sort);
+                        });
+                    }
+                    $sortable.sortable('enable');
+                }).fail(function(xhr, status, error) {
+                    $('#save_msg').text('排序儲存失敗：' + error);
+                    $sortable.sortable('enable');
                 });
                 }
             });
@@ -152,11 +184,12 @@
         });
 
         $('.upload_img').on('change', function() {
-            console.log($(this).data("id"));
-            $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload', sort: $(this).data("id")}, function(img_url) {
+            var sort = $(this).data("id");
+            console.log(sort);
+            $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload', sort: sort}, function(img_url) {
                 console.log(img_url);
-                $('#demo_pic' + $(this).data("id")).css('background-image','url('+img_url+')');
-                $('#img_url' + $(this).data("id")).val(img_url);
+                $('#demo_pic' + sort).css('background-image','url('+img_url+')');
+                $('#img_url' + sort).val(img_url);
             }, 'html');
         });
     });
@@ -185,15 +218,16 @@
         });
 
         $("#remove_me" + form_index).click(function(){
-            $(this).closest("#form_data" + form_index).remove();
+            $(this).closest("tr").remove();
         });
 
         $("#img" + form_index).on('change', function() {
-            console.log(form_index);
-            $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload' , sort: form_index}, function(img_url) {
+            var sort = $(this).data("id");
+            console.log(sort);
+            $(this).upload('<{$xoops_url}>/modules/tad_blocks/type/toolbar/upload.php',{op:'upload' , sort: sort}, function(img_url) {
                 console.log(img_url);
-                $('#demo_pic' + form_index).css('background-image','url('+img_url+')');
-                $('#img_url' + form_index).val(img_url);
+                $('#demo_pic' + sort).css('background-image','url('+img_url+')');
+                $('#img_url' + sort).val(img_url);
             }, 'html');
         });
         return form_index;

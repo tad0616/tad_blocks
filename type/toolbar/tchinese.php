@@ -10,3 +10,5 @@ define('_TOOLBAR_RIGHT', '靠右對齊');
 define('_TOOLBAR_HVR', '動畫種類：');
 define('_TOOLBAR_MAX_WIDTH', '文字最大寬度：');
 define('_TOOLBAR_TEXT_HEIGHT', '文字高度：');
+define('_TOOLBAR_IMG_WIDTH', '圖片寬度：');
+define('_TOOLBAR_IMG_HEIGHT', '圖片高度：');

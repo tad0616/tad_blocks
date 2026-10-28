@@ -10,3 +10,5 @@ define('_TOOLBAR_RIGHT', 'Right');
 define('_TOOLBAR_HVR', 'Animation Type:');
 define('_TOOLBAR_MAX_WIDTH', 'Maximum text width:');
 define('_TOOLBAR_TEXT_HEIGHT', 'Text height:');
+define('_TOOLBAR_IMG_WIDTH', 'Image width:');
+define('_TOOLBAR_IMG_HEIGHT', 'Image height:');

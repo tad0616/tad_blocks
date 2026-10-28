@@ -52,6 +52,8 @@ function mk_content($bid, $TDC)
     $hvr         = empty($TDC['hvr']) ? $default['hvr'] : $myts->htmlSpecialChars($TDC['hvr']);
     $max_width   = empty($TDC['max_width']) ? $default['max_width'] : (int) $TDC['max_width'];
     $text_height = empty($TDC['text_height']) ? $default['text_height'] : (int) $TDC['text_height'];
+    $img_width   = empty($TDC['img_width']) ? $default['img_width'] : (int) $TDC['img_width'];
+    $img_height  = empty($TDC['img_height']) ? $default['img_height'] : (int) $TDC['img_height'];
 
     $url          = XOOPS_URL;
     $font_size_em = round($font_size / 16, 2);
@@ -90,10 +92,11 @@ EOD;
 
         $width_style = $max_width ? "width: {$max_width}px; line-height: 1.1; " : '';
         $text_style  = $text_height ? "height: {$text_height}rem;" : '';
+        $img_style   = $img_width || $img_height ? "width: {$img_width}px; height: {$img_height}px; object-fit: contain;" : 'height: 70px; object-fit: contain;';
 
         $content .= <<<"EOD"
         <li style="vertical-align: top;">
-            <a href="$url" target="{$target}" {$title} style="display: inline-block; vertical-align: top; text-align: center; font-size: {$font_size_em}rem;"><img src="$img_url" alt="" class="$hvr" style="height: 70px; object-fit: contain;"><p style="margin: 0; {$width_style}{$text_style}">$text</p></a>
+            <a href="$url" target="{$target}" {$title} style="display: inline-block; vertical-align: top; text-align: center; font-size: {$font_size_em}rem;"><img src="$img_url" alt="" class="$hvr" style="{$img_style}"><p style="margin: 0; {$width_style}{$text_style}">$text</p></a>
         </li>
 EOD;
     }
