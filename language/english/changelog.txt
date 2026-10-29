@@ -1,3 +1,10 @@
+tad_blocks 3.8 (Released 2026-10-30)
+=================================================
+1. Added security checks and CSRF tokens
+2. Enhanced permission controls for the block saving feature
+3. Support for PHP 8.5
+4. Support for XOOPS 2.7.4
+
 tad_blocks 3.7 (Released 2026-09-29)
 =================================================
 1.Fixed an issue with incorrect sorting

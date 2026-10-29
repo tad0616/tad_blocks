@@ -1,10 +1,8 @@
 <?php
 $modversion = [];
 
-//---模組基本資訊 3.7 ---//
-
 $modversion['name']        = _MI_TADBLOCKS_NAME;
-$modversion['version']     = $_SESSION['xoops_version'] >= 20511 ? '3.7.0-Stable' : '3.7';
+$modversion['version']     = $_SESSION['xoops_version'] >= 20511 ? '3.8.0-Stable' : '3.8';
 $modversion['description'] = _MI_TADBLOCKS_DESC;
 $modversion['author']      = _MI_TADBLOCKS_AUTHOR;
 $modversion['credits']     = _MI_TADBLOCKS_CREDITS;
@@ -14,14 +12,14 @@ $modversion['image']       = "images/logo.png";
 $modversion['dirname']     = basename(__DIR__);
 
 //---模組狀態資訊---//
-$modversion['release_date']        = '2026-09-29';
+$modversion['release_date']        = '2026-10-30';
 $modversion['module_website_url']  = 'https://www.tad0616.net';
 $modversion['module_website_name'] = _MI_TADBLOCKS_AUTHOR_WEB;
 $modversion['module_status']       = 'release';
 $modversion['author_website_url']  = 'https://www.tad0616.net';
 $modversion['author_website_name'] = _MI_TADBLOCKS_AUTHOR_WEB;
-$modversion['min_php']             = '7.3';
-$modversion['min_xoops']           = '2.5.10';
+$modversion['min_php']             = '8.3';
+$modversion['min_xoops']           = '2.5.11';
 
 //---paypal資訊---//
 $modversion['paypal'] = [
