@@ -79,6 +79,7 @@
             <input type="hidden" name="bbid" value="<{$bbid|default:''}>">
             <input type="hidden" name="display" value="<{$display|default:0}>">
             <input type="hidden" name="op" value="block_save">
+            <input type="hidden" name="XOOPS_TOKEN_REQUEST" value="<{$XOOPS_TOKEN_REQUEST}>">
             <button type="submit" class="btn btn-primary"><{$smarty.const._MD_TAD_BLOCKS_SAVE}></button>
         </div>
 

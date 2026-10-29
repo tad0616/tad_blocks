@@ -52,6 +52,7 @@ switch ($op) {
         break;
 
     case "block_save":
+        Utility::xoops_security_check();
         block_save($type, $TDC, $bid);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;

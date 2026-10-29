@@ -54,9 +54,11 @@ switch ($op) {
         break;
 
     case "block_save":
-        if (!$xoopsUser) {
+        if (!$xoopsUser || !Utility::power_chk('tad_blocks', 1)) {
             redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+            exit;
         }
+        Utility::xoops_security_check();
         block_save($type, $TDC, $bid, $bbid, $old_display);
         if ($bid) {
             redirect_header($_SERVER['HTTP_REFERER'], 3, "已成功執行！");
@@ -72,6 +74,7 @@ switch ($op) {
         if (!$xoopsUser) {
             redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
         }
+        Utility::xoops_security_check();
         block_del($bid);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
@@ -161,6 +164,7 @@ function block_form($type = '', $bid = 0, $bbid = 0)
     $add_block = Utility::power_chk($module_dirname, 1);
 
     $xoopsTpl->assign('add_block', $add_block);
+    $xoopsTpl->assign('XOOPS_TOKEN_REQUEST', $GLOBALS['xoopsSecurity']->createToken());
     $block = [];
 
     if ($add_block) {
@@ -187,6 +191,11 @@ function block_form($type = '', $bid = 0, $bbid = 0)
 
             $sql    = 'SELECT `type` FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=? ' . $and_uid;
             $result = Utility::query($sql, 'i', [$bid]) or Utility::web_error($sql);
+
+            if ($xoopsDB->getRowsNum($result) === 0 && !$tad_blocks_adm) {
+                redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+                exit;
+            }
 
             list($type) = $xoopsDB->fetchRow($result);
             if (empty($type)) {
@@ -250,6 +259,23 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
     $mk_pic         = ['pic', 'img'];
     $module_dirname = 'tad_blocks';
     $uid            = $xoopsUser ? $xoopsUser->uid() : 0;
+
+    if (!Utility::power_chk($module_dirname, 1)) {
+        redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+        exit;
+    }
+
+    $owned_bid = $bid ?: $bbid;
+    if ($owned_bid) {
+        $sql    = 'SELECT `uid` FROM `' . $xoopsDB->prefix('tad_blocks') . '` WHERE `bid`=?';
+        $result = Utility::query($sql, 'i', [$owned_bid]) or Utility::web_error($sql);
+        $owner  = $xoopsDB->fetchArray($result);
+
+        if ((!$owner && (!$tad_blocks_adm || $bbid)) || ($owner && !$tad_blocks_adm && (int) $owner['uid'] !== $uid)) {
+            redirect_header(XOOPS_URL, 3, _MD_TAD_BLOCKS_NO_PERMISSION);
+            exit;
+        }
+    }
 
     $title  = $TDC['title'];
     $side   = $TDC['side'];
