@@ -4,6 +4,8 @@ tad_blocks 3.8 (Released 2026-10-30)
 2. Enhanced permission controls for the block saving feature
 3. Support for PHP 8.5
 4. Support for XOOPS 2.7.4
+5. Fixed array_keys() error when saving empty data in batch import; empty links are no longer saved
+6. Fixed missing titles for image-only links during analysis, and detected images are now downloaded and uploaded on save
 
 tad_blocks 3.7 (Released 2026-09-29)
 =================================================

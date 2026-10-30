@@ -1,4 +1,5 @@
 <?php
+
 $modversion = [];
 
 $modversion['name']        = _MI_TADBLOCKS_NAME;
