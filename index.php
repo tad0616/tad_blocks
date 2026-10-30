@@ -250,6 +250,54 @@ function block_form($type = '', $bid = 0, $bbid = 0)
     }
 }
 
+//下載遠端圖片並存入模組上傳目錄，成功回傳本站圖片網址，失敗回傳空字串
+function import_remote_image($img_url = '')
+{
+    $parts = parse_url((string) $img_url);
+    if (empty($parts['host']) || !in_array(strtolower($parts['scheme'] ?? ''), ['http', 'https'], true)) {
+        return '';
+    }
+
+    // 避免抓取內網位址
+    $ip = gethostbyname($parts['host']);
+    if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+        return '';
+    }
+
+    $ch = curl_init($img_url);
+    curl_setopt_array($ch, [
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_FOLLOWLOCATION => false,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_PROTOCOLS      => CURLPROTO_HTTP | CURLPROTO_HTTPS,
+        CURLOPT_SSL_VERIFYPEER => false,
+        CURLOPT_USERAGENT      => 'Mozilla/5.0',
+    ]);
+    $data = curl_exec($ch);
+    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if ($data === false || $code != 200 || strlen($data) > 5 * 1024 * 1024) {
+        return '';
+    }
+
+    $tmp = tempnam(sys_get_temp_dir(), 'tbimg');
+    file_put_contents($tmp, $data);
+    $info    = @getimagesize($tmp);
+    $ext_map = [IMAGETYPE_JPEG => 'jpg', IMAGETYPE_PNG => 'png', IMAGETYPE_GIF => 'gif'];
+    if (!$info || !isset($ext_map[$info[2]])) {
+        unlink($tmp);
+        return '';
+    }
+
+    $TadUpFiles = new TadUpFiles('tad_blocks');
+    $TadUpFiles->set_col('link', mt_rand(0, 999999), 1);
+    $files_sn = $TadUpFiles->import_one_file($tmp, 'link_' . Utility::randStr(6) . '.' . $ext_map[$info[2]], 1280, 120, '', '', true);
+    unlink($tmp);
+
+    return $files_sn ? $TadUpFiles->get_pic_file('images', 'url', $files_sn) : '';
+}
+
 //儲存並建立區塊
 function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display = '')
 {
@@ -294,6 +342,12 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
                     $TDC['img_url'][$maxKey] = XOOPS_URL . "/modules/tad_blocks/type/toolbar/tap.png";
                 }
                 $TDC['img_url'][$maxKey] = '';
+                if (in_array($type, ['link', 'toolbar']) && !empty($item['logo'])) {
+                    $local_img = import_remote_image($item['logo']);
+                    if ($local_img) {
+                        $TDC['img_url'][$maxKey] = $local_img;
+                    }
+                }
                 $TDC['url'][$maxKey]     = $item['url'];
                 $TDC['text'][$maxKey]    = $item['title'];
                 $TDC['target'][$maxKey]  = '_blank';
