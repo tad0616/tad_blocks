@@ -39,10 +39,14 @@ function extractLinksFromHTML(html) {
 
     links.forEach(link => {
         const url = link.href;
-        const title = link.textContent.trim() || link.getAttribute('title') || '';
-
         const img = link.querySelector('img');
         const logo = img ? img.src : '';
+
+        // 純圖片連結沒有文字，改用圖片 alt；title 屬性（如「另開新視窗」）僅作最後備援
+        const title = link.textContent.replace(/\s+/g, ' ').trim()
+            || (img && (img.getAttribute('alt') || '').trim())
+            || (link.getAttribute('title') || '').trim()
+            || '';
 
         // 建立一個唯一標識符，結合網址與標題
         const linkKey = `${url}|${title}`;
