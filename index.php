@@ -283,7 +283,8 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
 
     if (!empty($TDC['url_json_code'])) {
         $link_arr = json_decode($TDC['url_json_code'], true);
-        $maxKey   = max(array_keys($TDC['url'])) + 1;
+        $urlKeys  = is_array($TDC['url'] ?? null) ? array_keys($TDC['url']) : [];
+        $maxKey   = $urlKeys ? max($urlKeys) + 1 : 0;
         if (!empty($link_arr)) {
             foreach ($link_arr as $item) {
                 if ($type == 'menu') {
