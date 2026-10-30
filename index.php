@@ -302,6 +302,20 @@ function block_save($type = '', $TDC = [], $bid = '', $bbid = '', $old_display =
         }
     }
 
+    // 一般連結：移除網址為空的資料列
+    if ($type == 'link' && is_array($TDC['url'] ?? null)) {
+        foreach ($TDC['url'] as $key => $url) {
+            if (trim((string) $url) !== '') {
+                continue;
+            }
+            foreach ($TDC as $col => $val) {
+                if (is_array($val) && $col !== 'groups' && array_key_exists($key, $val)) {
+                    unset($TDC[$col][$key]);
+                }
+            }
+        }
+    }
+
     if (!empty($type)) {
         require __DIR__ . "/type/{$type}/func.php";
         $content = mk_content($bid, $TDC);
